@@ -34,7 +34,9 @@ function RequireAuth({
   permission?: Permission;
 }) {
   const { user, accessToken, isHydrating } = useAuthStore();
-  if (isHydrating) {
+  // user restored from localStorage but token not yet refreshed — wait for App effect
+  const pendingRefresh = !!user && !accessToken;
+  if (isHydrating || pendingRefresh) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <span className="w-8 h-8 border-2 border-stitch-primary/30 border-t-stitch-primary rounded-full animate-spin" />
