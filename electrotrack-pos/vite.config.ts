@@ -7,24 +7,15 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico'],
-      manifest: {
-        name: 'ElectroTrack POS',
-        short_name: 'ElectroTrack',
-        theme_color: '#16a34a',
-        background_color: '#f9fafb',
-        display: 'standalone',
-        start_url: '/',
-        icons: [
-          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
-        ],
-      },
+      // manifest lives in public/manifest.json — do not duplicate here
+      manifest: false,
+      includeAssets: ['favicon.ico', 'favicon.svg', 'favicon.png', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml'],
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^http:\/\/localhost:3000\/.*/i,
+            // Match API server at any host (dev or production) — avoid hardcoding localhost
+            urlPattern: ({ url }) => url.origin !== self.location.origin,
             handler: 'NetworkFirst',
             options: { cacheName: 'api-cache', networkTimeoutSeconds: 10 },
           },
