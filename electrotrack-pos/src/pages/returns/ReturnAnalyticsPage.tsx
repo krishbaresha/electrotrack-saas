@@ -30,8 +30,15 @@ export default function ReturnAnalyticsPage() {
       if (to) params.set('to', to);
       const res = await api.get<ReturnAnalytics>(`/reports/return-analytics?${params}`);
       setData(res.data);
-    } catch {
-      setError('Failed to load return analytics. Please try again.');
+    } catch (err: unknown) {
+      const status = (err as { response?: { status?: number } })?.response?.status;
+      if (status === 403) {
+        setError('Access denied — you need the returns.read permission.');
+      } else if (status === 401) {
+        setError('Session expired — please log in again.');
+      } else {
+        setError('Failed to load return analytics. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

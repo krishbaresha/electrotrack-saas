@@ -105,7 +105,7 @@ export class ReportsController {
   }
 
   @Get('return-analytics')
-  @Permissions('reports.read')
+  @Permissions('returns.read')
   returnAnalytics(
     @Query('from') from: string | undefined,
     @Query('to') to: string | undefined,
