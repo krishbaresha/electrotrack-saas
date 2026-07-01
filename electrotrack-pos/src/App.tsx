@@ -36,10 +36,10 @@ function RequireAuth({
   roles?: Role[];
   permission?: Permission;
 }) {
-  const { user, accessToken, isHydrating } = useAuthStore();
+  const { user, accessToken, isHydrating, _hasHydrated } = useAuthStore();
   // user restored from localStorage but token not yet refreshed — wait for App effect
   const pendingRefresh = !!user && !accessToken;
-  if (isHydrating || pendingRefresh) {
+  if (!_hasHydrated || isHydrating || pendingRefresh) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <span className="w-8 h-8 border-2 border-stitch-primary/30 border-t-stitch-primary rounded-full animate-spin" />
@@ -74,7 +74,7 @@ function RequireAuth({
 }
 
 export default function App() {
-  const { user, accessToken, setToken, clearAuth, setHydrating, isHydrating } = useAuthStore();
+  const { user, accessToken, refreshToken, setToken, clearAuth, setHydrating, isHydrating, _hasHydrated } = useAuthStore();
   // Guard against React StrictMode double-invocation in dev.
   // Without this, both calls hit /auth/refresh with the same cookie:
   //   Call 1 → revokes token A, creates token B → success
@@ -82,6 +82,7 @@ export default function App() {
   const refreshCalled = useRef(false);
 
   useEffect(() => {
+    if (!_hasHydrated) return;
     if (isHydrating) return;
     if (!user) return;
     if (accessToken) return;
@@ -91,10 +92,14 @@ export default function App() {
 
     setHydrating(true);
     api
-      .post<{ access_token: string }>('/auth/refresh', null, { timeout: 10_000 })
-      .then(({ data }) => setToken(data.access_token))
+      .post<{ access_token: string; refresh_token?: string }>(
+        '/auth/refresh',
+        { refresh_token: refreshToken },
+        { timeout: 10_000 }
+      )
+      .then(({ data }) => setToken(data.access_token, data.refresh_token || refreshToken))
       .catch(() => clearAuth());
-  }, [isHydrating, user, accessToken, setToken, clearAuth, setHydrating]);
+  }, [_hasHydrated, isHydrating, user, accessToken, refreshToken, setToken, clearAuth, setHydrating]);
 
   // Root redirect logic
   const getRootRedirect = () => {

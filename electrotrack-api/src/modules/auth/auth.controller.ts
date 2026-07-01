@@ -35,13 +35,25 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.json({ access_token: result.accessToken, user: result.user });
+    return res.json({
+      access_token: result.accessToken,
+      user: result.user,
+      refresh_token: result.refreshToken,
+    });
   }
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  async refresh(@Req() req: Request, @Res() res: Response) {
-    const token = req.cookies?.['refresh_token'];
+  async refresh(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Body('refresh_token') bodyRefreshToken?: string,
+  ) {
+    const token =
+      bodyRefreshToken ||
+      req.cookies?.['refresh_token'] ||
+      (req.headers['x-refresh-token'] as string | undefined);
+
     if (!token) {
       return res
         .status(HttpStatus.UNAUTHORIZED)
@@ -57,7 +69,10 @@ export class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.json({ access_token: result.accessToken });
+    return res.json({
+      access_token: result.accessToken,
+      refresh_token: result.refreshToken,
+    });
   }
 
   @Post('logout')

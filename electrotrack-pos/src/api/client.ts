@@ -49,12 +49,22 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await api.post<{ access_token: string }>('/auth/refresh');
+        const refreshToken = useAuthStore.getState().refreshToken;
+        const { data } = await api.post<{ access_token: string; refresh_token?: string }>(
+          '/auth/refresh',
+          { refresh_token: refreshToken }
+        );
         const newToken = data.access_token;
+        const newRefreshToken = data.refresh_token || refreshToken;
         const currentUser = useAuthStore.getState().user;
-        if (currentUser) useAuthStore.getState().setAuth(currentUser, newToken);
+        if (currentUser) {
+          useAuthStore.getState().setAuth(currentUser, newToken, newRefreshToken);
+        }
         processQueue(null, newToken);
-        if (original) original.headers['Authorization'] = `Bearer ${newToken}`;
+        if (original) {
+          original.headers = original.headers ?? {};
+          original.headers['Authorization'] = `Bearer ${newToken}`;
+        }
         return api(original!);
       } catch (refreshErr) {
         processQueue(refreshErr, null);

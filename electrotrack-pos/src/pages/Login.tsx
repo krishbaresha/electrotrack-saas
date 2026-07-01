@@ -43,8 +43,8 @@ export default function Login() {
     setServerError(null);
     setInfoMessage(null);
     try {
-      const res = await api.post<{ access_token: string; user: User }>('/auth/login', data);
-      setAuth(res.data.user, res.data.access_token);
+      const res = await api.post<{ access_token: string; user: User; refresh_token?: string }>('/auth/login', data);
+      setAuth(res.data.user, res.data.access_token, res.data.refresh_token);
       connectSocket(res.data.access_token);
       const dest =
         res.data.user.role === 'platform_admin' ? '/tenants'
