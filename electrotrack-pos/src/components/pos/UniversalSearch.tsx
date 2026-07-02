@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, Camera, Package, Barcode, Loader, Tag } from 'lucide-react';
-import { api } from '../../api/client';
+
 import BarcodeScanner from './BarcodeScanner';
+import { useInventoryStore } from '../../store/inventory.store';
 
 interface Props {
   onSerialAdd: (serial: string) => void;
@@ -55,8 +56,10 @@ export default function UniversalSearch({
 }: Props) {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
-  const [products, setProducts] = useState<SearchProduct[]>([]);
-  const [productsLoading, setProductsLoading] = useState(true);
+  const products = useInventoryStore((s) => s.products);
+  const isSyncing = useInventoryStore((s) => s.isSyncing);
+  const syncProducts = useInventoryStore((s) => s.syncProducts);
+
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [dropdownRect, setDropdownRect] = useState<DOMRect | null>(null);
@@ -65,28 +68,10 @@ export default function UniversalSearch({
   const inputWrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Fetch product cache once on mount
+  // Trigger background sync on mount, but instantly use cached products
   useEffect(() => {
-    let cancelled = false;
-    setProductsLoading(true);
-    api
-      .get<{ data: SearchProduct[] } | SearchProduct[]>('/inventory/products')
-      .then((r) => {
-        if (cancelled) return;
-        const d = r.data;
-        const list = Array.isArray(d) ? d : (d as { data: SearchProduct[] }).data ?? [];
-        setProducts(list);
-      })
-      .catch(() => {
-        if (!cancelled) setProducts([]);
-      })
-      .finally(() => {
-        if (!cancelled) setProductsLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    syncProducts();
+  }, [syncProducts]);
 
   // Debounce the query
   useEffect(() => {
@@ -362,6 +347,12 @@ export default function UniversalSearch({
               size={15}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-stitch-on-surface-variant pointer-events-none"
             />
+            {isSyncing && (
+              <Loader
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stitch-primary animate-spin"
+              />
+            )}
             <input
               ref={inputRef}
               type="text"
@@ -378,7 +369,7 @@ export default function UniversalSearch({
               disabled={loading}
               className="w-full pl-9 pr-10 py-3 bg-stitch-surface-container-high/50 border border-white/10 rounded-lg text-sm text-stitch-on-surface outline-none focus:border-stitch-primary/60 focus:ring-1 focus:ring-stitch-primary/30 transition-all placeholder:text-stitch-on-surface-variant/60 disabled:opacity-50"
             />
-            {(loading || productsLoading) && (
+            {loading && (
               <Loader
                 size={14}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-stitch-on-surface-variant animate-spin"

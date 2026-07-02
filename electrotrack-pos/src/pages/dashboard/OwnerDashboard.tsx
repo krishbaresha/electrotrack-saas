@@ -1,30 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
-import { format } from 'date-fns';
 import { TrendingUp, ShoppingCart, Package, Tag, Banknote, X, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../../api/client';
+import { useDashboardStore } from '../../store/dashboard.store';
 
 import SalesChart from '../../components/dashboard/SalesChart';
 import SalesFeed from '../../components/dashboard/SalesFeed';
 import StockAlerts from '../../components/dashboard/StockAlerts';
 import AiInsights from '../../components/dashboard/AiInsights';
-import type { SalesSummary } from '../../types';
 import gsap from 'gsap';
 
 const formatPKR = (n: number) => `₨ ${n.toLocaleString('en-PK')}`;
 
 export default function OwnerDashboard() {
   const navigate = useNavigate();
-  const [summary, setSummary] = useState<SalesSummary | null>(null);
+  const summary = useDashboardStore((s) => s.summary);
+  const syncDashboard = useDashboardStore((s) => s.syncDashboard);
+  const fetchAiInsight = useDashboardStore((s) => s.fetchAiInsight);
   const [showItemsModal, setShowItemsModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const today = format(new Date(), 'yyyy-MM-dd');
-    api.get<SalesSummary>(`/reports/sales-summary?date=${today}`)
-      .then((r) => setSummary(r.data))
-      .catch(() => {});
-  }, []);
+    syncDashboard();
+    if (!useDashboardStore.getState().aiInsight) {
+      fetchAiInsight();
+    }
+  }, [syncDashboard, fetchAiInsight]);
 
   useEffect(() => {
     if (containerRef.current) {

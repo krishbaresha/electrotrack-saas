@@ -57,6 +57,30 @@ export interface StaffUser {
 
 // ─── Business Types ──────────────────────────────────────────────────────────
 
+export interface ProductCard {
+  id: string;
+  name: string;
+  brand: string | null;
+  category: string | null;
+  sellingPrice: number;
+  inStockCount: number;
+  soldCount: number;
+  returnedCount: number;
+}
+
+export interface DashboardData {
+  categories: string[];
+  lowStock: ProductCard[];
+  recentlyAdded: ProductCard[];
+  fastSelling: ProductCard[];
+  stats: {
+    totalProducts: number;
+    totalInStock: number;
+    totalSold: number;
+    totalLowStock: number;
+  };
+}
+
 export interface ReturnItem {
   id: string;
   saleId: string;

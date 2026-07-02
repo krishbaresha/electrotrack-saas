@@ -9,31 +9,9 @@ import InvoiceModal from '../../components/pos/InvoiceModal';
 import { useCartStore } from '../../store/cart.store';
 import { useAuthStore } from '../../store/auth.store';
 import { api } from '../../api/client';
-import type { Sale, ShopSettings } from '../../types';
+import { usePosStore } from '../../store/pos.store';
+import type { Sale, ShopSettings, ProductCard, DashboardData } from '../../types';
 
-interface ProductCard {
-  id: string;
-  name: string;
-  brand: string | null;
-  category: string | null;
-  sellingPrice: number;
-  inStockCount: number;
-  soldCount: number;
-  returnedCount: number;
-}
-
-interface DashboardData {
-  categories: string[];
-  lowStock: ProductCard[];
-  recentlyAdded: ProductCard[];
-  fastSelling: ProductCard[];
-  stats: {
-    totalProducts: number;
-    totalInStock: number;
-    totalSold: number;
-    totalLowStock: number;
-  };
-}
 
 interface InventoryUnit {
   id: string;
@@ -58,7 +36,9 @@ const STATUS_LABELS: Record<StatusFilter, string> = {
 const formatPKR = (n: number): string => `₨ ${n.toLocaleString('en-PK')}`;
 
 export default function PosScreen() {
-  const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+  const dashboard = usePosStore((s) => s.dashboardData);
+  const syncPosDashboard = usePosStore((s) => s.syncPosDashboard);
+
   const [dashboardLoading, setDashboardLoading] = useState(true);
   const [shopSettings, setShopSettings] = useState<ShopSettings | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -67,8 +47,6 @@ export default function PosScreen() {
   const [unitPickerUnits, setUnitPickerUnits] = useState<InventoryUnit[]>([]);
   const [unitPickerLoading, setUnitPickerLoading] = useState(false);
   const [completedSale, setCompletedSale] = useState<Sale | null>(null);
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
   const [serialAlert, setSerialAlert] = useState<{ serial: string; status: string } | null>(null);
   const [now, setNow] = useState(new Date());
 
@@ -91,18 +69,20 @@ export default function PosScreen() {
   useEffect(() => {
     let mounted = true;
     (async () => {
-      setDashboardLoading(true);
-      const [dashRes, settingsRes] = await Promise.allSettled([
-        api.get<DashboardData>('/inventory/dashboard'),
-        api.get<ShopSettings>('/settings'),
-      ]);
+      setDashboardLoading(!dashboard); // Only show loading if no cached data
+      
+      const settingsPromise = api.get<ShopSettings>('/settings');
+      const syncPromise = syncPosDashboard();
+      
+      const [, settingsRes] = await Promise.allSettled([syncPromise, settingsPromise]);
+      
       if (!mounted) return;
-      if (dashRes.status === 'fulfilled') setDashboard(dashRes.value.data);
       if (settingsRes.status === 'fulfilled') setShopSettings(settingsRes.value.data);
+      
       setDashboardLoading(false);
     })();
     return () => { mounted = false; };
-  }, []);
+  }, [syncPosDashboard]);
 
   useEffect(() => {
     if (!dashboard) return;
@@ -223,12 +203,10 @@ export default function PosScreen() {
     }
   }, [items, addItem]);
 
-  const closeInvoice = () => {
+  const closeInvoice = useCallback(() => {
     setCompletedSale(null);
     clearCart();
-    setCustomerName('');
-    setCustomerPhone('');
-  };
+  }, [clearCart]);
 
   const dateStr = now.toLocaleDateString('en-PK', { weekday: 'short', day: '2-digit', month: 'short' });
   const timeStr = now.toLocaleTimeString('en-PK', { hour: '2-digit', minute: '2-digit' });
@@ -376,13 +354,6 @@ export default function PosScreen() {
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-4">
             <div className="min-h-[180px]"><CartTable /></div>
-            <div className="rounded-xl border border-white/5 bg-white/[0.02] p-3 space-y-2">
-              <p className="text-[10px] font-bold text-stitch-on-surface-variant uppercase tracking-wider">Customer</p>
-              <input value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder="Customer name"
-                className="w-full bg-stitch-surface-container-high/50 border border-white/10 rounded-lg px-3 py-1.5 text-sm text-stitch-on-surface outline-none focus:border-stitch-primary/50 transition-colors" />
-              <input value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} placeholder="03XX-XXXXXXX" inputMode="tel"
-                className="w-full bg-stitch-surface-container-high/50 border border-white/10 rounded-lg px-3 py-1.5 text-sm text-stitch-on-surface outline-none focus:border-stitch-primary/50 transition-colors" />
-            </div>
             {items.length > 0 && <PaymentForm onSaleComplete={(sale: Sale) => setCompletedSale(sale)} />}
           </div>
         </aside>

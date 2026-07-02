@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  ConflictException,
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ConfigService } from '@nestjs/config';
@@ -117,6 +118,21 @@ export class SalesService {
     const invoiceNumber = this.generateInvoiceNumber();
 
     const sale = await this.prisma.$transaction(async (tx) => {
+      // 1. Strict Concurrency Verification inside transaction lock
+      const txUnits = await tx.inventoryUnit.findMany({
+        where: {
+          tenantId,
+          id: { in: units.map((u) => u.id) },
+        },
+      });
+
+      const unavailableTx = txUnits.filter((u) => u.status !== UnitStatus.in_stock);
+      if (unavailableTx.length > 0) {
+        throw new ConflictException(
+          `Transaction aborted. Serial numbers already sold: ${unavailableTx.map((u) => u.serialNumber).join(', ')}`,
+        );
+      }
+
       const created = await tx.sale.create({
         data: {
           invoiceNumber,

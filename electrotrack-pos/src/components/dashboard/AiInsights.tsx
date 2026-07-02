@@ -1,32 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Sparkles, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Sparkles, RefreshCw } from 'lucide-react';
 import { format } from 'date-fns';
-import { api } from '../../api/client';
-
-interface InsightResponse {
-  insight: string;
-  generatedAt: string;
-}
+import { useDashboardStore } from '../../store/dashboard.store';
 
 export default function AiInsights() {
-  const [data, setData] = useState<InsightResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  const fetchInsights = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const res = await api.get<InsightResponse>('/ai/insights');
-      setData(res.data);
-    } catch {
-      setError('AI insights unavailable — check GROK_API_KEY');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { void fetchInsights(); }, []);
+  const data = useDashboardStore((s) => s.aiInsight);
+  const fetchInsights = useDashboardStore((s) => s.fetchAiInsight);
+  const isSyncing = useDashboardStore((s) => s.isSyncing); // We'll use this for the loading spinner
 
   const lines = data?.insight
     .split('\n')
@@ -48,27 +27,21 @@ export default function AiInsights() {
           )}
           <button
             onClick={() => void fetchInsights()}
-            disabled={loading}
+            disabled={isSyncing}
             className="text-stitch-on-surface-variant hover:text-white transition-colors disabled:opacity-40"
             title="Refresh insights"
           >
-            <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
+            <RefreshCw size={13} className={isSyncing ? 'animate-spin' : ''} />
           </button>
         </div>
       </div>
 
       <div className="p-4">
-        {loading && !data && (
+        {isSyncing && !data && (
           <div className="flex items-center gap-2 text-xs text-stitch-on-surface-variant py-2">
             <span className="w-3.5 h-3.5 border-2 border-stitch-primary/30 border-t-stitch-primary rounded-full animate-spin shrink-0" />
             Generating insights…
           </div>
-        )}
-
-        {error && (
-          <p className="text-xs text-stitch-error flex items-center gap-1.5">
-            <AlertTriangle size={11} className="shrink-0" /> {error}
-          </p>
         )}
 
         {lines.length > 0 && (

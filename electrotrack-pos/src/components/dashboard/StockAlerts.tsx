@@ -1,44 +1,22 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../api/client';
+import { useEffect } from 'react';
 import { socket } from '../../api/socket';
-import type { LowStockItem, WsStockLowPayload } from '../../types';
+import { useDashboardStore } from '../../store/dashboard.store';
+import type { WsStockLowPayload } from '../../types';
 
 export default function StockAlerts() {
-  const [alerts, setAlerts] = useState<LowStockItem[]>([]);
+  const alerts = useDashboardStore((s) => s.lowStock);
+  const updateLowStockFromWs = useDashboardStore((s) => s.updateLowStockFromWs);
 
   useEffect(() => {
-    api
-      .get<{ threshold: number; products: LowStockItem[] }>('/reports/low-stock')
-      .then((r) => setAlerts(r.data.products.slice(0, 10)))
-      .catch(() => {});
-
     const handler = (data: WsStockLowPayload) => {
-      setAlerts((prev) => {
-        const exists = prev.find((a) => a.productId === data.productId);
-        if (exists) {
-          return prev.map((a) =>
-            a.productId === data.productId ? { ...a, inStockCount: data.stockCount } : a,
-          );
-        }
-        return [
-          {
-            productId: data.productId,
-            productName: data.productName,
-            brand: null,
-            category: null,
-            inStockCount: data.stockCount,
-            sellingPrice: 0,
-          },
-          ...prev,
-        ].slice(0, 10);
-      });
+      updateLowStockFromWs(data);
     };
 
     socket.on('stock.low', handler);
     return () => {
       socket.off('stock.low', handler);
     };
-  }, []);
+  }, [updateLowStockFromWs]);
 
   if (alerts.length === 0) return null;
 

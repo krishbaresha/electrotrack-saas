@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -8,36 +7,10 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import { format, subDays, parseISO } from 'date-fns';
-import { api } from '../../api/client';
-import type { SalesSummary } from '../../types';
-
-interface DayData {
-  date: string;
-  revenue: number;
-  sales: number;
-}
+import { useDashboardStore } from '../../store/dashboard.store';
 
 export default function SalesChart() {
-  const [data, setData] = useState<DayData[]>([]);
-
-  useEffect(() => {
-    const days = Array.from({ length: 7 }, (_, i) =>
-      format(subDays(new Date(), 6 - i), 'yyyy-MM-dd'),
-    );
-
-    Promise.allSettled(
-      days.map((d) => api.get<SalesSummary>(`/reports/sales-summary?date=${d}`)),
-    ).then((results) => {
-      setData(
-        results.map((r, i) => ({
-          date: format(parseISO(days[i]), 'MMM d'),
-          revenue: r.status === 'fulfilled' ? r.value.data.totalRevenue : 0,
-          sales: r.status === 'fulfilled' ? r.value.data.totalSales : 0,
-        })),
-      );
-    });
-  }, []);
+  const data = useDashboardStore((s) => s.chartData);
 
   return (
     <div className="glass-card rounded-xl p-4">
