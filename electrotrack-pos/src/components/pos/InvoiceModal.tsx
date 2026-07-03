@@ -127,10 +127,10 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
         }
       `}</style>
 
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md no-print">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
         <div className="w-full max-w-[480px] max-h-[94vh] flex flex-col bg-zinc-900/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
 
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/5 shrink-0">
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/5 shrink-0 no-print">
             <p className="text-[11px] uppercase tracking-[0.22em] text-white/40">Receipt</p>
             <div className="flex items-center gap-1.5">
               <button
