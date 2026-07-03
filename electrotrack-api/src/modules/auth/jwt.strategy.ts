@@ -35,7 +35,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         isActive: true,
         tenantId: true,
         permissions: true,
-        tenant: { select: { id: true, name: true, status: true } },
+        tenant: { select: { id: true, name: true, status: true, plan: true } },
       },
     });
 
@@ -55,6 +55,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       tenantId: user.tenantId,
       permissions: user.permissions,
       tenantName: user.tenant?.name ?? null,
+      currentPlan: user.tenant?.plan ?? 'starter',
     };
   }
 }

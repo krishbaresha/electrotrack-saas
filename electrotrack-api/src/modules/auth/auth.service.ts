@@ -41,7 +41,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
       include: {
-        tenant: { select: { id: true, name: true, status: true } },
+        tenant: { select: { id: true, name: true, status: true, plan: true } },
       },
     });
 
@@ -112,6 +112,7 @@ export class AuthService {
         name: user.name,
         tenantId: user.tenantId,
         tenantName: user.tenant?.name ?? null,
+        currentPlan: user.tenant?.plan ?? 'starter',
         permissions: user.permissions,
       },
     };

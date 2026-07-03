@@ -42,6 +42,7 @@ export interface User {
   role: Role;
   tenantId: string | null;
   tenantName: string | null;
+  currentPlan?: 'starter' | 'pro' | 'enterprise';
   permissions: string[];
 }
 

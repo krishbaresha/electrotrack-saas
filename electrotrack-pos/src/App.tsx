@@ -3,6 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/auth.store';
 import { api } from './api/client';
 import Login from './pages/Login';
+import LandingPage from './pages/LandingPage';
+import PublicLayout from './components/layout/PublicLayout';
+import PrivacyPolicy from './pages/public/PrivacyPolicy';
+import TermsOfService from './pages/public/TermsOfService';
+import Security from './pages/public/Security';
+import CheckoutPage from './pages/public/CheckoutPage';
 import PosScreen from './pages/pos/PosScreen';
 import OwnerDashboard from './pages/dashboard/OwnerDashboard';
 import InventoryPage from './pages/inventory/InventoryPage';
@@ -139,31 +145,29 @@ export default function App() {
     };
   }, [isPinSet, autoLockMinutes, isLocked, lock]);
 
-  // Root redirect logic
-  const getRootRedirect = () => {
-    if (!user) return '/login';
-    if (user.role === 'platform_admin') return '/tenants';
-    if (can('pos.read')) return '/pos';
-    if (can('reports.read')) return '/dashboard';
-    return '/pos';
-  };
 
   return (
     <BrowserRouter>
       <LockOverlay />
       <Routes>
+        {/* Public Routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/security" element={<Security />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         {/* Public unauthenticated route for QR code invoice verification */}
         <Route path="/public/invoice/:id" element={<PublicInvoicePage />} />
         <Route
-          path="/"
           element={
             <RequireAuth>
               <AppShell />
             </RequireAuth>
           }
         >
-          <Route index element={<Navigate to={getRootRedirect()} replace />} />
           
           {/* Platform Admin Route */}
           <Route

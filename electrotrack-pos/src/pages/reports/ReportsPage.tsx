@@ -1,9 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
 import { format, subDays } from 'date-fns';
 import { FileText, TrendingUp, Users, Package, AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/client';
 import type { SalesSummary, StaffPerformance, DeadStockItem } from '../../types';
 import { useCan } from '../../lib/permissions';
+import { useFeatureGate } from '../../hooks/useFeatureGate';
 import gsap from 'gsap';
 
 const formatPKR = (n: number) => `₨ ${n.toLocaleString('en-PK')}`;
@@ -21,6 +23,8 @@ export default function ReportsPage() {
   const [error, setError] = useState('');
   const isOnlineEnabled = useCan('pos.online_sell');
   const containerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const { isStarter } = useFeatureGate();
 
   useEffect(() => {
     if (containerRef.current) {
@@ -82,7 +86,27 @@ export default function ReportsPage() {
   ];
 
   return (
-    <div ref={containerRef} className="p-4 sm:p-6 space-y-6 max-w-6xl mx-auto">
+    <div ref={containerRef} className="p-4 sm:p-6 space-y-6 max-w-6xl mx-auto relative min-h-[85vh]">
+      {isStarter && (
+        <div className="absolute inset-0 bg-zinc-950/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 z-30 animate-in fade-in duration-300 rounded-2xl">
+          <div className="glass-card max-w-md p-8 border border-white/10 rounded-2xl shadow-2xl flex flex-col items-center bg-zinc-900/80">
+            <div className="w-16 h-16 rounded-full bg-stitch-primary/10 flex items-center justify-center mb-6">
+              <TrendingUp size={32} className="text-stitch-primary animate-pulse" />
+            </div>
+            <h2 className="text-lg font-bold text-white font-space">Unlock Advanced Telemetry Analytics</h2>
+            <p className="text-xs text-white/60 mt-3 leading-relaxed">
+              Get real-time performance insights, dead stock analysis, sales forecasting, and custom cashier performance analytics. Upgrade to ElectroTrack Pro Core to unlock.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate('/checkout?plan=pro')}
+              className="mt-6 w-full py-2.5 bg-stitch-primary text-stitch-on-primary text-sm font-bold rounded-lg hover:bg-stitch-primary/90 transition-all active:scale-[0.98] font-space"
+            >
+              Upgrade to Pro Core
+            </button>
+          </div>
+        </div>
+      )}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-lg bg-stitch-primary/10 flex items-center justify-center">
           <FileText size={20} className="text-stitch-primary" />

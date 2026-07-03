@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Plus, UserX, UserCheck, RefreshCw, Key, Shield, Edit, X, Users } from 'lucide-react';
+import { Plus, UserX, UserCheck, RefreshCw, Key, Shield, Edit, X, Users, AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/client';
 import { useCan } from '../../lib/permissions';
+import { useFeatureGate } from '../../hooks/useFeatureGate';
 import type { StaffUser, Role, Permission } from '../../types';
 import gsap from 'gsap';
 
@@ -107,6 +109,8 @@ function PermissionGrid({ permissions, canAssign, onToggle }: PermissionGridProp
 }
 
 export default function UsersPage() {
+  const navigate = useNavigate();
+  const { plan, limits } = useFeatureGate();
   const [users, setUsers] = useState<StaffUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -176,6 +180,10 @@ export default function UsersPage() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!canManageUsers) return;
+    if (users.length >= limits.staffUsers) {
+      setError(`Limit reached: Your current plan only allows up to ${limits.staffUsers} staff members.`);
+      return;
+    }
     setLoading(true);
     setError('');
     try {
@@ -276,13 +284,47 @@ export default function UsersPage() {
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
           </button>
           {canManageUsers && (
-            <button onClick={() => { setShowAddForm(true); setError(''); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-stitch-primary text-stitch-on-primary text-sm font-bold rounded-lg hover:bg-stitch-primary/90 transition-all active:scale-95">
+            <button
+              onClick={() => {
+                if (users.length >= limits.staffUsers) {
+                  setError(`Limit reached: Your current plan only allows up to ${limits.staffUsers} staff members.`);
+                  return;
+                }
+                setShowAddForm(true);
+                setError('');
+              }}
+              disabled={users.length >= limits.staffUsers}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-stitch-primary text-stitch-on-primary text-sm font-bold rounded-lg hover:bg-stitch-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95"
+            >
               <Plus size={15} /> Add Staff User
             </button>
           )}
         </div>
       </div>
+
+      {/* Premium Upgrade alert banner when staff limit is reached */}
+      {users.length >= limits.staffUsers && (
+        <div className="p-4 rounded-xl border border-indigo-500/20 bg-indigo-950/20 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in slide-in-from-top-4 duration-300">
+          <div className="flex gap-3 items-start">
+            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0 mt-0.5">
+              <AlertTriangle size={16} className="text-indigo-400" />
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-white font-space uppercase tracking-wider">Staff Limit Reached ({users.length}/{limits.staffUsers})</h3>
+              <p className="text-xs text-white/70 mt-1 leading-relaxed">
+                Your current plan (<strong>{plan}</strong>) only allows up to {limits.staffUsers} active staff accounts. Upgrade to <strong>ElectroTrack Pro Core</strong> to get unlimited staff and cashier users.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/checkout?plan=pro')}
+            className="px-3.5 py-1.5 bg-stitch-primary text-stitch-on-primary text-xs font-bold rounded-lg hover:bg-stitch-primary/90 transition-all shrink-0 font-space active:scale-95"
+          >
+            Upgrade Plan
+          </button>
+        </div>
+      )}
 
       {error && (
         <div className="glass-card rounded-xl p-3 border-l-4 border-stitch-error/50">
@@ -311,21 +353,25 @@ export default function UsersPage() {
               <div>
                 <label className={labelCls}>Full Name *</label>
                 <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  disabled={users.length >= limits.staffUsers}
                   required placeholder="e.g. Ali Ahmed" className={inputCls} />
               </div>
               <div>
                 <label className={labelCls}>Email (Username) *</label>
                 <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  disabled={users.length >= limits.staffUsers}
                   required placeholder="e.g. ali@shop.com" className={inputCls} />
               </div>
               <div>
                 <label className={labelCls}>Password *</label>
                 <input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  disabled={users.length >= limits.staffUsers}
                   required minLength={8} placeholder="At least 8 characters" className={inputCls} />
               </div>
               <div>
                 <label className={labelCls}>Role Group *</label>
                 <select value={form.role} onChange={(e) => handleRoleChange(e.target.value as Role)}
+                  disabled={users.length >= limits.staffUsers}
                   className={selectCls}>
                   {ROLES.map((r) => <option key={r} value={r}>{r.replace('_', ' ')}</option>)}
                 </select>

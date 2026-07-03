@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Settings, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Settings, CheckCircle, AlertTriangle, Building2, Plus, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/client';
 import { useAuthStore } from '../../store/auth.store';
 import { useLockStore } from '../../store/lock.store';
+import { useFeatureGate } from '../../hooks/useFeatureGate';
 import type { ShopSettings } from '../../types';
 import gsap from 'gsap';
 
@@ -44,6 +46,45 @@ const FONT_OPTIONS = ['Inter', 'system-ui', 'Georgia', 'Courier New', 'Helvetica
 export default function SettingsPage() {
   const { user, accessToken, setAuth } = useAuthStore();
   const { isPinSet, setPin, clearPin, autoLockMinutes, setAutoLockMinutes } = useLockStore();
+  const navigate = useNavigate();
+  const { plan, limits } = useFeatureGate();
+
+  const [locations, setLocations] = useState<{ id: string; name: string; address: string }[]>(() => {
+    const saved = localStorage.getItem('et-locations');
+    return saved ? JSON.parse(saved) : [{ id: '1', name: 'Main Headquarters', address: 'Plot 42, Sector 15, Karachi' }];
+  });
+  const [newLocName, setNewLocName] = useState('');
+  const [newLocAddress, setNewLocAddress] = useState('');
+  const [showUpgradeBanner, setShowUpgradeBanner] = useState(false);
+
+  const handleAddLocation = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newLocName.trim()) return;
+
+    if (locations.length >= limits.locations) {
+      setShowUpgradeBanner(true);
+      return;
+    }
+
+    const newLoc = {
+      id: crypto.randomUUID(),
+      name: newLocName.trim(),
+      address: newLocAddress.trim() || 'No address specified',
+    };
+    const updated = [...locations, newLoc];
+    setLocations(updated);
+    localStorage.setItem('et-locations', JSON.stringify(updated));
+    setNewLocName('');
+    setNewLocAddress('');
+    setShowUpgradeBanner(false);
+  };
+
+  const handleRemoveLocation = (id: string) => {
+    if (locations.length <= 1) return;
+    const updated = locations.filter((loc) => loc.id !== id);
+    setLocations(updated);
+    localStorage.setItem('et-locations', JSON.stringify(updated));
+  };
 
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -317,6 +358,99 @@ export default function SettingsPage() {
                 <span className="text-xs text-stitch-on-surface-variant">Show watermark</span>
               </label>
             </div>
+          </div>
+        </FieldGroup>
+
+        <FieldGroup title="Branch Locations (Multi-Location Syncing)">
+          <div className="space-y-4">
+            <p className="text-[11px] text-stitch-on-surface-variant/80 leading-relaxed">
+              Register and sync your store branch locations. Your active plan (<strong>{plan}</strong>) supports up to <strong>{limits.locations === Infinity ? 'Unlimited' : limits.locations}</strong> branches.
+            </p>
+
+            {/* List of existing locations */}
+            <div className="space-y-2">
+              {locations.map((loc, i) => (
+                <div key={loc.id} className="flex justify-between items-center bg-white/[0.02] border border-white/5 p-3 rounded-lg">
+                  <div>
+                    <p className="text-xs font-semibold text-white flex items-center gap-2">
+                      <Building2 size={13} className="text-stitch-primary" /> {loc.name} {i === 0 && <span className="text-[9px] px-1.5 py-0.2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-normal font-sans">Primary</span>}
+                    </p>
+                    <p className="text-[11px] text-stitch-on-surface-variant/80 mt-0.5">{loc.address}</p>
+                  </div>
+                  {i > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveLocation(loc.id)}
+                      className="p-1.5 hover:bg-stitch-error/10 hover:text-stitch-error text-white/40 border border-transparent hover:border-stitch-error/20 rounded-lg transition-colors"
+                      title="Remove branch"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Form to add a location */}
+            <div className="border-t border-white/5 pt-3">
+              <div className="flex gap-2">
+                <div className="flex-1 space-y-2">
+                  <input
+                    type="text"
+                    placeholder="Branch Name (e.g., Gulshan Outlet)"
+                    value={newLocName}
+                    onChange={(e) => setNewLocName(e.target.value)}
+                    disabled={locations.length >= limits.locations}
+                    className="w-full bg-stitch-surface-container-high/50 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-stitch-on-surface outline-none focus:border-stitch-primary/50 transition-colors placeholder:text-stitch-on-surface-variant/50"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Address (e.g., University Road, Karachi)"
+                    value={newLocAddress}
+                    onChange={(e) => setNewLocAddress(e.target.value)}
+                    disabled={locations.length >= limits.locations}
+                    className="w-full bg-stitch-surface-container-high/50 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-stitch-on-surface outline-none focus:border-stitch-primary/50 transition-colors placeholder:text-stitch-on-surface-variant/50"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddLocation}
+                  disabled={locations.length >= limits.locations && !showUpgradeBanner}
+                  className="px-3 bg-stitch-primary/10 text-stitch-primary border border-stitch-primary/20 rounded-lg text-xs font-bold hover:bg-stitch-primary/25 disabled:opacity-40 transition-colors flex items-center justify-center shrink-0"
+                >
+                  <Plus size={14} className="mr-1" /> Add Branch
+                </button>
+              </div>
+            </div>
+
+            {/* Premium Upgrade Banner */}
+            {showUpgradeBanner && (
+              <div className="p-4 rounded-xl border border-indigo-500/20 bg-indigo-950/20 backdrop-blur-md relative overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="absolute top-0 right-0 p-2 text-[9px] bg-indigo-500/20 text-[#c0c1ff] font-bold rounded-bl-lg font-space uppercase tracking-wider">
+                  Premium Feature
+                </div>
+                <h3 className="text-xs font-bold text-white font-space">Unlock Multi-Location Syncing</h3>
+                <p className="text-[11px] text-white/70 mt-2 leading-relaxed">
+                  Your current plan (<strong>{plan}</strong>) is limited to {limits.locations} location. Upgrade to <strong>ElectroTrack Pro</strong> to manage up to 3 branches, or get <strong>Industrial Enterprise</strong> for unlimited locations.
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => navigate('/checkout?plan=pro')}
+                    className="px-3 py-1.5 bg-stitch-primary text-stitch-on-primary text-[10px] font-bold rounded-lg hover:bg-stitch-primary/90 transition-all"
+                  >
+                    Upgrade to Pro
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowUpgradeBanner(false)}
+                    className="px-3 py-1.5 border border-white/10 hover:bg-white/5 text-white/75 text-[10px] font-semibold rounded-lg transition-all"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </FieldGroup>
 

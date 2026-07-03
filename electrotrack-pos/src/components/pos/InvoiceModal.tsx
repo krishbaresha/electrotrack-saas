@@ -4,6 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import html2pdf from 'html2pdf.js';
 import type { Sale, ShopSettings } from '../../types';
 import { useAuthStore } from '../../store/auth.store';
+import { useFeatureGate } from '../../hooks/useFeatureGate';
 
 interface InvoiceModalProps {
   sale: Sale;
@@ -53,13 +54,16 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
   const tenantName = useAuthStore((s) => s.user?.tenantName);
   const resolvedShopName = shopSettings?.shopName ?? shopName ?? tenantName ?? 'ElectroTrack';
 
-  const accentColor = shopSettings?.invoiceAccentColor ?? '#14b8a6';
-  const primaryColor = shopSettings?.invoicePrimaryColor ?? '#ffffff';
-  const fontFamily = shopSettings?.invoiceFontFamily ?? 'Inter';
+  const { limits } = useFeatureGate();
+  const isAdvanced = limits.qrInvoices;
+
+  const accentColor = isAdvanced ? (shopSettings?.invoiceAccentColor ?? '#14b8a6') : '#ffffff';
+  const primaryColor = isAdvanced ? (shopSettings?.invoicePrimaryColor ?? '#ffffff') : '#ffffff';
+  const fontFamily = isAdvanced ? (shopSettings?.invoiceFontFamily ?? 'Inter') : 'system-ui, sans-serif';
   const footerNotes = shopSettings?.invoiceFooterNotes ?? null;
-  const showWatermark = shopSettings?.invoiceShowWatermark ?? false;
-  const watermarkText = shopSettings?.invoiceWatermarkText ?? '';
-  const logoUrl = shopSettings?.logoUrl ?? null;
+  const showWatermark = isAdvanced ? (shopSettings?.invoiceShowWatermark ?? false) : false;
+  const watermarkText = isAdvanced ? (shopSettings?.invoiceWatermarkText ?? '') : '';
+  const logoUrl = isAdvanced ? (shopSettings?.logoUrl ?? null) : null;
 
   const subtotal = sale.items.reduce((s, i) => s + Number(i.sellingPrice), 0);
   const discount = Number(sale.discountAmount);
@@ -204,9 +208,11 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold tracking-wide bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 rounded-full">
-                    <span className="text-[11px] leading-none">✓</span> VERIFIED
-                  </span>
+                  {isAdvanced && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold tracking-wide bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 rounded-full">
+                      <span className="text-[11px] leading-none">✓</span> VERIFIED
+                    </span>
+                  )}
                 </div>
                 <p className="text-xs text-white/50 mt-3 tabular-nums">
                   {format(saleDate, 'dd MMM yyyy, h:mm a')}
@@ -312,23 +318,29 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
 
               <div className="h-px bg-white/10 mx-7" />
 
-              {/* Real QR Code — UUID-based, IDOR-safe, error correction H */}
+              {/* Real QR Code or Basic Receipt Footer */}
               <div className="px-7 py-7 flex flex-col items-center gap-4">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="p-3 bg-white rounded-xl">
-                    <QRCodeSVG
-                      value={publicInvoiceUrl}
-                      size={96}
-                      level="H"
-                      fgColor="#000000"
-                      bgColor="#ffffff"
-                    />
+                {isAdvanced ? (
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="p-3 bg-white rounded-xl">
+                      <QRCodeSVG
+                        value={publicInvoiceUrl}
+                        size={96}
+                        level="H"
+                        fgColor="#000000"
+                        bgColor="#ffffff"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">Scan to verify</p>
+                      <p className="font-mono text-xs text-white/80 mt-1">{sale.invoiceNumber}</p>
+                    </div>
                   </div>
+                ) : (
                   <div className="text-center">
-                    <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">Scan to verify</p>
-                    <p className="font-mono text-xs text-white/80 mt-1">{sale.invoiceNumber}</p>
+                    <p className="font-mono text-xs text-white/50 mt-1">Receipt Ref · {sale.invoiceNumber}</p>
                   </div>
-                </div>
+                )}
                 <div className="text-center pt-2 space-y-1">
                   <p className="text-sm text-white/80">Thank you for your purchase</p>
                   {footerNotes && (

@@ -8,12 +8,18 @@
   }
   
   html, body, #root {
-    background-color: #0e1322; /* Stitch Deep Space background */
-    color: #dee1f7;            /* Stitch High Contrast Text */
+    background-color: #0e1322; /* Stitch Deep Space background by default */
+    color: #dee1f7;            /* Stitch High Contrast Text by default */
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
     scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.light, html.light body, html.light #root {
+    background-color: #f8fafc; /* Light mode background */
+    color: #0f172a;            /* Light mode text */
   }
 
   /* Custom high-tech scrollbars */
