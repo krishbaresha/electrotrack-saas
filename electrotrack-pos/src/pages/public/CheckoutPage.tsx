@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, CreditCard, Loader2, CheckCircle2, ArrowLeft, HelpCircle } from 'lucide-react';
+import { ShieldCheck, CreditCard, Loader2, CheckCircle2, ArrowLeft } from 'lucide-react';
 
 type CurrencyCode = 'USD' | 'PKR' | 'EUR' | 'GBP';
 
@@ -54,7 +54,7 @@ const detectCurrency = (): CurrencyCode => {
 // Production Forwarding Integration URLs for Lemon Squeezy
 // When integrating live stores, redirect the user directly to these URLs
 // e.g., window.location.href = LEMON_SQUEEZY_STORE_URLS[`${plan}_${billing}`]
-const LEMON_SQUEEZY_STORE_URLS = {
+export const LEMON_SQUEEZY_STORE_URLS = {
   starter_monthly: 'https://electrotrack.lemonsqueezy.com/checkout/buy/starter-monthly-placeholder-id',
   starter_annual: 'https://electrotrack.lemonsqueezy.com/checkout/buy/starter-annual-placeholder-id',
   pro_monthly: 'https://electrotrack.lemonsqueezy.com/checkout/buy/pro-monthly-placeholder-id',
