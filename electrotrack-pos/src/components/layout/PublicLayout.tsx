@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuthStore } from '../../store/auth.store';
 import { can } from '../../lib/permissions';
 import { Sun, Moon, ArrowRight, Menu, X } from 'lucide-react';
+import { useKeepAlive } from '../../hooks/useKeepAlive';
 
 interface PublicThemeContextType {
   isDark: boolean;
@@ -88,6 +89,10 @@ export default function PublicLayout() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Mount the non-blocking Render keep-alive pinger at the root shell level.
+  // Fires a silent low-priority fetch every 12 min to mitigate free-tier cold starts.
+  useKeepAlive();
   
   const [isDark, setIsDark] = useState<boolean>(() => {
     const saved = localStorage.getItem('electrotrack_theme');

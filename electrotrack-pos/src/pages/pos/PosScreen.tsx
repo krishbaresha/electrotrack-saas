@@ -38,6 +38,7 @@ const formatPKR = (n: number): string => `₨ ${n.toLocaleString('en-PK')}`;
 export default function PosScreen() {
   const dashboard = usePosStore((s) => s.dashboardData);
   const syncPosDashboard = usePosStore((s) => s.syncPosDashboard);
+  const deltaSync = usePosStore((s) => s.deltaSync);
 
   const [dashboardLoading, setDashboardLoading] = useState(true);
   const [shopSettings, setShopSettings] = useState<ShopSettings | null>(null);
@@ -84,6 +85,13 @@ export default function PosScreen() {
     return () => { mounted = false; };
   }, [syncPosDashboard]);
 
+  // Background delta-sync: runs every 5 minutes to silently patch the local
+  // cache with changed rows from Supabase, bypassing the NestJS backend.
+  useEffect(() => {
+    const id = setInterval(() => { deltaSync(); }, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, [deltaSync]);
+
   useEffect(() => {
     if (!dashboard) return;
     const ctx = gsap.context(() => {
@@ -125,7 +133,7 @@ export default function PosScreen() {
     });
   }, [allProducts, selectedCategory, statusFilter]);
 
-  const openUnitPicker = async (product: ProductCard) => {
+  const openUnitPicker = useCallback(async (product: ProductCard) => {
     setViewingProduct(product);
     setUnitPickerUnits([]);
     setUnitPickerLoading(true);
@@ -140,20 +148,35 @@ export default function PosScreen() {
     } finally {
       setUnitPickerLoading(false);
     }
-  };
+  // viewingProduct is intentionally excluded — it's only set inside this fn
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleAddUnit = (unit: InventoryUnit) => {
-    if (!viewingProduct) return;
-    if (items.some((i) => i.serialNumber === unit.serialNumber)) return;
-    addItem({
-      serialNumber: unit.serialNumber,
-      productId: viewingProduct.id,
-      productName: viewingProduct.name,
-      brand: viewingProduct.brand,
-      sellingPrice: unit.sellingPrice ?? viewingProduct.sellingPrice,
+  const handleAddUnit = useCallback((unit: InventoryUnit) => {
+    setViewingProduct((prev) => {
+      if (!prev) return prev;
+      if (items.some((i) => i.serialNumber === unit.serialNumber)) return prev;
+      addItem({
+        serialNumber: unit.serialNumber,
+        productId: prev.id,
+        productName: prev.name,
+        brand: prev.brand,
+        sellingPrice: unit.sellingPrice ?? prev.sellingPrice,
+      });
+      return prev;
     });
     setUnitPickerUnits((prev) => prev.filter((u) => u.serialNumber !== unit.serialNumber));
-  };
+  }, [items, addItem]);
+
+  // Memoized handlers passed down to SectionedGrid / ProductGrid
+  // to prevent prop-identity churn on every cart state update.
+  const handleAddToCart = useCallback((p: ProductCard) => {
+    if (p.inStockCount > 0) openUnitPicker(p);
+  }, [openUnitPicker]);
+
+  const handleViewUnits = useCallback((p: ProductCard) => {
+    openUnitPicker(p);
+  }, [openUnitPicker]);
 
   const handleProductSelect = useCallback((product: SearchProduct) => {
     openUnitPicker({
@@ -304,15 +327,15 @@ export default function PosScreen() {
             ) : selectedCategory === null && statusFilter === 'in_stock' ? (
               <SectionedGrid
                 dashboard={dashboard}
-                onAddToCart={(p) => { if (p.inStockCount > 0) openUnitPicker(p); }}
-                onViewUnits={openUnitPicker}
+                onAddToCart={handleAddToCart}
+                onViewUnits={handleViewUnits}
               />
             ) : (
               <ProductGrid
                 products={filteredProducts}
                 loading={false}
-                onAddToCart={(p) => { if (p.inStockCount > 0) openUnitPicker(p); }}
-                onViewUnits={openUnitPicker}
+                onAddToCart={handleAddToCart}
+                onViewUnits={handleViewUnits}
                 selectedCategory={selectedCategory}
               />
             )}

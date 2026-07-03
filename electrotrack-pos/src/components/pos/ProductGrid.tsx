@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Plus, Package, PackageX, Tag, Cpu, HardDrive, MemoryStick, Sparkles, Laptop } from 'lucide-react';
 import { gsap } from 'gsap';
 import type { ProductSpecifications } from '../../types';
@@ -87,7 +87,7 @@ function SkeletonCard() {
   );
 }
 
-export default function ProductGrid({
+const ProductGrid = memo(function ProductGrid({
   products,
   loading,
   onAddToCart,
@@ -241,4 +241,6 @@ export default function ProductGrid({
       })}
     </div>
   );
-}
+});
+
+export default ProductGrid;
