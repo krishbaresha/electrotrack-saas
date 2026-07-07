@@ -44,6 +44,7 @@ export interface User {
   tenantName: string | null;
   currentPlan?: 'starter' | 'pro' | 'enterprise';
   permissions: string[];
+  onlineSellingEnabled?: boolean;
 }
 
 export interface StaffUser {

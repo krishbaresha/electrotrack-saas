@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   ShoppingCart, BarChart3, LogOut, Package, RotateCcw,
@@ -73,7 +73,7 @@ export default function AppShell() {
   const canSeeLoyalty = useCan('loyalty.read') && !isPlatformAdmin;
   const canSeeReturnAnalytics = useCan('returns.read') && !isPlatformAdmin;
   const canSeeCashRecon = useCan('reports.cash_reconciliation') && !isPlatformAdmin;
-  const canSeeOnlineOrders = useCan('pos.online_sell') && !isPlatformAdmin;
+  const canSeeOnlineOrders = useCan('pos.online_sell') && !isPlatformAdmin && !!user?.onlineSellingEnabled;
 
   const fetchNotifications = useCallback(async () => {
     if (isPlatformAdmin) return;

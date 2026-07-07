@@ -1,4 +1,4 @@
-﻿import {
+import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
@@ -41,7 +41,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
       include: {
-        tenant: { select: { id: true, name: true, status: true, plan: true, slug: true } },
+        tenant: { select: { id: true, name: true, status: true, plan: true, slug: true, onlineSellingEnabled: true } },
       },
     });
 
@@ -115,6 +115,7 @@ export class AuthService {
         tenantName: user.tenant?.name ?? null,
         currentPlan: user.tenant?.plan ?? 'starter',
         permissions: user.permissions,
+        onlineSellingEnabled: user.tenant?.onlineSellingEnabled ?? false,
       },
     };
   }
@@ -150,7 +151,7 @@ export class AuthService {
     // Reload user to get fresh permissions/tenant status
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      include: { tenant: { select: { status: true } } },
+      include: { tenant: { select: { status: true, onlineSellingEnabled: true } } },
     });
 
     if (!user || !user.isActive) {

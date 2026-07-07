@@ -1,8 +1,9 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TrendingUp, ShoppingCart, Package, Tag, Banknote, X, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDashboardStore } from '../../store/dashboard.store';
 import { useCan } from '../../lib/permissions';
+import { useAuthStore } from '../../store/auth.store';
 import { useFeatureGate } from '../../hooks/useFeatureGate';
 
 import SalesChart from '../../components/dashboard/SalesChart';
@@ -16,7 +17,8 @@ const formatPKR = (n: number) => `â‚¨ ${n.toLocaleString('en-PK')}`;
 export default function OwnerDashboard() {
   const navigate = useNavigate();
   const summary = useDashboardStore((s) => s.summary);
-  const isOnlineEnabled = useCan('pos.online_sell');
+  const user = useAuthStore((s) => s.user);
+  const isOnlineEnabled = useCan('pos.online_sell') && !!user?.onlineSellingEnabled;
   const syncDashboard = useDashboardStore((s) => s.syncDashboard);
   const fetchAiInsight = useDashboardStore((s) => s.fetchAiInsight);
   const [showItemsModal, setShowItemsModal] = useState(false);
