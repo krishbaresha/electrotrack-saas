@@ -15,9 +15,30 @@ import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.ALLOWED_ORIGINS?.split(',') ?? [
-      'http://localhost:5173',
-    ],
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') ?? ['http://localhost:5173'];
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      const isAllowed = allowedOrigins.some((allowed) => {
+        if (allowed === origin) return true;
+        try {
+          const allowedUrl = new URL(allowed);
+          const originUrl = new URL(origin);
+          const allowedHost = allowedUrl.hostname;
+          const originHost = originUrl.hostname;
+          return originHost === allowedHost || originHost.endsWith('.' + allowedHost);
+        } catch {
+          return false;
+        }
+      });
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   },
   namespace: 'events',
