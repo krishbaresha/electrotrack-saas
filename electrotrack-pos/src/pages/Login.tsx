@@ -41,7 +41,8 @@ export default function Login() {
       connectSocket(res.data.access_token);
       
       if (res.data.user.role === 'platform_admin') {
-        window.location.href = 'https://admin.techbill.app/dashboard';
+        const u = encodeURIComponent(btoa(JSON.stringify(res.data.user)));
+        window.location.href = `https://admin.techbill.app/tenants?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
       } else {
         const sub = res.data.subdomain || 'app';
         const u = encodeURIComponent(btoa(JSON.stringify(res.data.user)));
