@@ -71,4 +71,10 @@ export class TenantsController {
   restoreTenant(@Param('id') id: string) {
     return this.tenantsService.restoreTenant(id);
   }
+
+  @Post(':id/renew')
+  @HttpCode(HttpStatus.OK)
+  renewTenant(@Param('id') id: string) {
+    return this.tenantsService.renewTenant(id);
+  }
 }

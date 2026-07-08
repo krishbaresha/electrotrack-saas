@@ -45,6 +45,7 @@ export interface User {
   currentPlan?: 'starter' | 'pro' | 'enterprise';
   permissions: string[];
   onlineSellingEnabled?: boolean;
+  currentPeriodEnd?: string | null;
 }
 
 export interface StaffUser {
@@ -307,5 +308,6 @@ export interface Tenant {
   onlineSellingEnabled: boolean;
   createdAt: string;
   updatedAt: string;
+  currentPeriodEnd?: string | null;
   _count?: { users: number };
 }

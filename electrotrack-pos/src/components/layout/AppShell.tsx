@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   ShoppingCart, BarChart3, LogOut, Package, RotateCcw,
   FileText, Users, Settings, ClipboardList, Bell, UserCircle, Building2, ShoppingBag, ShieldAlert,
-  PackageCheck, ShieldCheck, Star, TrendingDown, Banknote, Menu, Wallet, Truck, Lock
+  PackageCheck, ShieldCheck, Star, TrendingDown, Banknote, Menu, Wallet, Truck, Lock, AlertTriangle
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAuthStore } from '../../store/auth.store';
@@ -395,6 +395,29 @@ export default function AppShell() {
           </p>
         </div>
         <div className="flex-1 overflow-auto">
+          {/* Subscription countdown banner */}
+          {!isPlatformAdmin && (() => {
+            const periodEnd = user?.currentPeriodEnd;
+            if (!periodEnd) return null;
+            const now = new Date();
+            const end = new Date(periodEnd);
+            const diffMs = end.getTime() - now.getTime();
+            const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+            if (daysLeft > 2) return null;
+            const isExpired = daysLeft <= 0;
+            return (
+              <div className={`px-4 py-2.5 flex items-center gap-2.5 text-sm font-semibold shrink-0 ${
+                isExpired
+                  ? 'bg-red-500/15 border-b border-red-500/30 text-red-400'
+                  : 'bg-amber-500/15 border-b border-amber-500/30 text-amber-400'
+              }`}>
+                <AlertTriangle size={16} className="shrink-0" />
+                {isExpired
+                  ? 'Your subscription has expired. Please contact the platform admin to renew your plan.'
+                  : `Your subscription expires in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}. Please contact the platform admin to renew.`}
+              </div>
+            );
+          })()}
           <Outlet />
         </div>
       </main>

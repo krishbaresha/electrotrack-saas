@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Plus, RefreshCw, X, ShieldAlert, CheckCircle, Ban, Edit3, Building2, Trash2, RotateCcw } from 'lucide-react';
+import { Plus, RefreshCw, X, ShieldAlert, CheckCircle, Ban, Edit3, Building2, Trash2, RotateCcw, CreditCard } from 'lucide-react';
 import { api } from '../../api/client';
 import type { Tenant } from '../../types';
 import gsap from 'gsap';
@@ -156,6 +156,19 @@ export default function TenantsPage() {
       setError(e.response?.data?.message ?? 'Failed to restore tenant.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRenew = async (tenant: Tenant) => {
+    setError('');
+    try {
+      await api.post(`/tenants/${tenant.id}/renew`);
+      setSuccessMsg(`Subscription for "${tenant.name}" renewed for 30 days.`);
+      load();
+      setTimeout(() => setSuccessMsg(''), 4000);
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { message?: string } } };
+      setError(e.response?.data?.message ?? 'Failed to renew subscription.');
     }
   };
 
@@ -377,7 +390,7 @@ export default function TenantsPage() {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-stitch-surface-container-high/50 border-b border-white/5">
-                {['Company & Slug', 'Plan', 'Users', 'Limit', 'Status', 'Actions'].map((h) => (
+                {['Company & Slug', 'Plan', 'Users', 'Limit', 'Status', 'Billing', 'Actions'].map((h) => (
                   <th key={h} className="px-4 py-3 text-[10px] font-bold text-stitch-on-surface-variant uppercase tracking-wider whitespace-nowrap">{h}</th>
                 ))}
               </tr>
@@ -385,7 +398,7 @@ export default function TenantsPage() {
             <tbody className="divide-y divide-white/5">
               {tenants.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-16 text-center">
+                  <td colSpan={7} className="px-4 py-16 text-center">
                     {loading ? (
                       <span className="inline-block w-6 h-6 border-2 border-stitch-primary/30 border-t-stitch-primary rounded-full animate-spin" />
                     ) : (
@@ -418,6 +431,41 @@ export default function TenantsPage() {
                       }`}>
                         {t.status}
                       </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      {(() => {
+                        if (!t.currentPeriodEnd) {
+                          return (
+                            <button onClick={() => handleRenew(t)}
+                              title="Start subscription (30 days)"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors">
+                              <CreditCard size={12} /> Activate
+                            </button>
+                          );
+                        }
+                        const now = new Date();
+                        const end = new Date(t.currentPeriodEnd);
+                        const diffMs = end.getTime() - now.getTime();
+                        const daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                        const isExpired = daysLeft <= 0;
+                        return (
+                          <div className="flex flex-col gap-1">
+                            <span className={`text-[10px] font-bold ${
+                              isExpired ? 'text-red-400' : daysLeft <= 2 ? 'text-amber-400' : 'text-green-400'
+                            }`}>
+                              {isExpired ? 'Expired' : `${daysLeft}d left`}
+                            </span>
+                            <span className="text-[9px] text-stitch-on-surface-variant font-mono">
+                              {end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                            </span>
+                            <button onClick={() => handleRenew(t)}
+                              title="Renew subscription (30 days from today)"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition-colors w-fit">
+                              <CreditCard size={10} /> Renew
+                            </button>
+                          </div>
+                        );
+                      })()}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1.5">

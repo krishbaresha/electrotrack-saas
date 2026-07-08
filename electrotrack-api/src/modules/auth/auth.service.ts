@@ -41,7 +41,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
       include: {
-        tenant: { select: { id: true, name: true, status: true, plan: true, slug: true, onlineSellingEnabled: true } },
+        tenant: { select: { id: true, name: true, status: true, plan: true, slug: true, onlineSellingEnabled: true, currentPeriodEnd: true } },
       },
     });
 
@@ -116,6 +116,7 @@ export class AuthService {
         currentPlan: user.tenant?.plan ?? 'starter',
         permissions: user.permissions,
         onlineSellingEnabled: user.tenant?.onlineSellingEnabled ?? false,
+        currentPeriodEnd: user.tenant?.currentPeriodEnd ?? null,
       },
     };
   }
@@ -151,7 +152,7 @@ export class AuthService {
     // Reload user to get fresh permissions/tenant status
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      include: { tenant: { select: { status: true, onlineSellingEnabled: true } } },
+      include: { tenant: { select: { status: true, onlineSellingEnabled: true, currentPeriodEnd: true } } },
     });
 
     if (!user || !user.isActive) {

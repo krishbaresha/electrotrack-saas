@@ -173,6 +173,25 @@ export class TenantsService {
     });
   }
 
+  async renewTenant(id: string) {
+    const tenant = await this.prisma.tenant.findUnique({ where: { id } });
+    if (!tenant) {
+      throw new NotFoundException(`Tenant with ID "${id}" not found`);
+    }
+
+    const newPeriodEnd = new Date();
+    newPeriodEnd.setDate(newPeriodEnd.getDate() + 30);
+
+    return this.prisma.tenant.update({
+      where: { id },
+      data: {
+        currentPeriodEnd: newPeriodEnd,
+        // If tenant was suspended, reactivate on renewal
+        ...(tenant.status === 'suspended' ? { status: 'active' } : {}),
+      },
+    });
+  }
+
   private readonly logger = new Logger(TenantsService.name);
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
