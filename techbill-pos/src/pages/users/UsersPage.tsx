@@ -1,6 +1,7 @@
-﻿import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Plus, UserX, UserCheck, RefreshCw, Key, Shield, Edit, X, Users, AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/auth.store';
 import { api } from '../../api/client';
 import { useCan } from '../../lib/permissions';
 import { useFeatureGate } from '../../hooks/useFeatureGate';
@@ -60,7 +61,7 @@ const ROLE_DEFAULT_PERMISSIONS: Record<Role, Permission[]> = {
 
 interface FormState {
   name: string;
-  email: string;
+  username: string;
   password?: string;
   role: Role;
   permissions: Permission[];
@@ -110,6 +111,8 @@ function PermissionGrid({ permissions, canAssign, onToggle }: PermissionGridProp
 
 export default function UsersPage() {
   const navigate = useNavigate();
+  const { user } = useAuthStore();
+  const tenantDomain = user?.email?.split('@')[1] || 'tenant.techbill.app';
   const { plan, limits } = useFeatureGate();
   const [users, setUsers] = useState<StaffUser[]>([]);
   const [loading, setLoading] = useState(false);
@@ -121,13 +124,13 @@ export default function UsersPage() {
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [form, setForm] = useState<FormState>({
-    name: '', email: '', password: '', role: 'cashier',
+    name: '', username: '', password: '', role: 'cashier',
     permissions: [...ROLE_DEFAULT_PERMISSIONS.cashier],
   });
 
   const [editingUser, setEditingUser] = useState<StaffUser | null>(null);
   const [editForm, setEditForm] = useState<FormState>({
-    name: '', email: '', role: 'cashier', permissions: [],
+    name: '', username: '', role: 'cashier', permissions: [],
   });
 
   const [resettingUser, setResettingUser] = useState<StaffUser | null>(null);
@@ -188,17 +191,17 @@ export default function UsersPage() {
     setError('');
     try {
       await api.post('/users', {
-        name: form.name, email: form.email, password: form.password,
+        name: form.name, username: form.username, password: form.password,
         role: form.role, permissions: form.permissions,
       });
       setSuccessMsg(`User ${form.name} created successfully.`);
       setShowAddForm(false);
-      setForm({ name: '', email: '', password: '', role: 'cashier', permissions: [...ROLE_DEFAULT_PERMISSIONS.cashier] });
+      setForm({ name: '', username: '', password: '', role: 'cashier', permissions: [...ROLE_DEFAULT_PERMISSIONS.cashier] });
       load();
       setTimeout(() => setSuccessMsg(''), 4000);
-    } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      setError(e.response?.data?.message ?? 'Failed to create user');
+    } catch (err: any) {
+      const msg = err.response?.data?.message;
+      setError(Array.isArray(msg) ? msg[0] : (msg || 'Failed to create user'));
     } finally {
       setLoading(false);
     }
@@ -217,9 +220,9 @@ export default function UsersPage() {
       setEditingUser(null);
       load();
       setTimeout(() => setSuccessMsg(''), 4000);
-    } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      setError(e.response?.data?.message ?? 'Failed to update user');
+    } catch (err: any) {
+      const msg = err.response?.data?.message;
+      setError(Array.isArray(msg) ? msg[0] : (msg || 'Failed to update user'));
     } finally {
       setLoading(false);
     }
@@ -236,9 +239,9 @@ export default function UsersPage() {
       setResettingUser(null);
       setNewPassword('');
       setTimeout(() => setSuccessMsg(''), 4000);
-    } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      setError(e.response?.data?.message ?? 'Failed to reset password');
+    } catch (err: any) {
+      const msg = err.response?.data?.message;
+      setError(Array.isArray(msg) ? msg[0] : (msg || 'Failed to reset password'));
     } finally {
       setLoading(false);
     }
@@ -261,7 +264,7 @@ export default function UsersPage() {
   const startEdit = (user: StaffUser) => {
     setEditingUser(user);
     setEditForm({
-      name: user.name, email: user.email, role: user.role,
+      name: user.name, username: user.email.split('@')[0], role: user.role,
       permissions: (user.permissions as Permission[]) || [],
     });
   };
@@ -357,10 +360,21 @@ export default function UsersPage() {
                   required placeholder="e.g. Ali Ahmed" className={inputCls} />
               </div>
               <div>
-                <label className={labelCls}>Email (Username) *</label>
-                <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  disabled={users.length >= limits.staffUsers}
-                  required placeholder="e.g. ali@shop.com" className={inputCls} />
+                <label className={labelCls}>Email Username *</label>
+                <div className="flex bg-white/5 border border-white/10 rounded-lg overflow-hidden focus-within:border-stitch-primary/50 transition-colors">
+                  <input
+                    type="text"
+                    value={form.username}
+                    onChange={(e) => setForm({ ...form, username: e.target.value.toLowerCase().replace(/[^a-z0-9._-]/g, '') })}
+                    disabled={users.length >= limits.staffUsers}
+                    required
+                    placeholder="e.g. ali"
+                    className="flex-1 bg-transparent px-4 py-2.5 text-sm text-stitch-on-surface outline-none placeholder:text-white/20 min-w-0"
+                  />
+                  <div className="flex items-center px-3 bg-white/5 border-l border-white/10 text-[11px] font-mono text-stitch-on-surface-variant/70 shrink-0 select-none">
+                    @{tenantDomain}
+                  </div>
+                </div>
               </div>
               <div>
                 <label className={labelCls}>Password *</label>
