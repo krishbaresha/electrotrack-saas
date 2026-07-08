@@ -535,7 +535,7 @@ export default function TenantsPage() {
           <table className="w-full text-left">
             <thead>
               <tr className="bg-stitch-surface-container-high/50 border-b border-white/5">
-                {['Company & Slug', 'Plan', 'Users', 'Limit', 'Status', 'Billing', 'Actions'].map((h) => (
+                {['Company & Slug', 'Owner Email', 'Plan', 'Users', 'Limit', 'Status', 'Billing', 'Actions'].map((h) => (
                   <th key={h} className="px-4 py-3 text-[10px] font-bold text-stitch-on-surface-variant uppercase tracking-wider whitespace-nowrap">{h}</th>
                 ))}
               </tr>
@@ -561,6 +561,7 @@ export default function TenantsPage() {
                       <p className="font-semibold text-stitch-on-surface text-sm">{t.name}</p>
                       <p className="text-[10px] text-stitch-tertiary font-mono mt-0.5">/{t.slug}</p>
                     </td>
+                    <td className="px-4 py-3 text-sm text-stitch-on-surface-variant">{t.ownerEmail || '—'}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold border capitalize ${PLAN_COLORS[t.plan] ?? ''}`}>
                         {t.plan}

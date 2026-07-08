@@ -24,13 +24,26 @@ export class TenantsService {
   constructor(private prisma: PrismaService) {}
 
   async listTenants() {
-    return this.prisma.tenant.findMany({
+    const tenants = await this.prisma.tenant.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
         _count: {
           select: { users: true }
+        },
+        users: {
+          where: { role: Role.owner },
+          select: { email: true },
+          take: 1
         }
       }
+    });
+
+    return tenants.map(t => {
+      const { users, ...rest } = t;
+      return {
+        ...rest,
+        ownerEmail: users[0]?.email
+      };
     });
   }
 

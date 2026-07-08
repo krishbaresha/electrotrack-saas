@@ -309,5 +309,6 @@ export interface Tenant {
   createdAt: string;
   updatedAt: string;
   currentPeriodEnd?: string | null;
+  ownerEmail?: string;
   _count?: { users: number };
 }
