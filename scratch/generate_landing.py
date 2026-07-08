@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import os
+
+content = """import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, AnimatePresence, useMotionTemplate } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { usePublicTheme } from '../components/layout/PublicLayout';
@@ -905,7 +907,7 @@ export default function LandingPage() {
                 <h3 className="text-2xl font-bold text-zinc-900 dark:text-white mt-1 transition-colors duration-300">Starter Boutique</h3>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-3 transition-colors duration-300">Ideal for single local electronics outlets.</p>
                 
-                <div className="mt-6 flex items-baseline gap-1 flex-wrap min-h-[48px]">
+                <div className="mt-6 flex items-baseline gap-1 overflow-hidden h-12">
                   <span className="text-4xl font-extrabold text-zinc-900 dark:text-white flex items-center transition-colors duration-300">
                     {currencyInfo.symbol}
                     <AnimatePresence mode="popLayout">
@@ -970,7 +972,7 @@ export default function LandingPage() {
                   <h3 className="text-2xl font-bold text-zinc-900 dark:text-white mt-1 transition-colors duration-300">TechBill Pro</h3>
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-3 transition-colors duration-300">Tailored for fast-growing electronic chain retailers.</p>
                   
-                  <div className="mt-6 flex items-baseline gap-1 flex-wrap min-h-[48px]">
+                  <div className="mt-6 flex items-baseline gap-1 overflow-hidden h-12">
                     <span className="text-4xl font-extrabold text-zinc-900 dark:text-white flex items-center transition-colors duration-300">
                       {currencyInfo.symbol}
                       <AnimatePresence mode="popLayout">
@@ -1137,3 +1139,9 @@ export default function LandingPage() {
     </div>
   );
 }
+"""
+
+with open(r'd:\Tech-Bill\techbill-pos\src\pages\LandingPage.tsx', 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print("LandingPage.tsx rewritten successfully!")
