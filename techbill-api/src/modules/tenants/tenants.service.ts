@@ -56,6 +56,8 @@ export class TenantsService {
     maxUsers?: number;
     ownerName: string;
     ownerPasswordHashOrText: string;
+    isWarehouseEnabled?: boolean;
+    subscriptionExpiresAt?: string;
   }) {
     const slug = dto.slug || dto.name.toLowerCase().replace(/[^a-z0-9-]/g, '');
     const username = dto.username || dto.ownerEmail || 'owner';
@@ -86,6 +88,10 @@ export class TenantsService {
           slug,
           plan: dto.plan || 'trial',
           maxUsers: dto.maxUsers || 5,
+          isWarehouseEnabled: dto.isWarehouseEnabled ?? false,
+          subscriptionExpiresAt: dto.subscriptionExpiresAt
+            ? new Date(dto.subscriptionExpiresAt)
+            : null,
         }
       });
 
@@ -127,6 +133,9 @@ export class TenantsService {
       plan?: string;
       maxUsers?: number;
       onlineSellingEnabled?: boolean;
+      appAccessEnabled?: boolean;
+      isWarehouseEnabled?: boolean;
+      subscriptionExpiresAt?: string | null;
     }
   ) {
     const tenant = await this.prisma.tenant.findUnique({ where: { id } });
@@ -134,9 +143,17 @@ export class TenantsService {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
 
+    const { subscriptionExpiresAt, ...rest } = dto;
+
     return this.prisma.tenant.update({
       where: { id },
-      data: dto
+      data: {
+        ...rest,
+        // Only include subscriptionExpiresAt in the update payload if it was explicitly provided
+        ...(subscriptionExpiresAt !== undefined
+          ? { subscriptionExpiresAt: subscriptionExpiresAt ? new Date(subscriptionExpiresAt) : null }
+          : {}),
+      }
     });
   }
 
@@ -159,6 +176,32 @@ export class TenantsService {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
     return tenant;
+  }
+
+  /**
+   * Returns the dynamic feature-flag configuration for the calling user's tenant.
+   * Used by GET /tenants/me/config — accessible by any authenticated tenant user.
+   */
+  async getTenantConfig(tenantId: string, userRole: string): Promise<{ isWarehouseEnabled: boolean; role: string }> {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: tenantId },
+      select: { isWarehouseEnabled: true, subscriptionExpiresAt: true },
+    });
+
+    if (!tenant) {
+      throw new NotFoundException(`Tenant not found`);
+    }
+
+    // If a subscription expiry date is set, gate warehouse access on active subscription
+    const now = new Date();
+    const warehouseEnabled =
+      tenant.isWarehouseEnabled &&
+      (!tenant.subscriptionExpiresAt || tenant.subscriptionExpiresAt > now);
+
+    return {
+      isWarehouseEnabled: warehouseEnabled,
+      role: userRole,
+    };
   }
 
   async deleteTenant(id: string, force: boolean) {
@@ -232,6 +275,17 @@ export class TenantsService {
     return this.prisma.tenant.update({
       where: { id },
       data: { appAccessEnabled },
+    });
+  }
+
+  async toggleWarehouseAccess(id: string, isWarehouseEnabled: boolean) {
+    const tenant = await this.prisma.tenant.findUnique({ where: { id } });
+    if (!tenant) {
+      throw new NotFoundException(`Tenant with ID "${id}" not found`);
+    }
+    return this.prisma.tenant.update({
+      where: { id },
+      data: { isWarehouseEnabled },
     });
   }
 

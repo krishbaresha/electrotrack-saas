@@ -158,8 +158,13 @@ export default function LandingPage() {
 
   const mockProducts = [
     { id: '1', name: 'RTX 4090 GPU', price: 1599 },
-    { id: '2', name: 'Ryzen 9 7950X', price: 549 },
-    { id: '3', name: 'DDR5 32GB RAM', price: 129 },
+    { id: '2', name: 'Ryzen 9 7950X CPU', price: 549 },
+    { id: '3', name: 'DDR5 32GB RAM Kit', price: 129 },
+    { id: '4', name: 'Samsung 990 Pro 2TB SSD', price: 179 },
+    { id: '5', name: 'ROG Swift 42" OLED', price: 1399 },
+    { id: '6', name: 'Intel Core i9-14900K', price: 589 },
+    { id: '7', name: 'Corsair 1000W PSU', price: 189 },
+    { id: '8', name: 'Noctua NH-D15 Cooler', price: 109 },
   ];
 
   const addToCart = (product: typeof mockProducts[0]) => {

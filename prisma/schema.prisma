@@ -25,6 +25,7 @@ enum UnitStatus {
   return_pending
   returned
   damaged
+  repair
   reserved
 }
 
@@ -69,6 +70,19 @@ enum POStatus {
   cancelled
 }
 
+enum ShippingStatus {
+  pending
+  dispatched
+  delivered
+  returned
+}
+
+enum TransactionStatus {
+  SUCCESS
+  FAILED
+  PENDING
+}
+
 // ─── Tenant model ──────────────────────────────────────────────────────────
 
 model Tenant {
@@ -80,8 +94,12 @@ model Tenant {
   trialEndsAt      DateTime? @map("trial_ends_at")
   currentPeriodEnd DateTime? @map("current_period_end")
   maxUsers         Int      @default(5) @map("max_users")
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt @map("updated_at")
+  onlineSellingEnabled Boolean  @default(false) @map("online_selling_enabled")
+  appAccessEnabled     Boolean   @default(false) @map("app_access_enabled")
+  isWarehouseEnabled   Boolean   @default(false) @map("is_warehouse_enabled")
+  subscriptionExpiresAt DateTime? @map("subscription_expires_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
 
   users            User[]
   settings         ShopSettings[]
@@ -94,8 +112,11 @@ model Tenant {
   sales            Sale[]
   returns          Return[]
   reconciliations  CashReconciliation[]
+  expenses         Expense[]
+  courierPayouts   CourierPayout[]
   auditLogs        AuditLog[]
   notifications    Notification[]
+  transactions     Transaction[]
 
   @@map("tenants")
 }
@@ -129,6 +150,8 @@ model User {
   returnsReviewed          Return[]             @relation("ReturnsReviewedBy")
   reconciliationsSubmitted CashReconciliation[] @relation("ReconciliationsSubmittedBy")
   reconciliationsReviewed  CashReconciliation[] @relation("ReconciliationsReviewedBy")
+  expenses                 Expense[]            @relation("ExpensesCreatedBy")
+  courierPayouts           CourierPayout[]      @relation("PayoutsCreatedBy")
 
   @@map("users")
 }
@@ -137,7 +160,7 @@ model User {
 
 model RefreshToken {
   id        String   @id @default(uuid()) @db.Uuid
-  token     String   @unique @db.VarChar(512)
+  token     String   @unique @db.Text
   userId    String   @map("user_id") @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime  @map("expires_at")
@@ -160,6 +183,14 @@ model ShopSettings {
   maxDiscountWithoutOtp     Decimal  @default(500) @map("max_discount_without_otp") @db.Decimal(10, 2)
   returnFraudWindowDays     Int      @default(30) @map("return_fraud_window_days")
   returnFraudCountThreshold Int      @default(2) @map("return_fraud_count_threshold")
+  // Invoice template fields
+  logoUrl                   String?  @map("logo_url") @db.Text
+  invoiceFontFamily         String   @default("Inter") @map("invoice_font_family") @db.VarChar(100)
+  invoicePrimaryColor       String   @default("#ffffff") @map("invoice_primary_color") @db.VarChar(7)
+  invoiceAccentColor        String   @default("#14b8a6") @map("invoice_accent_color") @db.VarChar(7)
+  invoiceFooterNotes        String?  @map("invoice_footer_notes") @db.Text
+  invoiceWatermarkText      String?  @map("invoice_watermark_text") @db.VarChar(255)
+  invoiceShowWatermark      Boolean  @default(false) @map("invoice_show_watermark")
   tenantId                  String   @map("tenant_id") @db.Uuid
   tenant                    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   updatedAt                 DateTime @updatedAt @map("updated_at")
@@ -171,20 +202,26 @@ model ShopSettings {
 // ─── Table 4: products ────────────────────────────────────────────────────────
 
 model Product {
-  id             String   @id @default(uuid()) @db.Uuid
-  name           String   @db.VarChar(255)
-  brand          String?  @db.VarChar(100)
-  category       String?  @db.VarChar(100)
-  description    String?  @db.Text
-  costPrice      Decimal? @map("cost_price") @db.Decimal(10, 2)
-  sellingPrice   Decimal  @map("selling_price") @db.Decimal(10, 2)
-  warrantyMonths Int      @default(0) @map("warranty_months")
-  isActive       Boolean  @default(true) @map("is_active")
-  createdById    String?  @map("created_by_id") @db.Uuid
-  createdBy      User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
-  tenantId       String   @map("tenant_id") @db.Uuid
-  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  createdAt      DateTime @default(now()) @map("created_at")
+  id               String   @id @default(uuid()) @db.Uuid
+  name             String   @db.VarChar(255)
+  brand            String?  @db.VarChar(100)
+  category         String?  @db.VarChar(100)
+  description      String?  @db.Text
+  shortDescription String?  @map("short_description") @db.VarChar(500)
+  aiSummary        String?  @map("ai_summary") @db.Text
+  imageUrl         String?  @map("image_url") @db.Text
+  tags             String[] @default([])
+  specifications   Json?    @db.Json
+  costPrice        Decimal? @map("cost_price") @db.Decimal(10, 2)
+  sellingPrice     Decimal  @map("selling_price") @db.Decimal(10, 2)
+  comparePrice     Decimal? @map("compare_price") @db.Decimal(10, 2)
+  warrantyMonths   Int      @default(0) @map("warranty_months")
+  isActive         Boolean  @default(true) @map("is_active")
+  createdById      String?  @map("created_by_id") @db.Uuid
+  createdBy        User?    @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  tenantId         String   @map("tenant_id") @db.Uuid
+  tenant           Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt        DateTime @default(now()) @map("created_at")
 
   inventoryUnits     InventoryUnit[]
   purchaseOrderItems PurchaseOrderItem[]
@@ -258,7 +295,7 @@ model GoodsReceivedNote {
   receivedBy      User?          @relation(fields: [receivedById], references: [id], onDelete: SetNull)
   notes           String?        @db.Text
   tenantId        String         @map("tenant_id") @db.Uuid
-  tenant         Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant          Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   receivedAt      DateTime       @default(now()) @map("received_at")
 
   inventoryUnits InventoryUnit[]
@@ -335,6 +372,15 @@ model Sale {
   voidedBy             User?         @relation("SalesVoided", fields: [voidedById], references: [id], onDelete: SetNull)
   tenantId             String        @map("tenant_id") @db.Uuid
   tenant               Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  isOnline             Boolean       @default(false) @map("is_online")
+  customerCity         String?       @map("customer_city") @db.VarChar(100)
+  trackingId           String?       @map("tracking_id") @db.VarChar(100)
+  deliveryCharge       Decimal       @default(0) @map("delivery_charge") @db.Decimal(10, 2)
+  advanceAmount        Decimal       @default(0) @map("advance_amount") @db.Decimal(10, 2)
+  codAmount            Decimal       @default(0) @map("cod_amount") @db.Decimal(10, 2)
+  shippingStatus       ShippingStatus @default(pending) @map("shipping_status")
+  payoutReceivedAt     DateTime?      @map("payout_received_at")
+  refundLossAmount     Decimal?       @map("refund_loss_amount") @db.Decimal(10, 2)
   createdAt            DateTime      @default(now()) @map("created_at")
 
   items   SaleItem[]
@@ -415,6 +461,43 @@ model CashReconciliation {
   @@map("cash_reconciliations")
 }
 
+// ─── Table 14.5: expenses ─────────────────────────────────────────────────────
+
+model Expense {
+  id          String   @id @default(uuid()) @db.Uuid
+  amount      Decimal  @db.Decimal(10, 2)
+  category    String   @db.VarChar(100)
+  description String?  @db.Text
+  date        DateTime @db.Date
+  createdById String?  @map("created_by_id") @db.Uuid
+  createdBy   User?    @relation("ExpensesCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  tenantId    String   @map("tenant_id") @db.Uuid
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([date])
+  @@index([tenantId])
+  @@map("expenses")
+}
+
+// ─── Table 14.6: courier_payouts ──────────────────────────────────────────────
+
+model CourierPayout {
+  id          String   @id @default(uuid()) @db.Uuid
+  amount      Decimal  @db.Decimal(10, 2)
+  courierName String?  @map("courier_name") @db.VarChar(100)
+  date        DateTime @db.Date
+  createdById String?  @map("created_by_id") @db.Uuid
+  createdBy   User?    @relation("PayoutsCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  tenantId    String   @map("tenant_id") @db.Uuid
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([date])
+  @@index([tenantId])
+  @@map("courier_payouts")
+}
+
 // ─── Table 15: audit_logs ─────────────────────────────────────────────────────
 
 model AuditLog {
@@ -457,4 +540,21 @@ model Notification {
   @@index([userId, isRead])
   @@index([tenantId])
   @@map("notifications")
+}
+
+// ─── Table 17: transactions ──────────────────────────────────────────────────
+
+model Transaction {
+  id        String            @id @default(uuid()) @db.Uuid
+  orderId   String            @unique @map("order_id") @db.VarChar(100)
+  amount    Float
+  status    TransactionStatus @default(PENDING)
+  tenantId  String            @map("tenant_id") @db.Uuid
+  tenant    Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  @@index([orderId])
+  @@index([tenantId])
+  @@map("transactions")
 }

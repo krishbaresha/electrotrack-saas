@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, createContext, useContext, useRef } from 'react';
+import { useState, useEffect, createContext, useContext, useRef } from 'react';
 import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuthStore } from '../../store/auth.store';
 import { can } from '../../lib/permissions';
@@ -260,24 +260,41 @@ export default function PublicLayout() {
 
           {/* Footer */}
           <footer className="border-t border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-[#060813]/60 backdrop-blur-md py-12 transition-colors duration-300 relative z-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center">
-                <img src="/favicon.svg" alt="TechBill Logo" className="h-6 w-auto" />
-                <span className="ml-2 font-space text-sm font-bold tracking-tight text-slate-900 dark:text-white">
-                  TechBill<span className="text-[#2fd9f4]">.</span>
-                </span>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-200 dark:border-white/5">
+                <div className="flex items-center">
+                  <img src="/favicon.svg" alt="TechBill Logo" className="h-6 w-auto" />
+                  <span className="ml-2.5 font-space text-sm font-bold tracking-tight text-slate-900 dark:text-white">
+                    TechBill<span className="text-[#2fd9f4] font-extrabold">.</span>
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-slate-500 dark:text-[#c7c4d7]">
+                  <Link to="/privacy" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Privacy Policy</Link>
+                  <Link to="/terms" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Terms &amp; Conditions</Link>
+                  <Link to="/security" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Security Requisitions</Link>
+                  <Link to="/return-policy" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Return &amp; Refund Policy</Link>
+                  <Link to="/shipping-policy" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Shipping &amp; Service Policy</Link>
+                </div>
               </div>
 
-              <p className="text-xs text-slate-500 dark:text-white/30 font-medium text-center md:text-left leading-relaxed">
-                &copy; {new Date().getFullYear()} TechBill SaaS. Built with enterprise grade standards by{' '}
-                <span className="text-slate-700 dark:text-white/60 font-semibold">TalhaRana</span> &amp;{' '}
-                <span className="text-slate-700 dark:text-white/60 font-semibold">KrishBaresha</span>. All rights reserved.
-              </p>
+              <div className="flex flex-col lg:flex-row justify-between gap-4 text-xs text-slate-500 dark:text-zinc-500 leading-relaxed font-medium">
+                <div className="space-y-1 text-center lg:text-left">
+                  <p>
+                    <span className="font-bold text-slate-700 dark:text-zinc-400">Head Office:</span> Sakhi Wahab Tower 1st Floor,Shab Cinema Sakhi Pir Road, Hyderabad, Pakistan
+                  </p>
+                  <p>
+                    <span className="font-bold text-slate-700 dark:text-zinc-400">Helpline &amp; Contact:</span> +923142291356 | info@techbill.app
+                  </p>
+                </div>
 
-              <div className="flex items-center space-x-6 text-xs text-slate-500 dark:text-white/30">
-                <Link to="/privacy" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Terms of Service</Link>
-                <Link to="/security" className="hover:text-indigo-600 dark:hover:text-white transition-colors">Security Requisitions</Link>
+                <div className="text-center lg:text-right self-center">
+                  <p>
+                    &copy; {new Date().getFullYear()} TechBill SaaS. Built with enterprise grade standards by{' '}
+                    <span className="text-slate-700 dark:text-white/60 font-semibold">TalhaRana</span> &amp;{' '}
+                    <span className="text-slate-700 dark:text-white/60 font-semibold">KrishBaresha</span>.
+                  </p>
+                </div>
               </div>
             </div>
           </footer>

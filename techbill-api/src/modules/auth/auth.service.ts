@@ -38,18 +38,30 @@ export class AuthService {
   }
 
   async login(dto: LoginDto, ipAddress?: string) {
+    const isMobile = dto.clientSource === 'mobile';
+
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
       include: {
-        tenant: { select: { id: true, name: true, status: true, plan: true, slug: true, onlineSellingEnabled: true, appAccessEnabled: true, currentPeriodEnd: true } },
+        tenant: {
+          select: {
+            id: true,
+            name: true,
+            status: true,
+            plan: true,
+            slug: true,
+            onlineSellingEnabled: true,
+            appAccessEnabled: true,
+            isWarehouseEnabled: true,
+            subscriptionExpiresAt: true,
+            currentPeriodEnd: true,
+          },
+        },
       },
     });
 
     if (!user || !user.isActive) {
-      this.eventEmitter.emit('user.failed_login', {
-        email: dto.email,
-        ipAddress,
-      });
+      this.eventEmitter.emit('user.failed_login', { email: dto.email, ipAddress });
       throw new UnauthorizedException('Invalid credentials');
     }
 
@@ -65,20 +77,17 @@ export class AuthService {
     }
 
     // Block mobile app login if tenant does not have app access
-    if (dto.clientSource === 'mobile') {
+    if (isMobile) {
       if (!user.tenant || !user.tenant.appAccessEnabled) {
         throw new UnauthorizedException(
-          "You don't have an app subscription. Please contact the platform admin."
+          "You don't have an app subscription. Please contact the platform admin.",
         );
       }
     }
 
     const passwordValid = await bcrypt.compare(dto.password, user.passwordHash);
     if (!passwordValid) {
-      this.eventEmitter.emit('user.failed_login', {
-        email: dto.email,
-        ipAddress,
-      });
+      this.eventEmitter.emit('user.failed_login', { email: dto.email, ipAddress });
       throw new UnauthorizedException('Invalid credentials');
     }
 
@@ -88,17 +97,32 @@ export class AuthService {
       role: user.role,
       tenantId: user.tenantId,
       permissions: user.permissions,
+      // Tag mobile sessions in the JWT so downstream services can identify origin
+      ...(isMobile ? { clientSource: 'mobile' } : {}),
     };
-    const accessToken = this.jwtService.sign(payload, {
-      expiresIn: this.configService.get('JWT_ACCESS_EXPIRES_IN', '15m'),
-    });
+
+    // Mobile clients receive long-term / "permanent" tokens (10 years)
+    // to avoid forcing re-login in offline-capable WhatsApp-mode sessions.
+    const accessTokenExpiry = isMobile
+      ? '3650d'
+      : this.configService.get('JWT_ACCESS_EXPIRES_IN', '15m');
+    const refreshTokenExpiry = isMobile
+      ? '3650d'
+      : this.configService.get('JWT_REFRESH_EXPIRES_IN', '7d');
+
+    const accessToken = this.jwtService.sign(payload, { expiresIn: accessTokenExpiry });
     const refreshToken = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_REFRESH_SECRET'),
-      expiresIn: this.configService.get('JWT_REFRESH_EXPIRES_IN', '7d'),
+      expiresIn: refreshTokenExpiry,
     });
 
+    // Persist refresh token — mobile sessions expire in 10 years
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
+    if (isMobile) {
+      expiresAt.setFullYear(expiresAt.getFullYear() + 10);
+    } else {
+      expiresAt.setDate(expiresAt.getDate() + 7);
+    }
 
     await this.prisma.refreshToken.create({
       data: {
@@ -110,6 +134,12 @@ export class AuthService {
     });
 
     this.eventEmitter.emit('user.login', { userId: user.id, ipAddress });
+
+    // Determine effective warehouse access (gated by subscription expiry)
+    const now = new Date();
+    const warehouseEnabled =
+      (user.tenant?.isWarehouseEnabled ?? false) &&
+      (!user.tenant?.subscriptionExpiresAt || user.tenant.subscriptionExpiresAt > now);
 
     return {
       accessToken,
@@ -126,6 +156,7 @@ export class AuthService {
         permissions: user.permissions,
         onlineSellingEnabled: user.tenant?.onlineSellingEnabled ?? false,
         currentPeriodEnd: user.tenant?.currentPeriodEnd ?? null,
+        isWarehouseEnabled: warehouseEnabled,
       },
     };
   }
@@ -137,6 +168,7 @@ export class AuthService {
       role: string;
       tenantId: string | null;
       permissions: string[];
+      clientSource?: string;
     };
     try {
       payload = this.jwtService.verify(refreshToken, {
@@ -161,7 +193,17 @@ export class AuthService {
     // Reload user to get fresh permissions/tenant status
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      include: { tenant: { select: { status: true, onlineSellingEnabled: true, currentPeriodEnd: true } } },
+      include: {
+        tenant: {
+          select: {
+            status: true,
+            onlineSellingEnabled: true,
+            currentPeriodEnd: true,
+            isWarehouseEnabled: true,
+            subscriptionExpiresAt: true,
+          },
+        },
+      },
     });
 
     if (!user || !user.isActive) {
@@ -172,26 +214,43 @@ export class AuthService {
       throw new UnauthorizedException('Tenant suspended');
     }
 
+    // Preserve mobile session origin from the original payload claim
+    const isMobile = payload.clientSource === 'mobile';
+
     const newPayload = {
       sub: user.id,
       email: user.email,
       role: user.role,
       tenantId: user.tenantId,
       permissions: user.permissions,
+      ...(isMobile ? { clientSource: 'mobile' } : {}),
     };
+
+    const accessTokenExpiry = isMobile
+      ? '3650d'
+      : this.configService.get('JWT_ACCESS_EXPIRES_IN', '15m');
+    const refreshTokenExpiry = isMobile
+      ? '3650d'
+      : this.configService.get('JWT_REFRESH_EXPIRES_IN', '7d');
+
     const newAccessToken = this.jwtService.sign(newPayload, {
-      expiresIn: this.configService.get('JWT_ACCESS_EXPIRES_IN', '15m'),
+      expiresIn: accessTokenExpiry,
     });
     const newRefreshToken = this.jwtService.sign(
       { ...newPayload, jti: crypto.randomUUID() },
       {
         secret: this.configService.get('JWT_REFRESH_SECRET'),
-        expiresIn: this.configService.get('JWT_REFRESH_EXPIRES_IN', '7d'),
+        expiresIn: refreshTokenExpiry,
       },
     );
 
+    // Mobile sessions expire in 10 years, web sessions in 7 days
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
+    if (isMobile) {
+      expiresAt.setFullYear(expiresAt.getFullYear() + 10);
+    } else {
+      expiresAt.setDate(expiresAt.getDate() + 7);
+    }
 
     await this.prisma.refreshToken.create({
       data: {

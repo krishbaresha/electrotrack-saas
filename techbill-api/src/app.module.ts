@@ -21,6 +21,7 @@ import { TenantsModule } from './modules/tenants/tenants.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { AiModule } from './modules/ai/ai.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
     SettingsModule,
     AiModule,
     ExpensesModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],

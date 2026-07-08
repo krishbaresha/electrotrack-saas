@@ -9,6 +9,8 @@ import PrivacyPolicy from './pages/public/PrivacyPolicy';
 import TermsOfService from './pages/public/TermsOfService';
 import Security from './pages/public/Security';
 import CheckoutPage from './pages/public/CheckoutPage';
+import ReturnPolicy from './pages/public/ReturnPolicy';
+import ShippingPolicy from './pages/public/ShippingPolicy';
 import PosScreen from './pages/pos/PosScreen';
 import OwnerDashboard from './pages/dashboard/OwnerDashboard';
 import InventoryPage from './pages/inventory/InventoryPage';
@@ -178,6 +180,8 @@ export default function App() {
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/security" element={<Security />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/return-policy" element={<ReturnPolicy />} />
+          <Route path="/shipping-policy" element={<ShippingPolicy />} />
         </Route>
         <Route path="/login" element={<Login />} />
         {/* Public unauthenticated route for QR code invoice verification */}
