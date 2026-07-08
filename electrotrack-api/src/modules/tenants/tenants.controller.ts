@@ -74,7 +74,7 @@ export class TenantsController {
 
   @Post(':id/renew')
   @HttpCode(HttpStatus.OK)
-  renewTenant(@Param('id') id: string) {
-    return this.tenantsService.renewTenant(id);
+  renewTenant(@Param('id') id: string, @Body('startDate') startDate?: string) {
+    return this.tenantsService.renewTenant(id, startDate);
   }
 }

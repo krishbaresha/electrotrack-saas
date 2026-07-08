@@ -173,13 +173,14 @@ export class TenantsService {
     });
   }
 
-  async renewTenant(id: string) {
+  async renewTenant(id: string, startDate?: string) {
     const tenant = await this.prisma.tenant.findUnique({ where: { id } });
     if (!tenant) {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
 
-    const newPeriodEnd = new Date();
+    const base = startDate ? new Date(startDate) : new Date();
+    const newPeriodEnd = new Date(base);
     newPeriodEnd.setDate(newPeriodEnd.getDate() + 30);
 
     return this.prisma.tenant.update({

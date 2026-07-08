@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Plus, RefreshCw, X, ShieldAlert, CheckCircle, Ban, Edit3, Building2, Trash2, RotateCcw, CreditCard } from 'lucide-react';
+import { Plus, RefreshCw, X, ShieldAlert, CheckCircle, Ban, Edit3, Building2, Trash2, RotateCcw, CreditCard, Calendar } from 'lucide-react';
 import { api } from '../../api/client';
 import type { Tenant } from '../../types';
 import gsap from 'gsap';
@@ -42,6 +42,9 @@ export default function TenantsPage() {
   });
 
   const [editForm, setEditForm] = useState({ plan: 'trial', maxUsers: 5, status: 'active', onlineSellingEnabled: false });
+
+  const [renewingTenant, setRenewingTenant] = useState<Tenant | null>(null);
+  const [renewStartDate, setRenewStartDate] = useState(new Date().toISOString().split('T')[0]);
 
   const load = () => {
     setLoading(true);
@@ -159,13 +162,24 @@ export default function TenantsPage() {
     }
   };
 
-  const handleRenew = async (tenant: Tenant) => {
+  const openRenewModal = (tenant: Tenant) => {
+    setRenewingTenant(tenant);
+    setRenewStartDate(new Date().toISOString().split('T')[0]);
+    setError('');
+  };
+
+  const handleRenewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!renewingTenant) return;
     setError('');
     try {
-      await api.post(`/tenants/${tenant.id}/renew`);
-      setSuccessMsg(`Subscription for "${tenant.name}" renewed for 30 days.`);
+      await api.post(`/tenants/${renewingTenant.id}/renew`, { startDate: renewStartDate });
+      const endDate = new Date(renewStartDate);
+      endDate.setDate(endDate.getDate() + 30);
+      setSuccessMsg(`Subscription for "${renewingTenant.name}" activated from ${renewStartDate} to ${endDate.toISOString().split('T')[0]}.`);
+      setRenewingTenant(null);
       load();
-      setTimeout(() => setSuccessMsg(''), 4000);
+      setTimeout(() => setSuccessMsg(''), 5000);
     } catch (err: unknown) {
       const e = err as { response?: { data?: { message?: string } } };
       setError(e.response?.data?.message ?? 'Failed to renew subscription.');
@@ -384,6 +398,54 @@ export default function TenantsPage() {
         </div>
       )}
 
+      {/* RENEW / ACTIVATE MODAL */}
+      {renewingTenant && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="glass-modal rounded-xl p-6 w-full max-w-sm border border-white/10 space-y-4">
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <h2 className="font-bold text-stitch-on-surface font-space flex items-center gap-2">
+                <Calendar size={16} className="text-green-400" />
+                {renewingTenant.currentPeriodEnd ? 'Renew' : 'Activate'}: {renewingTenant.name}
+              </h2>
+              <button onClick={() => setRenewingTenant(null)} className="text-stitch-on-surface-variant hover:text-white transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+            <form onSubmit={handleRenewSubmit} className="space-y-4">
+              <div>
+                <label className={labelCls}>Subscription Start Date</label>
+                <input
+                  type="date"
+                  value={renewStartDate}
+                  onChange={(e) => setRenewStartDate(e.target.value)}
+                  required
+                  className={inputCls}
+                />
+                <p className="text-[10px] text-stitch-on-surface-variant mt-1.5">
+                  Subscription will be valid for 30 days from this date
+                  {renewStartDate && (() => {
+                    const end = new Date(renewStartDate);
+                    end.setDate(end.getDate() + 30);
+                    return ` (expires ${end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })})`;
+                  })()}
+                </p>
+              </div>
+              <div className="flex gap-2 justify-end pt-2 border-t border-white/5">
+                <button type="button" onClick={() => setRenewingTenant(null)}
+                  className="px-4 py-2 text-sm text-stitch-on-surface-variant border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                  Cancel
+                </button>
+                <button type="submit"
+                  className="px-4 py-2 text-sm bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-all active:scale-95 flex items-center gap-1.5">
+                  <CreditCard size={14} />
+                  {renewingTenant.currentPeriodEnd ? 'Renew Subscription' : 'Activate Subscription'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* TENANTS TABLE */}
       <div className="glass-card rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
@@ -436,7 +498,7 @@ export default function TenantsPage() {
                       {(() => {
                         if (!t.currentPeriodEnd) {
                           return (
-                            <button onClick={() => handleRenew(t)}
+                            <button onClick={() => openRenewModal(t)}
                               title="Start subscription (30 days)"
                               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors">
                               <CreditCard size={12} /> Activate
@@ -458,8 +520,8 @@ export default function TenantsPage() {
                             <span className="text-[9px] text-stitch-on-surface-variant font-mono">
                               {end.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                             </span>
-                            <button onClick={() => handleRenew(t)}
-                              title="Renew subscription (30 days from today)"
+                            <button onClick={() => openRenewModal(t)}
+                              title="Renew subscription (30 days from chosen date)"
                               className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition-colors w-fit">
                               <CreditCard size={10} /> Renew
                             </button>
