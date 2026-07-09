@@ -13,7 +13,7 @@ interface PosState {
 
 export const usePosStore = create<PosState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       dashboardData: null,
       isSyncing: false,
       lastSyncedAt: null,
