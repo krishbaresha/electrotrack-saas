@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <!-- Logo Icon -->
+  <g transform="translate(8, 8)">
+    <!-- Tracking Outer Ring -->
+    <circle cx="24" cy="24" r="20" stroke="url(#brand-grad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="90 30" />
+    <!-- Radar crosshair ticks -->
+    <path d="M24 0v3M24 45v3M0 24h3M45 24h3" stroke="#2fd9f4" stroke-width="2" stroke-linecap="round" />
+    <!-- Glowing Central Lightning Bolt -->
+    <path d="M27 11L16.5 24.5h7.5L21 37L31.5 23.5h-7.5L27 11z" fill="url(#bolt-grad)" stroke="#c0c1ff" stroke-width="0.5" stroke-linejoin="round" />
+  </g>
+  
+  <!-- Text "TechBill" -->
+  <text x="72" y="34" font-family="'Space Grotesk', system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#ffffff" letter-spacing="-0.03em">
+    Tech<tspan fill="#2fd9f4">Bill</tspan>
+  </text>
+  <!-- Subtitle "POS" or "SaaS" -->
+  <text x="72" y="47" font-family="'DM Sans', system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#908fa0" letter-spacing="0.15em">
+    ENTERPRISE POS
+  </text>
+
+  <defs>
+    <linearGradient id="brand-grad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2fd9f4" />
+      <stop offset="50%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#c0c1ff" />
+    </linearGradient>
+    <linearGradient id="bolt-grad" x1="16.5" y1="11" x2="31.5" y2="37" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2fd9f4" />
+      <stop offset="100%" stop-color="#c0c1ff" />
+    </linearGradient>
+  </defs>
+</svg>

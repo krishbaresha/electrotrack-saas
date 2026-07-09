@@ -1,0 +1,6 @@
+{
+  "name": "ElectroTrack",
+  "description": "SaaS dashboard for modern electronics business management, featuring real-time insights, sales overview, and stock management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
