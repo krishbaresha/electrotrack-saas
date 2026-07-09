@@ -38,6 +38,13 @@ export default function Login() {
   // Clear any stale persisted auth state when the login page mounts
   useEffect(() => { clearAuth(); }, [clearAuth]);
 
+  // Background ping to wake up the Render API (Cold Start Prevention)
+  useEffect(() => {
+    api.get('/health').catch(() => {
+      // Silently ignore errors. The goal is just to trigger a network request to wake the instance.
+    });
+  }, []);
+
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
