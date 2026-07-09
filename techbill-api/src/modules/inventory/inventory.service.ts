@@ -426,22 +426,16 @@ export class InventoryService {
       );
     }
 
-    const createdUnits = await this.prisma.$transaction(async (tx) => {
-      return Promise.all(
-        dto.units.map((u) =>
-          tx.inventoryUnit.create({
-            data: {
-              serialNumber: u.serialNumber,
-              productId: u.productId,
-              condition: u.condition,
-              purchasePrice: u.purchasePrice,
-              notes: u.notes,
-              grnId: u.grnId,
-              tenantId,
-            },
-          }),
-        ),
-      );
+    const createdUnits = await this.prisma.inventoryUnit.createManyAndReturn({
+      data: dto.units.map((u) => ({
+        serialNumber: u.serialNumber,
+        productId: u.productId,
+        condition: u.condition,
+        purchasePrice: u.purchasePrice,
+        notes: u.notes,
+        grnId: u.grnId,
+        tenantId,
+      })),
     });
 
     for (const unit of createdUnits) {
