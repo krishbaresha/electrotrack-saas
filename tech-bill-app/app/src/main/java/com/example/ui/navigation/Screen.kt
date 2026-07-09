@@ -1,9 +1,4 @@
 package com.example.ui.navigation
 
-sealed class Screen(val route: String) {
-    object Login : Screen("login")
-    object Dashboard : Screen("dashboard")
-    object Invoices : Screen("invoices")
-    object OnlineOrders : Screen("online_orders")
-    object Profile : Screen("profile")
-}
+// This file is intentionally empty.
+// The Screen sealed class is defined in AppNavigation.kt.

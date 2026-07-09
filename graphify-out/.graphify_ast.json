@@ -1,0 +1,5134 @@
+{
+  "nodes": [
+    {
+      "id": "techbill_api_agents_skills_shadcn_ui_examples_data_table_user",
+      "label": "User",
+      "file_type": "code",
+      "source_file": "techbill-api/.agents/skills/shadcn-ui/examples/data-table.tsx",
+      "source_location": "L41",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_claude_skills_shadcn_ui_examples_data_table_user",
+      "label": "User",
+      "file_type": "code",
+      "source_file": "techbill-api/.claude/skills/shadcn-ui/examples/data-table.tsx",
+      "source_location": "L41",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_app_controller_appcontroller",
+      "label": "AppController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/app.controller.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_app_module_appmodule",
+      "label": "AppModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_app_service_appservice",
+      "label": "AppService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/app.service.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "label": "JwtAuthGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/jwt-auth.guard.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_otp_guard_otpguard",
+      "label": "OtpGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/otp.guard.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "label": "PermissionsGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/permissions.guard.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_roles_guard_rolesguard",
+      "label": "RolesGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/roles.guard.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_subscription_guard_subscriptionguard",
+      "label": "SubscriptionGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/subscription.guard.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "label": "TenantGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/common/guards/tenant.guard.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_ai_ai_controller_aicontroller",
+      "label": "AiController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_ai_ai_module_aimodule",
+      "label": "AiModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/ai/ai.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "label": "AiService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/ai/ai.service.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_audit_audit_controller_auditcontroller",
+      "label": "AuditController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_audit_audit_module_auditmodule",
+      "label": "AuditModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/audit/audit.module.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_audit_audit_service_logentryinput",
+      "label": "LogEntryInput",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_audit_audit_service_auditservice",
+      "label": "AuditService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "label": "FilterAuditLogsDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/audit/dto/filter-audit-logs.dto.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_auth_controller_authcontroller",
+      "label": "AuthController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_auth_module_authmodule",
+      "label": "AuthModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_auth_service_authservice",
+      "label": "AuthService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_dto_login_dto_logindto",
+      "label": "LoginDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/dto/login.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_dto_request_otp_dto_requestotpdto",
+      "label": "RequestOtpDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/dto/request-otp.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_dto_verify_otp_dto_verifyotpdto",
+      "label": "VerifyOtpDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/dto/verify-otp.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_guards_jwt_auth_guard_jwtauthguard",
+      "label": "JwtAuthGuard",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/guards/jwt-auth.guard.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_jwt_strategy_jwtstrategy",
+      "label": "JwtStrategy",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/jwt.strategy.ts",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_auth_otp_service_otpservice",
+      "label": "OtpService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/auth/otp.service.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_events_events_gateway_eventsgateway",
+      "label": "EventsGateway",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/events/events.gateway.ts",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_events_events_module_eventsmodule",
+      "label": "EventsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/events/events.module.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_expenses_dto_create_expense_dto_createexpensedto",
+      "label": "CreateExpenseDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/expenses/dto/create-expense.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_expenses_expenses_controller_expensescontroller",
+      "label": "ExpensesController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_expenses_expenses_module_expensesmodule",
+      "label": "ExpensesModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/expenses/expenses.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_expenses_expenses_service_expensesservice",
+      "label": "ExpensesService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/expenses/expenses.service.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "label": "BulkCreateUnitsDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/bulk-create-units.dto.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "label": "CreateProductDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/create-product.dto.ts",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "label": "CreateUnitDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/create-unit.dto.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_filter_units_dto_filterunitsdto",
+      "label": "FilterUnitsDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/filter-units.dto.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_update_product_dto_updateproductdto",
+      "label": "UpdateProductDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/update-product.dto.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_dto_update_unit_dto_updateunitdto",
+      "label": "UpdateUnitDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/dto/update-unit.dto.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_inventory_controller_inventorycontroller",
+      "label": "InventoryController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_inventory_module_inventorymodule",
+      "label": "InventoryModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/inventory.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_inventory_inventory_service_inventoryservice",
+      "label": "InventoryService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_notifications_notifications_controller_notificationscontroller",
+      "label": "NotificationsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_notifications_notifications_listener_notificationslistener",
+      "label": "NotificationsListener",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/notifications/notifications.listener.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_notifications_notifications_module_notificationsmodule",
+      "label": "NotificationsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/notifications/notifications.module.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "label": "NotificationsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/notifications/notifications.service.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_payments_dto_create_payment_transaction_dto_createpaymenttransactiondto",
+      "label": "CreatePaymentTransactionDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/payments/dto/create-payment-transaction.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_payments_payments_controller_paymentscontroller",
+      "label": "PaymentsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_payments_payments_module_paymentsmodule",
+      "label": "PaymentsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/payments/payments.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_payments_payments_service_paymentsservice",
+      "label": "PaymentsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/payments/payments.service.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_dto_filter_reconciliation_dto_filterreconciliationdto",
+      "label": "FilterReconciliationDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/dto/filter-reconciliation.dto.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_dto_reconciliation_dto_reconciliationdto",
+      "label": "ReconciliationDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/dto/reconciliation.dto.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "label": "SalesSummaryQueryDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/dto/sales-summary-query.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_reports_controller_reportscontroller",
+      "label": "ReportsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_reports_module_reportsmodule",
+      "label": "ReportsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/reports.module.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_reports_scheduler_reportsscheduler",
+      "label": "ReportsScheduler",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/reports.scheduler.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_reports_service_reportsservice",
+      "label": "ReportsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_perproductvalue",
+      "label": "PerProductValue",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_lowstockitem",
+      "label": "LowStockItem",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_dailysalessummarydto",
+      "label": "DailySalesSummaryDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_stockvaluationdto",
+      "label": "StockValuationDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_lowstocklistdto",
+      "label": "LowStockListDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_reports_schemas_report_dto_cashreconciliationdto",
+      "label": "CashReconciliationDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/reports/schemas/report.dto.ts",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_dto_approve_return_dto_approvereturndto",
+      "label": "ApproveReturnDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/dto/approve-return.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_dto_create_return_dto_createreturndto",
+      "label": "CreateReturnDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/dto/create-return.dto.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_dto_filter_returns_dto_filterreturnsdto",
+      "label": "FilterReturnsDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/dto/filter-returns.dto.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_dto_reject_return_dto_rejectreturndto",
+      "label": "RejectReturnDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/dto/reject-return.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "label": "ReviewReturnDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/dto/review-return.dto.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_returns_controller_returnscontroller",
+      "label": "ReturnsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_returns_module_returnsmodule",
+      "label": "ReturnsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/returns.module.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_returns_returns_service_returnsservice",
+      "label": "ReturnsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_dto_create_sale_dto_createsaledto",
+      "label": "CreateSaleDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/dto/create-sale.dto.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_dto_filter_sales_dto_filtersalesdto",
+      "label": "FilterSalesDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/dto/filter-sales.dto.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_dto_upsert_customer_dto_upsertcustomerdto",
+      "label": "UpsertCustomerDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/dto/upsert-customer.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_dto_void_sale_dto_voidsaledto",
+      "label": "VoidSaleDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/dto/void-sale.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_public_sales_controller_publicsalescontroller",
+      "label": "PublicSalesController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/public-sales.controller.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_sales_controller_salescontroller",
+      "label": "SalesController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_sales_module_salesmodule",
+      "label": "SalesModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/sales.module.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_sales_sales_service_salesservice",
+      "label": "SalesService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_settings_settings_controller_settingscontroller",
+      "label": "SettingsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_settings_settings_module_settingsmodule",
+      "label": "SettingsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/settings/settings.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_settings_settings_service_settingsservice",
+      "label": "SettingsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/settings/settings.service.ts",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_dto_create_po_dto_poitemdto",
+      "label": "PoItemDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/dto/create-po.dto.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_dto_create_po_dto_createpodto",
+      "label": "CreatePoDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/dto/create-po.dto.ts",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "label": "CreateSupplierDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/dto/create-supplier.dto.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller",
+      "label": "SuppliersController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_suppliers_module_suppliersmodule",
+      "label": "SuppliersModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_suppliers_suppliers_service_suppliersservice",
+      "label": "SuppliersService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_tenants_tenants_controller_tenantscontroller",
+      "label": "TenantsController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/tenants/tenants.controller.ts",
+      "source_location": "L31",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_tenants_tenants_module_tenantsmodule",
+      "label": "TenantsModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/tenants/tenants.module.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_tenants_tenants_service_tenantsservice",
+      "label": "TenantsService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/tenants/tenants.service.ts",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_users_dto_create_user_dto_createuserdto",
+      "label": "CreateUserDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/users/dto/create-user.dto.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_users_dto_create_user_dto_updateuserdto",
+      "label": "UpdateUserDto",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/users/dto/create-user.dto.ts",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_users_users_controller_userscontroller",
+      "label": "UsersController",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_users_users_module_usersmodule",
+      "label": "UsersModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/users/users.module.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_modules_users_users_service_usersservice",
+      "label": "UsersService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "label": "PrismaModule",
+      "file_type": "code",
+      "source_file": "techbill-api/src/prisma/prisma.module.ts",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "label": "PrismaService",
+      "file_type": "code",
+      "source_file": "techbill-api/src/prisma/prisma.service.ts",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_app_app",
+      "label": "App",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L96",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_api_socket_connectsocket",
+      "label": "connectSocket",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/api/socket.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_api_socket_disconnectsocket",
+      "label": "disconnectSocket",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/api/socket.ts",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_auth_protectedroute_protectedroute",
+      "label": "ProtectedRoute",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/auth/ProtectedRoute.tsx",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_common_skeleton_skeleton",
+      "label": "Skeleton",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/common/Skeleton.tsx",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_dashboard_stockalerts_stockalerts",
+      "label": "StockAlerts",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/dashboard/StockAlerts.tsx",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_layout_publiclayout_usepublictheme",
+      "label": "usePublicTheme",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/layout/PublicLayout.tsx",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_pos_barcodescanner_barcodescanner",
+      "label": "BarcodeScanner",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/pos/BarcodeScanner.tsx",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_pos_productgrid_productcard",
+      "label": "ProductCard",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/pos/ProductGrid.tsx",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_pos_universalsearch_searchproduct",
+      "label": "SearchProduct",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/pos/UniversalSearch.tsx",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_components_pos_universalsearch_universalsearch",
+      "label": "UniversalSearch",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/components/pos/UniversalSearch.tsx",
+      "source_location": "L52",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_db_offline_db_queuesale",
+      "label": "queueSale",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/db/offline.db.ts",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_db_offline_db_getpendingcount",
+      "label": "getPendingCount",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/db/offline.db.ts",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_db_offline_db_getfailedcount",
+      "label": "getFailedCount",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/db/offline.db.ts",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_db_offline_db_processpendingsales",
+      "label": "processPendingSales",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/db/offline.db.ts",
+      "source_location": "L42",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_hooks_usefeaturegate_plantier",
+      "label": "PlanTier",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/hooks/useFeatureGate.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_hooks_usefeaturegate_planlimits",
+      "label": "PlanLimits",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/hooks/useFeatureGate.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "label": "useFeatureGate",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/hooks/useFeatureGate.ts",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_hooks_usekeepalive_usekeepalive",
+      "label": "useKeepAlive",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/hooks/useKeepAlive.ts",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_can",
+      "label": "can",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_canany",
+      "label": "canAny",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_canall",
+      "label": "canAll",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_hasrole",
+      "label": "hasRole",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L45",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_usecan",
+      "label": "useCan",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L54",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_usecanany",
+      "label": "useCanAny",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L61",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_lib_permissions_usehasrole",
+      "label": "useHasRole",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_pages_customers_loyaltypage_loyaltypage",
+      "label": "LoyaltyPage",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/pages/customers/LoyaltyPage.tsx",
+      "source_location": "L43",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_pages_public_checkoutpage_checkoutpage",
+      "label": "CheckoutPage",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/pages/public/CheckoutPage.tsx",
+      "source_location": "L64",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_pages_public_returnpolicy_returnpolicy",
+      "label": "ReturnPolicy",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/pages/public/ReturnPolicy.tsx",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_pages_public_shippingpolicy_shippingpolicy",
+      "label": "ShippingPolicy",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/pages/public/ShippingPolicy.tsx",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_pages_public_termsofservice_termsofservice",
+      "label": "TermsOfService",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/pages/public/TermsOfService.tsx",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_store_dashboard_store_insightresponse",
+      "label": "InsightResponse",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_store_dashboard_store_daydata",
+      "label": "DayData",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_store_toast_store_toast",
+      "label": "Toast",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/store/toast.store.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_role",
+      "label": "Role",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_permission",
+      "label": "Permission",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_user",
+      "label": "User",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_staffuser",
+      "label": "StaffUser",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L51",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_productcard",
+      "label": "ProductCard",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L63",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_dashboarddata",
+      "label": "DashboardData",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L74",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_returnitem",
+      "label": "ReturnItem",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L87",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_shopsettings",
+      "label": "ShopSettings",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L110",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_auditlog",
+      "label": "AuditLog",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L130",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_reconciliation",
+      "label": "Reconciliation",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L141",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_staffperformance",
+      "label": "StaffPerformance",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L154",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_deadstockitem",
+      "label": "DeadStockItem",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L162",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_productspecifications",
+      "label": "ProductSpecifications",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L172",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_product",
+      "label": "Product",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L185",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_inventoryunit",
+      "label": "InventoryUnit",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L202",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_cartitem",
+      "label": "CartItem",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L210",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_saleitem",
+      "label": "SaleItem",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L218",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_sale",
+      "label": "Sale",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L227",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_salessummary",
+      "label": "SalesSummary",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L249",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_lowstockitem",
+      "label": "LowStockItem",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L266",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_notification",
+      "label": "Notification",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L275",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_wssalecreatedpayload",
+      "label": "WsSaleCreatedPayload",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L284",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_wsstocklowpayload",
+      "label": "WsStockLowPayload",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L293",
+      "_origin": "ast"
+    },
+    {
+      "id": "techbill_pos_src_types_index_tenant",
+      "label": "Tenant",
+      "file_type": "code",
+      "source_file": "techbill-pos/src/types/index.ts",
+      "source_location": "L301",
+      "_origin": "ast"
+    }
+  ],
+  "edges": [
+    {
+      "source": "techbill_api_src_app_controller_spec",
+      "target": "techbill_api_src_app_controller_appcontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.controller.spec.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_controller_spec",
+      "target": "techbill_api_src_app_service_appservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.controller.spec.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_controller",
+      "target": "techbill_api_src_app_service_appservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_app_controller_appcontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_app_service_appservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_auth_auth_module_authmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_inventory_inventory_module_inventorymodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_sales_sales_module_salesmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_returns_returns_module_returnsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_audit_audit_module_auditmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_events_events_module_eventsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_reports_reports_module_reportsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_users_users_module_usersmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_notifications_notifications_module_notificationsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_suppliers_suppliers_module_suppliersmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_tenants_tenants_module_tenantsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_settings_settings_module_settingsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_ai_ai_module_aimodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_expenses_expenses_module_expensesmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_app_module",
+      "target": "techbill_api_src_modules_payments_payments_module_paymentsmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.module.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_common_guards_subscription_guard",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/common/guards/subscription.guard.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_main",
+      "target": "techbill_api_src_app_module_appmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/main.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_controller",
+      "target": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_controller",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_module",
+      "target": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_module",
+      "target": "techbill_api_src_modules_ai_ai_controller_aicontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_ai_ai_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_controller",
+      "target": "techbill_api_src_modules_audit_audit_service_auditservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_controller",
+      "target": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_module",
+      "target": "techbill_api_src_modules_audit_audit_controller_auditcontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_module",
+      "target": "techbill_api_src_modules_audit_audit_service_auditservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_audit_audit_service",
+      "target": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_controller",
+      "target": "techbill_api_src_modules_auth_auth_service_authservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_controller",
+      "target": "techbill_api_src_modules_auth_dto_login_dto_logindto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_controller",
+      "target": "techbill_api_src_modules_auth_dto_verify_otp_dto_verifyotpdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_modules_auth_auth_controller_authcontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_modules_auth_auth_service_authservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_modules_auth_otp_service_otpservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_modules_auth_jwt_strategy_jwtstrategy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_common_guards_roles_guard_rolesguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_common_guards_otp_guard_otpguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_module",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.module.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_service",
+      "target": "techbill_api_src_modules_auth_otp_service_otpservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_auth_service",
+      "target": "techbill_api_src_modules_auth_dto_login_dto_logindto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_auth_jwt_strategy",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/jwt.strategy.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_events_events_module",
+      "target": "techbill_api_src_modules_auth_auth_module_authmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/events/events.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_events_events_module",
+      "target": "techbill_api_src_modules_events_events_gateway_eventsgateway",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/events/events.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_controller",
+      "target": "techbill_api_src_modules_expenses_expenses_service_expensesservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_controller",
+      "target": "techbill_api_src_modules_expenses_dto_create_expense_dto_createexpensedto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_module",
+      "target": "techbill_api_src_modules_expenses_expenses_controller_expensescontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_module",
+      "target": "techbill_api_src_modules_expenses_expenses_service_expensesservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_expenses_expenses_service",
+      "target": "techbill_api_src_modules_expenses_dto_create_expense_dto_createexpensedto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/dto/bulk-create-units.dto.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_dto_update_product_dto",
+      "target": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/dto/update-product.dto.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_inventory_service_inventoryservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_update_product_dto_updateproductdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_update_unit_dto_updateunitdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_modules_inventory_dto_filter_units_dto_filterunitsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_module",
+      "target": "techbill_api_src_modules_inventory_inventory_controller_inventorycontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_module",
+      "target": "techbill_api_src_modules_inventory_inventory_service_inventoryservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_module",
+      "target": "techbill_api_src_modules_ai_ai_module_aimodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_update_product_dto_updateproductdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_update_unit_dto_updateunitdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_inventory_service",
+      "target": "techbill_api_src_modules_inventory_dto_filter_units_dto_filterunitsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_controller",
+      "target": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_listener",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.listener.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_listener",
+      "target": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.listener.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_module",
+      "target": "techbill_api_src_modules_notifications_notifications_controller_notificationscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_module",
+      "target": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_module",
+      "target": "techbill_api_src_modules_notifications_notifications_listener_notificationslistener",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.module.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_notifications_notifications_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_controller",
+      "target": "techbill_api_src_modules_payments_payments_service_paymentsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_controller",
+      "target": "techbill_api_src_modules_payments_dto_create_payment_transaction_dto_createpaymenttransactiondto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_module",
+      "target": "techbill_api_src_modules_payments_payments_controller_paymentscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_module",
+      "target": "techbill_api_src_modules_payments_payments_service_paymentsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_payments_payments_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_modules_reports_reports_service_reportsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_modules_reports_dto_reconciliation_dto_reconciliationdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_modules_reports_dto_filter_reconciliation_dto_filterreconciliationdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_module",
+      "target": "techbill_api_src_modules_reports_reports_controller_reportscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_module",
+      "target": "techbill_api_src_modules_reports_reports_service_reportsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_service",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_service",
+      "target": "techbill_api_src_modules_reports_dto_reconciliation_dto_reconciliationdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_reports_reports_service",
+      "target": "techbill_api_src_modules_reports_dto_filter_reconciliation_dto_filterreconciliationdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_modules_returns_returns_service_returnsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_modules_returns_dto_create_return_dto_createreturndto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_modules_returns_dto_filter_returns_dto_filterreturnsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_module",
+      "target": "techbill_api_src_modules_returns_returns_controller_returnscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_module",
+      "target": "techbill_api_src_modules_returns_returns_service_returnsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.module.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_module",
+      "target": "techbill_api_src_common_guards_otp_guard_otpguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.module.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_service",
+      "target": "techbill_api_src_modules_returns_dto_create_return_dto_createreturndto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_service",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_returns_returns_service",
+      "target": "techbill_api_src_modules_returns_dto_filter_returns_dto_filterreturnsdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_public_sales_controller",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/public-sales.controller.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_modules_sales_sales_service_salesservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_modules_sales_dto_create_sale_dto_createsaledto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_modules_sales_dto_void_sale_dto_voidsaledto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_modules_sales_dto_filter_sales_dto_filtersalesdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_modules_sales_dto_upsert_customer_dto_upsertcustomerdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_controller",
+      "target": "techbill_api_src_common_guards_subscription_guard_subscriptionguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_module",
+      "target": "techbill_api_src_modules_sales_sales_controller_salescontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_module",
+      "target": "techbill_api_src_modules_sales_public_sales_controller_publicsalescontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.module.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_module",
+      "target": "techbill_api_src_modules_sales_sales_service_salesservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.module.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_module",
+      "target": "techbill_api_src_common_guards_otp_guard_otpguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.module.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_service",
+      "target": "techbill_api_src_modules_sales_dto_create_sale_dto_createsaledto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_service",
+      "target": "techbill_api_src_modules_sales_dto_void_sale_dto_voidsaledto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_service",
+      "target": "techbill_api_src_modules_sales_dto_filter_sales_dto_filtersalesdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_sales_sales_service",
+      "target": "techbill_api_src_modules_sales_dto_upsert_customer_dto_upsertcustomerdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_controller",
+      "target": "techbill_api_src_modules_settings_settings_service_settingsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_module",
+      "target": "techbill_api_src_modules_settings_settings_service_settingsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_module",
+      "target": "techbill_api_src_modules_settings_settings_controller_settingscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_module",
+      "target": "techbill_api_src_modules_auth_auth_module_authmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_settings_settings_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_modules_suppliers_suppliers_service_suppliersservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_modules_suppliers_dto_create_po_dto_createpodto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_module",
+      "target": "techbill_api_src_modules_suppliers_suppliers_service_suppliersservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_module",
+      "target": "techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_module",
+      "target": "techbill_api_src_prisma_prisma_module_prismamodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_service",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_suppliers_suppliers_service",
+      "target": "techbill_api_src_modules_suppliers_dto_create_po_dto_createpodto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_controller",
+      "target": "techbill_api_src_modules_tenants_tenants_service_tenantsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_controller",
+      "target": "techbill_api_src_common_guards_roles_guard_rolesguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_module",
+      "target": "techbill_api_src_modules_tenants_tenants_service_tenantsservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_module",
+      "target": "techbill_api_src_modules_tenants_tenants_controller_tenantscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_module",
+      "target": "techbill_api_src_modules_auth_auth_module_authmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.module.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_tenants_tenants_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.service.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_modules_users_users_service_usersservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_createuserdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_updateuserdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_common_guards_jwt_auth_guard_jwtauthguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_common_guards_tenant_guard_tenantguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_controller",
+      "target": "techbill_api_src_common_guards_permissions_guard_permissionsguard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_module",
+      "target": "techbill_api_src_modules_users_users_controller_userscontroller",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_module",
+      "target": "techbill_api_src_modules_users_users_service_usersservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.module.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_service",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_service",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_createuserdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_users_users_service",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_updateuserdto",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_prisma_prisma_module",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/prisma/prisma.module.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_test_app_e2e_spec",
+      "target": "techbill_api_src_app_module_appmodule",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/test/app.e2e-spec.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_pages_public_termsofservice_termsofservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_pages_public_checkoutpage_checkoutpage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_pages_public_returnpolicy_returnpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_pages_public_shippingpolicy_shippingpolicy",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_pages_customers_loyaltypage_loyaltypage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_lib_permissions_can",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_types_index_role",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_app",
+      "target": "techbill_pos_src_types_index_permission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_auth_lockoverlay",
+      "target": "techbill_pos_src_api_socket_disconnectsocket",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/auth/LockOverlay.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_common_toastcontainer",
+      "target": "techbill_pos_src_store_toast_store_toast",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/common/ToastContainer.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_dashboard_salesfeed",
+      "target": "techbill_pos_src_types_index_wssalecreatedpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/dashboard/SalesFeed.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_dashboard_stockalerts",
+      "target": "techbill_pos_src_types_index_wsstocklowpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/dashboard/StockAlerts.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_layout_appshell",
+      "target": "techbill_pos_src_api_socket_disconnectsocket",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/AppShell.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_layout_appshell",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/AppShell.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_layout_appshell",
+      "target": "techbill_pos_src_types_index_notification",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/AppShell.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_layout_publiclayout",
+      "target": "techbill_pos_src_lib_permissions_can",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/PublicLayout.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_layout_publiclayout",
+      "target": "techbill_pos_src_hooks_usekeepalive_usekeepalive",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/PublicLayout.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_invoicemodal",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/InvoiceModal.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_invoicemodal",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/InvoiceModal.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_invoicemodal",
+      "target": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/InvoiceModal.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_paymentform",
+      "target": "techbill_pos_src_db_offline_db_queuesale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/PaymentForm.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_paymentform",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/PaymentForm.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_paymentform",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/PaymentForm.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_paymentform",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/PaymentForm.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_productgrid",
+      "target": "techbill_pos_src_types_index_productspecifications",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/ProductGrid.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_serialinput",
+      "target": "techbill_pos_src_types_index_inventoryunit",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/SerialInput.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_serialinput",
+      "target": "techbill_pos_src_types_index_product",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/SerialInput.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_serialinput",
+      "target": "techbill_pos_src_components_pos_barcodescanner_barcodescanner",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/SerialInput.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_universalsearch",
+      "target": "techbill_pos_src_components_pos_barcodescanner_barcodescanner",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/UniversalSearch.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_lib_permissions",
+      "target": "techbill_pos_src_types_index_permission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_lib_permissions",
+      "target": "techbill_pos_src_types_index_role",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/lib/permissions.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_main",
+      "target": "techbill_pos_src_app_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/main.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_main",
+      "target": "techbill_pos_src_db_offline_db_processpendingsales",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/main.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_landingpage",
+      "target": "techbill_pos_src_components_layout_publiclayout_usepublictheme",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/LandingPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_login",
+      "target": "techbill_pos_src_api_socket_connectsocket",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/Login.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_login",
+      "target": "techbill_pos_src_types_index_user",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/Login.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_notfoundpage",
+      "target": "techbill_pos_src_lib_permissions_can",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/NotFoundPage.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_audit_auditpage",
+      "target": "techbill_pos_src_types_index_auditlog",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/audit/AuditPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_dashboard_ownerdashboard",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/dashboard/OwnerDashboard.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_dashboard_ownerdashboard",
+      "target": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/dashboard/OwnerDashboard.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_dashboard_ownerdashboard",
+      "target": "techbill_pos_src_components_dashboard_stockalerts_stockalerts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/dashboard/OwnerDashboard.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_inventory_inventorypage",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/inventory/InventoryPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_inventory_inventorypage",
+      "target": "techbill_pos_src_types_index_product",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/inventory/InventoryPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_inventory_inventorypage",
+      "target": "techbill_pos_src_types_index_inventoryunit",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/inventory/InventoryPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_components_pos_universalsearch_searchproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_components_pos_universalsearch_universalsearch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_types_index_productcard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_pos_posscreen",
+      "target": "techbill_pos_src_types_index_dashboarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/pos/PosScreen.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_reports_reportspage",
+      "target": "techbill_pos_src_types_index_salessummary",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/reports/ReportsPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_reports_reportspage",
+      "target": "techbill_pos_src_types_index_staffperformance",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/reports/ReportsPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_reports_reportspage",
+      "target": "techbill_pos_src_types_index_deadstockitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/reports/ReportsPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_reports_reportspage",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/reports/ReportsPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_reports_reportspage",
+      "target": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/reports/ReportsPage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_returns_returnspage",
+      "target": "techbill_pos_src_types_index_returnitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/returns/ReturnsPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_sales_invoicehistorypage",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/sales/InvoiceHistoryPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_sales_invoicehistorypage",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/sales/InvoiceHistoryPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_sales_onlineorderspage",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/sales/OnlineOrdersPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_settings_settingspage",
+      "target": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/settings/SettingsPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_settings_settingspage",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/settings/SettingsPage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_suppliers_grnpage",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/suppliers/GrnPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_suppliers_purchaseorderspage",
+      "target": "techbill_pos_src_types_index_product",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/suppliers/PurchaseOrdersPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_tenants_tenantspage",
+      "target": "techbill_pos_src_types_index_tenant",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/tenants/TenantsPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_users_userspage",
+      "target": "techbill_pos_src_lib_permissions_usecan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_users_userspage",
+      "target": "techbill_pos_src_hooks_usefeaturegate_usefeaturegate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_users_userspage",
+      "target": "techbill_pos_src_types_index_staffuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_users_userspage",
+      "target": "techbill_pos_src_types_index_role",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_pages_users_userspage",
+      "target": "techbill_pos_src_types_index_permission",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_auth_store",
+      "target": "techbill_pos_src_types_index_user",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/auth.store.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_cart_store",
+      "target": "techbill_pos_src_types_index_cartitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/cart.store.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_dashboard_store",
+      "target": "techbill_pos_src_types_index_salessummary",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_dashboard_store",
+      "target": "techbill_pos_src_types_index_lowstockitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_dashboard_store",
+      "target": "techbill_pos_src_types_index_wsstocklowpayload",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_inventory_store",
+      "target": "techbill_pos_src_components_pos_universalsearch_searchproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/inventory.store.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_store_pos_store",
+      "target": "techbill_pos_src_types_index_dashboarddata",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/pos.store.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_app_requireauth",
+      "target": "techbill_pos_src_lib_permissions_can",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/App.tsx",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_auth_lockoverlay_handlelogout",
+      "target": "techbill_pos_src_api_socket_disconnectsocket",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/auth/LockOverlay.tsx",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_layout_appshell_handlelogout",
+      "target": "techbill_pos_src_api_socket_disconnectsocket",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/layout/AppShell.tsx",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_pos_paymentform_onsubmit",
+      "target": "techbill_pos_src_db_offline_db_queuesale",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/PaymentForm.tsx",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_main_syncofflinesales",
+      "target": "techbill_pos_src_db_offline_db_processpendingsales",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/main.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_login_handleloginsubmit",
+      "target": "techbill_pos_src_api_socket_connectsocket",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/Login.tsx",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_notfoundpage_homeroute",
+      "target": "techbill_pos_src_lib_permissions_can",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/NotFoundPage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_app_controller_appcontroller_constructor",
+      "target": "techbill_api_src_app_service_appservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/app.controller.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_common_guards_subscription_guard_subscriptionguard_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/common/guards/subscription.guard.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_ai_ai_controller_aicontroller_constructor",
+      "target": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_ai_ai_controller_aicontroller_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/ai/ai.controller.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_audit_audit_controller_auditcontroller_constructor",
+      "target": "techbill_api_src_modules_audit_audit_service_auditservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_audit_audit_controller_auditcontroller_findall",
+      "target": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_audit_audit_controller_auditcontroller_exportcsv",
+      "target": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.controller.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_audit_audit_service_auditservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_audit_audit_service_auditservice_findall",
+      "target": "techbill_api_src_modules_audit_dto_filter_audit_logs_dto_filterauditlogsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/audit/audit.service.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_controller_authcontroller_constructor",
+      "target": "techbill_api_src_modules_auth_auth_service_authservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_controller_authcontroller_login",
+      "target": "techbill_api_src_modules_auth_dto_login_dto_logindto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_controller_authcontroller_verifyotp",
+      "target": "techbill_api_src_modules_auth_dto_verify_otp_dto_verifyotpdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.controller.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_service_authservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_service_authservice_constructor",
+      "target": "techbill_api_src_modules_auth_otp_service_otpservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_auth_service_authservice_login",
+      "target": "techbill_api_src_modules_auth_dto_login_dto_logindto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/auth.service.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_auth_jwt_strategy_jwtstrategy_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/auth/jwt.strategy.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_expenses_expenses_controller_expensescontroller_constructor",
+      "target": "techbill_api_src_modules_expenses_expenses_service_expensesservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_expenses_expenses_controller_expensescontroller_createexpense",
+      "target": "techbill_api_src_modules_expenses_dto_create_expense_dto_createexpensedto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.controller.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_expenses_expenses_service_expensesservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.service.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_expenses_expenses_service_expensesservice_createexpense",
+      "target": "techbill_api_src_modules_expenses_dto_create_expense_dto_createexpensedto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/expenses/expenses.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/dto/bulk-create-units.dto.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_constructor",
+      "target": "techbill_api_src_modules_inventory_inventory_service_inventoryservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_createproduct",
+      "target": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_updateproduct",
+      "target": "techbill_api_src_modules_inventory_dto_update_product_dto_updateproductdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_listunits",
+      "target": "techbill_api_src_modules_inventory_dto_filter_units_dto_filterunitsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_createunit",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_bulkcreateunits",
+      "target": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_controller_inventorycontroller_updateunit",
+      "target": "techbill_api_src_modules_inventory_dto_update_unit_dto_updateunitdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.controller.ts",
+      "source_location": "L129",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_constructor",
+      "target": "techbill_api_src_modules_ai_ai_service_aiservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_createproduct",
+      "target": "techbill_api_src_modules_inventory_dto_create_product_dto_createproductdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L196",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_updateproduct",
+      "target": "techbill_api_src_modules_inventory_dto_update_product_dto_updateproductdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L261",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_listunits",
+      "target": "techbill_api_src_modules_inventory_dto_filter_units_dto_filterunitsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L284",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_createunit",
+      "target": "techbill_api_src_modules_inventory_dto_create_unit_dto_createunitdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L364",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_bulkcreateunits",
+      "target": "techbill_api_src_modules_inventory_dto_bulk_create_units_dto_bulkcreateunitsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L407",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_inventory_inventory_service_inventoryservice_updateunit",
+      "target": "techbill_api_src_modules_inventory_dto_update_unit_dto_updateunitdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/inventory/inventory.service.ts",
+      "source_location": "L460",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_notifications_notifications_controller_notificationscontroller_constructor",
+      "target": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.controller.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_notifications_notifications_listener_notificationslistener_constructor",
+      "target": "techbill_api_src_modules_notifications_notifications_service_notificationsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.listener.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_notifications_notifications_listener_notificationslistener_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.listener.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_notifications_notifications_service_notificationsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/notifications/notifications.service.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_payments_payments_controller_paymentscontroller_constructor",
+      "target": "techbill_api_src_modules_payments_payments_service_paymentsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_payments_payments_controller_paymentscontroller_createtesttransaction",
+      "target": "techbill_api_src_modules_payments_dto_create_payment_transaction_dto_createpaymenttransactiondto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.controller.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_payments_payments_service_paymentsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/payments/payments.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_controller_reportscontroller_constructor",
+      "target": "techbill_api_src_modules_reports_reports_service_reportsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_controller_reportscontroller_salessummary",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_controller_reportscontroller_salessummaryrange",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_controller_reportscontroller_submitreconciliation",
+      "target": "techbill_api_src_modules_reports_dto_reconciliation_dto_reconciliationdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_controller_reportscontroller_listreconciliations",
+      "target": "techbill_api_src_modules_reports_dto_filter_reconciliation_dto_filterreconciliationdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.controller.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_service_reportsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_service_reportsservice_salessummary",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_service_reportsservice_salessummaryrange",
+      "target": "techbill_api_src_modules_reports_dto_sales_summary_query_dto_salessummaryquerydto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_service_reportsservice_submitreconciliation",
+      "target": "techbill_api_src_modules_reports_dto_reconciliation_dto_reconciliationdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L336",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_reports_reports_service_reportsservice_listreconciliations",
+      "target": "techbill_api_src_modules_reports_dto_filter_reconciliation_dto_filterreconciliationdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/reports/reports.service.ts",
+      "source_location": "L654",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_controller_returnscontroller_constructor",
+      "target": "techbill_api_src_modules_returns_returns_service_returnsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_controller_returnscontroller_listreturns",
+      "target": "techbill_api_src_modules_returns_dto_filter_returns_dto_filterreturnsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_controller_returnscontroller_createreturn",
+      "target": "techbill_api_src_modules_returns_dto_create_return_dto_createreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_controller_returnscontroller_approvereturn",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_controller_returnscontroller_rejectreturn",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.controller.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_service_returnsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_service_returnsservice_createreturn",
+      "target": "techbill_api_src_modules_returns_dto_create_return_dto_createreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_service_returnsservice_listreturns",
+      "target": "techbill_api_src_modules_returns_dto_filter_returns_dto_filterreturnsdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_service_returnsservice_approvereturn",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L188",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_returns_returns_service_returnsservice_rejectreturn",
+      "target": "techbill_api_src_modules_returns_dto_review_return_dto_reviewreturndto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/returns/returns.service.ts",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_public_sales_controller_publicsalescontroller_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/public-sales.controller.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_controller_salescontroller_constructor",
+      "target": "techbill_api_src_modules_sales_sales_service_salesservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_controller_salescontroller_listsales",
+      "target": "techbill_api_src_modules_sales_dto_filter_sales_dto_filtersalesdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_controller_salescontroller_createsale",
+      "target": "techbill_api_src_modules_sales_dto_create_sale_dto_createsaledto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_controller_salescontroller_upsertcustomer",
+      "target": "techbill_api_src_modules_sales_dto_upsert_customer_dto_upsertcustomerdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_controller_salescontroller_voidsale",
+      "target": "techbill_api_src_modules_sales_dto_void_sale_dto_voidsaledto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.controller.ts",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_service_salesservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_service_salesservice_createsale",
+      "target": "techbill_api_src_modules_sales_dto_create_sale_dto_createsaledto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_service_salesservice_listsales",
+      "target": "techbill_api_src_modules_sales_dto_filter_sales_dto_filtersalesdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_service_salesservice_voidsale",
+      "target": "techbill_api_src_modules_sales_dto_void_sale_dto_voidsaledto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L341",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_sales_sales_service_salesservice_upsertcustomer",
+      "target": "techbill_api_src_modules_sales_dto_upsert_customer_dto_upsertcustomerdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/sales/sales.service.ts",
+      "source_location": "L389",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_settings_settings_controller_settingscontroller_constructor",
+      "target": "techbill_api_src_modules_settings_settings_service_settingsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.controller.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_settings_settings_service_settingsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/settings/settings.service.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller_constructor",
+      "target": "techbill_api_src_modules_suppliers_suppliers_service_suppliersservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller_createsupplier",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller_updatesupplier",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_controller_supplierscontroller_createpurchaseorder",
+      "target": "techbill_api_src_modules_suppliers_dto_create_po_dto_createpodto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.controller.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_service_suppliersservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_service_suppliersservice_createsupplier",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_service_suppliersservice_updatesupplier",
+      "target": "techbill_api_src_modules_suppliers_dto_create_supplier_dto_createsupplierdto",
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_suppliers_suppliers_service_suppliersservice_createpurchaseorder",
+      "target": "techbill_api_src_modules_suppliers_dto_create_po_dto_createpodto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/suppliers/suppliers.service.ts",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_tenants_tenants_controller_tenantscontroller_constructor",
+      "target": "techbill_api_src_modules_tenants_tenants_service_tenantsservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.controller.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_tenants_tenants_service_tenantsservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/tenants/tenants.service.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_controller_userscontroller_constructor",
+      "target": "techbill_api_src_modules_users_users_service_usersservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_controller_userscontroller_createuser",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_createuserdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_controller_userscontroller_updateuser",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_updateuserdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.controller.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_service_usersservice_constructor",
+      "target": "techbill_api_src_prisma_prisma_service_prismaservice",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_service_usersservice_createuser",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_createuserdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_api_src_modules_users_users_service_usersservice_updateuser",
+      "target": "techbill_api_src_modules_users_dto_create_user_dto_updateuserdto",
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-api/src/modules/users/users.service.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_dashboard_salesfeed_feeditem",
+      "target": "techbill_pos_src_types_index_wssalecreatedpayload",
+      "relation": "inherits",
+      "context": "type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/dashboard/SalesFeed.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_pos_invoicemodal_invoicemodalprops",
+      "target": "techbill_pos_src_types_index_sale",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/InvoiceModal.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_components_pos_invoicemodal_invoicemodalprops",
+      "target": "techbill_pos_src_types_index_shopsettings",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/InvoiceModal.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_pos_src_components_pos_productgrid_productcard",
+      "target": "techbill_pos_src_types_index_productspecifications",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/components/pos/ProductGrid.tsx",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_inventory_inventorypage_productwithstock",
+      "target": "techbill_pos_src_types_index_product",
+      "relation": "inherits",
+      "context": "type",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/inventory/InventoryPage.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_users_userspage_formstate",
+      "target": "techbill_pos_src_types_index_role",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_users_userspage_formstate",
+      "target": "techbill_pos_src_types_index_permission",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_pages_users_userspage_permissiongridprops",
+      "target": "techbill_pos_src_types_index_permission",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/pages/users/UsersPage.tsx",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_auth_store_authstate",
+      "target": "techbill_pos_src_types_index_user",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/auth.store.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_cart_store_cartstore",
+      "target": "techbill_pos_src_types_index_cartitem",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/cart.store.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_dashboard_store_dashboardstate",
+      "target": "techbill_pos_src_types_index_salessummary",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_dashboard_store_dashboardstate",
+      "target": "techbill_pos_src_types_index_lowstockitem",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_dashboard_store_dashboardstate",
+      "target": "techbill_pos_src_types_index_wsstocklowpayload",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/dashboard.store.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_inventory_store_inventorystate",
+      "target": "techbill_pos_src_components_pos_universalsearch_searchproduct",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/inventory.store.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "d_tech_bill_techbill_pos_src_store_pos_store_posstate",
+      "target": "techbill_pos_src_types_index_dashboarddata",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "techbill-pos/src/store/pos.store.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

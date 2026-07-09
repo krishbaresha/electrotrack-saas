@@ -48,6 +48,9 @@ export default function PosScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('in_stock');
   const [viewingProduct, setViewingProduct] = useState<ProductCard | null>(null);
+  // Keep a ref in sync so handleAddUnit can read the current product value
+  // without needing a state updater (which StrictMode would double-invoke).
+  const viewingProductRef = useRef<ProductCard | null>(null);
   const [unitPickerUnits, setUnitPickerUnits] = useState<InventoryUnit[]>([]);
   const [unitPickerLoading, setUnitPickerLoading] = useState(false);
   const [completedSale, setCompletedSale] = useState<Sale | null>(null);
@@ -136,6 +139,7 @@ export default function PosScreen() {
   }, [allProducts, selectedCategory, statusFilter]);
 
   const openUnitPicker = useCallback(async (product: ProductCard) => {
+    viewingProductRef.current = product;
     setViewingProduct(product);
     setUnitPickerUnits([]);
     setUnitPickerLoading(true);
@@ -150,27 +154,28 @@ export default function PosScreen() {
     } finally {
       setUnitPickerLoading(false);
     }
-  // viewingProduct is intentionally excluded â€” it's only set inside this fn
+  // viewingProduct is intentionally excluded — it's only set inside this fn
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddUnit = useCallback((unit: InventoryUnit) => {
-    setViewingProduct((prev) => {
-      if (!prev) return prev;
-      if (items.some((i) => i.serialNumber === unit.serialNumber)) {
-        toast.info(`"${unit.serialNumber}" is already in your cart.`);
-        return prev;
-      }
-      addItem({
-        serialNumber: unit.serialNumber,
-        productId: prev.id,
-        productName: prev.name,
-        brand: prev.brand,
-        sellingPrice: unit.sellingPrice ?? prev.sellingPrice,
-      });
-      toast.success(`Added ${prev.name} (${unit.serialNumber}) to cart.`);
-      return prev;
+    // Use the ref (not a state updater) to read the current product.
+    // Calling addItem inside a setViewingProduct updater caused React
+    // StrictMode to double-invoke it in dev — adding every item twice.
+    const product = viewingProductRef.current;
+    if (!product) return;
+    if (items.some((i) => i.serialNumber === unit.serialNumber)) {
+      toast.info(`"${unit.serialNumber}" is already in your cart.`);
+      return;
+    }
+    addItem({
+      serialNumber: unit.serialNumber,
+      productId: product.id,
+      productName: product.name,
+      brand: product.brand,
+      sellingPrice: unit.sellingPrice ?? product.sellingPrice,
     });
+    toast.success(`Added ${product.name} (${unit.serialNumber}) to cart.`);
     setUnitPickerUnits((prev) => prev.filter((u) => u.serialNumber !== unit.serialNumber));
   }, [items, addItem, toast]);
 
@@ -392,7 +397,10 @@ export default function PosScreen() {
           product={viewingProduct}
           units={unitPickerUnits}
           loading={unitPickerLoading}
-          onClose={() => setViewingProduct(null)}
+          onClose={() => {
+            setViewingProduct(null);
+            viewingProductRef.current = null;
+          }}
           onAdd={handleAddUnit}
           cartSerials={items.map((i) => i.serialNumber)}
         />

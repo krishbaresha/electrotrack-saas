@@ -204,6 +204,7 @@ model ShopSettings {
 model Product {
   id               String   @id @default(uuid()) @db.Uuid
   name             String   @db.VarChar(255)
+  sku              String?  @db.VarChar(100)
   brand            String?  @db.VarChar(100)
   category         String?  @db.VarChar(100)
   description      String?  @db.Text

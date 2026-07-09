@@ -11,9 +11,20 @@ import com.example.data.local.entity.InventoryEntity
 import com.example.data.local.entity.OfflineActionEntity
 import com.example.data.local.entity.SaleEntity
 
+/**
+ * AppDatabase — Room database for TechBill mobile.
+ *
+ * Version bumped to 2 to account for:
+ *  - `inventory_items` schema change: composite primary key (id, tenantId).
+ *  - `sale_items` schema change: new `tenantId` column added.
+ *
+ * `fallbackToDestructiveMigration()` is used in development to avoid manual migration
+ * scripts for these structural schema changes. Replace with proper migrations before
+ * shipping to production.
+ */
 @Database(
     entities = [InventoryEntity::class, SaleEntity::class, OfflineActionEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -32,7 +43,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "electrotrack_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

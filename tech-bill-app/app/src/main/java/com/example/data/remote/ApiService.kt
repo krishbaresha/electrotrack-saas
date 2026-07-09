@@ -38,6 +38,25 @@ interface ApiService {
     @GET("reports/sales-summary")
     suspend fun getSalesSummary(): SalesSummaryResponse
 
+    /**
+     * Fetch the feature-flag and role config for the currently authenticated tenant user.
+     * Used post-login and on every app-foreground resume.
+     * Endpoint: `GET /tenants/me/config`
+     */
+    @GET("tenants/me/config")
+    suspend fun getTenantConfig(): TenantConfigResponse
+
+    /**
+     * List all tenants — only accessible by `platform_admin` role.
+     * Endpoint: `GET /admin/tenants`
+     */
+    @GET("admin/tenants")
+    suspend fun getAdminTenants(): List<TenantModel>
+
+    /**
+     * Standard tenant listing for super-admin console.
+     * Endpoint: `GET /tenants`
+     */
     @GET("tenants")
     suspend fun getTenants(): List<TenantModel>
 

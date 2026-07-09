@@ -194,24 +194,45 @@ export class InventoryService {
   }
 
   async createProduct(dto: CreateProductDto, userId: string, tenantId: string) {
-    return this.prisma.product.create({
-      data: {
-        name: dto.name,
-        brand: dto.brand,
-        category: dto.category,
-        description: dto.description,
-        shortDescription: dto.shortDescription,
-        aiSummary: dto.aiSummary,
-        imageUrl: dto.imageUrl,
-        tags: dto.tags ?? [],
-        specifications: dto.specifications ?? undefined,
-        sellingPrice: dto.sellingPrice,
-        costPrice: dto.costPrice,
-        comparePrice: dto.comparePrice,
-        warrantyMonths: dto.warrantyMonths ?? 0,
-        createdById: userId,
-        tenantId,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      const duplicateConditions: any[] = [{ name: dto.name }];
+      if (dto.sku) {
+        duplicateConditions.push({ sku: dto.sku });
+      }
+
+      const existingProduct = await tx.product.findFirst({
+        where: {
+          tenantId,
+          OR: duplicateConditions,
+        },
+      });
+
+      if (existingProduct) {
+        throw new ConflictException(
+          'A product with this name or SKU already exists in your store inventory.',
+        );
+      }
+
+      return tx.product.create({
+        data: {
+          name: dto.name,
+          sku: dto.sku,
+          brand: dto.brand,
+          category: dto.category,
+          description: dto.description,
+          shortDescription: dto.shortDescription,
+          aiSummary: dto.aiSummary,
+          imageUrl: dto.imageUrl,
+          tags: dto.tags ?? [],
+          specifications: dto.specifications ?? undefined,
+          sellingPrice: dto.sellingPrice,
+          costPrice: dto.costPrice,
+          comparePrice: dto.comparePrice,
+          warrantyMonths: dto.warrantyMonths ?? 0,
+          createdById: userId,
+          tenantId,
+        },
+      });
     });
   }
 

@@ -1,0 +1,589 @@
+{
+  "nodes": [
+    {
+      "id": "techbill_system",
+      "label": "TechBill ERP & Invoice Management SaaS",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "## 1. System Overview",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_nestjs_api_gateway",
+      "label": "NestJS API Gateway (HTTP & WebSockets)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "System Overview",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_auth_service",
+      "label": "Auth Service (JWT & CSPRNG OTP)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Auth",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_tenant_guard",
+      "label": "TenantGuard & PermissionsGuard",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "TenantGuard",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_frontend_client",
+      "label": "TechBill Frontend Client (React + Vite)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Client",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_multi_tenant_saas",
+      "label": "Multi-Tenant SaaS Architecture",
+      "file_type": "rationale",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "## 2. Multi-Tenancy",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_prisma_db",
+      "label": "Prisma ORM + PostgreSQL Database",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Data Layer",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_redis_cache",
+      "label": "Redis Caching Layer",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Redis",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_websocket_events",
+      "label": "WebSocket Real-Time Events (EventsGateway)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "WebSocket",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_jwt_auth",
+      "label": "JWT Authentication Strategy",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Security",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_serial_inventory",
+      "label": "Serial-Number Level Inventory Control",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Inventory",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "architecture_fraud_detection",
+      "label": "Automated Fraud Detection",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Fraud Detection",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_vercel_frontend",
+      "label": "Vercel Frontend Hosting (techbill.app)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Deployment Segment",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_render_backend",
+      "label": "Render Backend API (api.techbill.app)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Deployment Segment",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_supabase_db",
+      "label": "Supabase PostgreSQL Database",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Supabase",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_upstash_redis",
+      "label": "Upstash Redis Caching",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Redis",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "deployment_resend_smtp",
+      "label": "Resend SMTP Email Services",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Resend",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_app_architecture",
+      "label": "TechBill Mobile App (Android - Kotlin)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "## Overview",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_sales_dashboard",
+      "label": "Mobile Sales Dashboard",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_push_notifications",
+      "label": "Push Notifications (FCM)",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_real_time_approvals",
+      "label": "Real-Time Return Request Approvals",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "api_readme_nestjs_backend",
+      "label": "TechBill API - NestJS Backend",
+      "file_type": "document",
+      "source_file": "D:\\Tech-Bill\\techbill-api\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plan_legacy_build_tracker",
+      "label": "Legacy Single-Tenant Build Plan (Deprecated)",
+      "file_type": "document",
+      "source_file": "D:\\Tech-Bill\\PLAN.md",
+      "source_location": "LEGACY ARCHITECTURE WARNING",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plan_stack_nestjs_prisma",
+      "label": "Tech Stack: NestJS + Prisma + PostgreSQL + Redis",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\PLAN.md",
+      "source_location": "Stack",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plan_stack_react_vite",
+      "label": "Frontend Stack: React + Vite + Tailwind + Zustand",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\PLAN.md",
+      "source_location": "Stack",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_prd_product_requirements",
+      "label": "Mobile App Product Requirements Document",
+      "file_type": "document",
+      "source_file": "D:\\Tech-Bill\\Tech-Bill-app\\Appss\\MOBILE_PRD.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "mobile_mvp_minimum_viable_product",
+      "label": "Mobile App MVP Specification",
+      "file_type": "document",
+      "source_file": "D:\\Tech-Bill\\Tech-Bill-app\\Appss\\MOBILE_MVP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "serena_project_config",
+      "label": "Serena Project Configuration (Tech-Bill)",
+      "file_type": "document",
+      "source_file": "D:\\Tech-Bill\\.serena\\project.yml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pnpm_workspace_monorepo",
+      "label": "pnpm Workspace Monorepo Config",
+      "file_type": "concept",
+      "source_file": "D:\\Tech-Bill\\techbill-api\\pnpm-workspace.yaml",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "architecture_frontend_client",
+      "target": "architecture_nestjs_api_gateway",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "System Overview",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_nestjs_api_gateway",
+      "target": "architecture_auth_service",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "System Overview",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_nestjs_api_gateway",
+      "target": "architecture_tenant_guard",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "TenantGuard",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_nestjs_api_gateway",
+      "target": "architecture_prisma_db",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Data Layer",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_nestjs_api_gateway",
+      "target": "architecture_redis_cache",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Redis",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_nestjs_api_gateway",
+      "target": "architecture_websocket_events",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "WebSocket",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_auth_service",
+      "target": "architecture_jwt_auth",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Security",
+      "weight": 1.0
+    },
+    {
+      "source": "architecture_multi_tenant_saas",
+      "target": "architecture_tenant_guard",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Multi-Tenancy",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_system",
+      "target": "architecture_multi_tenant_saas",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Overview",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_system",
+      "target": "architecture_serial_inventory",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Inventory",
+      "weight": 1.0
+    },
+    {
+      "source": "techbill_system",
+      "target": "architecture_fraud_detection",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md",
+      "source_location": "Fraud",
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_render_backend",
+      "target": "deployment_supabase_db",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Render",
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_render_backend",
+      "target": "deployment_upstash_redis",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Render",
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_render_backend",
+      "target": "deployment_resend_smtp",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Render",
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_vercel_frontend",
+      "target": "deployment_render_backend",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Architecture Diagram",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_app_architecture",
+      "target": "mobile_sales_dashboard",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_app_architecture",
+      "target": "mobile_push_notifications",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_app_architecture",
+      "target": "mobile_real_time_approvals",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Core Objectives",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_app_architecture",
+      "target": "architecture_nestjs_api_gateway",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MOBILE_APP_ARCHITECTURE.md",
+      "source_location": "Authentication",
+      "weight": 1.0
+    },
+    {
+      "source": "plan_stack_nestjs_prisma",
+      "target": "architecture_nestjs_api_gateway",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Tech-Bill\\PLAN.md",
+      "source_location": "Stack",
+      "weight": 1.0
+    },
+    {
+      "source": "mobile_prd_product_requirements",
+      "target": "mobile_mvp_minimum_viable_product",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "D:\\Tech-Bill\\Tech-Bill-app\\Appss\\MOBILE_PRD.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_supabase_db",
+      "target": "architecture_prisma_db",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Supabase",
+      "weight": 1.0
+    },
+    {
+      "source": "deployment_upstash_redis",
+      "target": "architecture_redis_cache",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md",
+      "source_location": "Redis",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "techbill_deployment_stack",
+      "label": "TechBill Production Deployment Stack",
+      "nodes": [
+        "deployment_vercel_frontend",
+        "deployment_render_backend",
+        "deployment_supabase_db",
+        "deployment_upstash_redis",
+        "deployment_resend_smtp"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\MD files\\guide.md"
+    },
+    {
+      "id": "techbill_core_architecture",
+      "label": "TechBill Core Architecture Components",
+      "nodes": [
+        "architecture_frontend_client",
+        "architecture_nestjs_api_gateway",
+        "architecture_auth_service",
+        "architecture_prisma_db",
+        "architecture_redis_cache"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Tech-Bill\\ARCHITECTURE.md"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

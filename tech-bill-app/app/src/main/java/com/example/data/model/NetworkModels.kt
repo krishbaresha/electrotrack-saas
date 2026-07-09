@@ -30,7 +30,9 @@ data class RefreshResponse(
 @JsonClass(generateAdapter = true)
 data class TenantInfo(
     @Json(name = "onlineSellingEnabled") val onlineSellingEnabled: Boolean,
-    @Json(name = "businessName") val businessName: String? = null
+    @Json(name = "businessName") val businessName: String? = null,
+    @Json(name = "id") val id: String? = null,
+    @Json(name = "subdomain") val subdomain: String? = null
 )
 
 @JsonClass(generateAdapter = true)
@@ -85,6 +87,20 @@ data class SalesSummaryResponse(
     @Json(name = "itemsSold") val itemsSold: Int
 )
 
+/**
+ * Response model for `GET /tenants/me/config`.
+ * Carries the feature flags and role for the currently authenticated session.
+ */
+@JsonClass(generateAdapter = true)
+data class TenantConfigResponse(
+    @Json(name = "isWarehouseEnabled") val isWarehouseEnabled: Boolean,
+    @Json(name = "onlineSellingEnabled") val onlineSellingEnabled: Boolean = false,
+    @Json(name = "role") val role: String,
+    @Json(name = "tenantId") val tenantId: String? = null,
+    @Json(name = "tenantName") val tenantName: String? = null,
+    @Json(name = "subdomain") val subdomain: String? = null
+)
+
 @JsonClass(generateAdapter = true)
 data class TenantModel(
     @Json(name = "id") val id: String,
@@ -108,4 +124,16 @@ data class CreateTenantRequest(
     @Json(name = "plan") val plan: String = "trial",
     @Json(name = "maxUsers") val maxUsers: Int = 5,
     @Json(name = "isWarehouseEnabled") val isWarehouseEnabled: Boolean = false
+)
+
+/**
+ * Locally derived dashboard summary — computed from the Room sales stream.
+ * This is NOT a network model; it is derived in [SaaSViewModel] from [SaleItem] lists.
+ */
+data class SalesSummary(
+    val totalRevenue: Double,
+    val transactionCount: Int,
+    val pendingReturnCount: Int,
+    val totalNetProfit: Double,
+    val itemsSold: Int
 )
