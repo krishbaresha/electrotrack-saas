@@ -122,8 +122,13 @@ export default function AppShell() {
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     disconnectSocket();
+    try {
+      await api.post('/auth/logout');
+    } catch (e) {
+      // ignore
+    }
     clearAuth();
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (!isLocalhost && window.location.hostname !== 'techbill.app' && window.location.hostname !== 'test-techbill.vercel.app') {

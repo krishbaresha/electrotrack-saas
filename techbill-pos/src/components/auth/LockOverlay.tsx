@@ -72,8 +72,13 @@ export default function LockOverlay() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [pin, showResetModal, isLocked, isPinSet, user]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     disconnectSocket();
+    try {
+      await api.post('/auth/logout');
+    } catch (e) {
+      // ignore
+    }
     clearAuth();
     clearPin(); // reset lock status
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
