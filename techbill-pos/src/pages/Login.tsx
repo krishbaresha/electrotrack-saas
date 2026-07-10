@@ -39,10 +39,20 @@ export default function Login() {
   // If the user navigates to /login but is already authenticated, redirect them seamlessly
   useEffect(() => {
     if (_hasHydrated && !isHydrating && user && accessToken) {
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       if (user.role === 'platform_admin') {
-        navigate('/tenants', { replace: true });
+        if (!isLocalhost && window.location.hostname !== 'admin.techbill.app') {
+          window.location.href = 'https://admin.techbill.app/tenants';
+        } else {
+          navigate('/tenants', { replace: true });
+        }
       } else {
-        navigate('/dashboard', { replace: true });
+        const targetPath = user.role === 'cashier' ? '/pos' : '/dashboard';
+        if (!isLocalhost && user.subdomain && window.location.hostname !== `${user.subdomain}.techbill.app`) {
+          window.location.href = `https://${user.subdomain}.techbill.app${targetPath}`;
+        } else {
+          navigate(targetPath, { replace: true });
+        }
       }
     }
   }, [_hasHydrated, isHydrating, user, accessToken, navigate]);
@@ -113,11 +123,12 @@ export default function Login() {
           window.location.href = `https://admin.techbill.app/tenants?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
         }
       } else {
+        const targetPath = res.data.user.role === 'cashier' ? '/pos' : '/dashboard';
         const sub = res.data.subdomain || 'app';
         if (isLocalhost) {
-          window.location.href = `/dashboard?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
+          window.location.href = `${targetPath}?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
         } else {
-          window.location.href = `https://${sub}.techbill.app/dashboard?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
+          window.location.href = `https://${sub}.techbill.app${targetPath}?token=${res.data.access_token}&refresh_token=${res.data.refresh_token || ''}&u=${u}`;
         }
       }
     } catch (err: unknown) {

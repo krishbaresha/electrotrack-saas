@@ -44,6 +44,7 @@ export interface User {
   tenantName: string | null;
   currentPlan?: 'starter' | 'pro' | 'enterprise';
   permissions: string[];
+  subdomain?: string | null;
   onlineSellingEnabled?: boolean;
   currentPeriodEnd?: string | null;
 }

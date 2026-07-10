@@ -163,6 +163,7 @@ export class AuthService {
         tenantName: user.tenant?.name ?? null,
         currentPlan: user.tenant?.plan ?? 'starter',
         permissions: user.permissions,
+        subdomain: user.tenant?.slug ?? null,
         onlineSellingEnabled: user.tenant?.onlineSellingEnabled ?? false,
         currentPeriodEnd: user.tenant?.currentPeriodEnd ?? null,
         isWarehouseEnabled: warehouseEnabled,

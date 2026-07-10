@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, LogOut, KeyRound, AlertCircle, Delete } from 'lucide-react';
 import { useLockStore } from '../../store/lock.store';
@@ -76,7 +76,12 @@ export default function LockOverlay() {
     disconnectSocket();
     clearAuth();
     clearPin(); // reset lock status
-    navigate('/login', { replace: true });
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalhost && window.location.hostname !== 'techbill.app' && window.location.hostname !== 'test-techbill.vercel.app') {
+      window.location.href = 'https://techbill.app/login';
+    } else {
+      navigate('/login', { replace: true });
+    }
   };
 
   const handleResetSubmit = async (e: React.FormEvent) => {

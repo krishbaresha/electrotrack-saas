@@ -62,7 +62,14 @@ function RequireAuth({
       </div>
     );
   }
-  if (!accessToken || !user) return <Navigate to="/login" replace />;
+  if (!accessToken || !user) {
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalhost && window.location.hostname !== 'techbill.app' && window.location.hostname !== 'test-techbill.vercel.app') {
+      window.location.href = 'https://techbill.app/login';
+      return null;
+    }
+    return <Navigate to="/login" replace />;
+  }
 
   // Broad roles bypass / check
   if (roles && !roles.includes(user.role)) {
