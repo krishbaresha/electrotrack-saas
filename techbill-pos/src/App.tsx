@@ -71,6 +71,29 @@ function RequireAuth({
     return <Navigate to="/login" replace />;
   }
 
+  // Subdomain enforcement for logged-in users
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost && user.role !== 'platform_admin') {
+    if (!user.subdomain) {
+      // Legacy session without subdomain claim: force logout so they re-authenticate and get a valid token payload
+      useAuthStore.getState().clearAuth();
+      window.location.href = 'https://techbill.app/login';
+      return null;
+    }
+    if (window.location.hostname !== `${user.subdomain}.techbill.app`) {
+      window.location.href = `https://${user.subdomain}.techbill.app${window.location.pathname}${window.location.search}`;
+      return null;
+    }
+  }
+
+  // Platform Admin enforcement
+  if (!isLocalhost && user.role === 'platform_admin') {
+    if (window.location.hostname !== 'admin.techbill.app') {
+      window.location.href = `https://admin.techbill.app${window.location.pathname}${window.location.search}`;
+      return null;
+    }
+  }
+
   // Broad roles bypass / check
   if (roles && !roles.includes(user.role)) {
     const fallback =

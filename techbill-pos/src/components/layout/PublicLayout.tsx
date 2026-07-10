@@ -136,9 +136,11 @@ export default function PublicLayout() {
       base = `https://${user.subdomain}.techbill.app`;
     }
 
-    if (can('pos.read')) return `${base}/pos`;
+    if (user.role === 'owner' || user.role === 'accountant') return `${base}/dashboard`;
+    if (user.role === 'cashier') return `${base}/pos`;
     if (can('reports.read')) return `${base}/dashboard`;
-    return `${base}/pos`;
+    if (can('pos.read')) return `${base}/pos`;
+    return `${base}/dashboard`;
   };
 
   const dashboardUrl = getDashboardUrl();
