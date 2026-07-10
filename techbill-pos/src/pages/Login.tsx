@@ -38,6 +38,13 @@ export default function Login() {
 
   // If the user navigates to /login but is already authenticated, redirect them seamlessly
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('logout') === 'true') {
+      useAuthStore.getState().clearAuth();
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
     if (user && accessToken && _hasHydrated) {
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       

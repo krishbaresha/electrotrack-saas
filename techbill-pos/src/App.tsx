@@ -77,7 +77,7 @@ function RequireAuth({
     if (!user.subdomain) {
       // Legacy session without subdomain claim: force logout so they re-authenticate and get a valid token payload
       useAuthStore.getState().clearAuth();
-      window.location.href = 'https://techbill.app/login';
+      window.location.href = 'https://techbill.app/login?logout=true';
       return null;
     }
     if (window.location.hostname !== `${user.subdomain}.techbill.app`) {

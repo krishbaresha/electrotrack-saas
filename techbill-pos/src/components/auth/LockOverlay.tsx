@@ -78,7 +78,7 @@ export default function LockOverlay() {
     clearPin(); // reset lock status
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     if (!isLocalhost && window.location.hostname !== 'techbill.app' && window.location.hostname !== 'test-techbill.vercel.app') {
-      window.location.href = 'https://techbill.app/login';
+      window.location.href = 'https://techbill.app/login?logout=true';
     } else {
       navigate('/login', { replace: true });
     }
