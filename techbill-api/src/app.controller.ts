@@ -20,12 +20,5 @@ export class AppController {
     };
   }
 
-  @All('*')
-  catchAll(@Req() req: Request, @Res() res: Response) {
-    return res.status(404).json({
-      statusCode: 404,
-      message: `Cannot ${req.method} ${req.url}`,
-      error: 'Not Found'
-    });
-  }
+
 }
