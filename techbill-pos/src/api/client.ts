@@ -33,7 +33,7 @@ api.interceptors.response.use(
 
     const original = error.config as (typeof error.config) & { _retry?: boolean };
     const url = original?.url ?? '';
-    const isAuthEndpoint = url.includes('/auth/login') || url.includes('/auth/refresh');
+    const isAuthEndpoint = url.includes('/auth/login') || url.includes('/auth/refresh') || url.includes('/auth/logout');
     if (error.response?.status === 401 && !original?._retry && !isAuthEndpoint) {
       if (isRefreshing) {
         return new Promise<string>((resolve, reject) => {
@@ -69,7 +69,12 @@ api.interceptors.response.use(
       } catch (refreshErr) {
         processQueue(refreshErr, null);
         useAuthStore.getState().clearAuth();
-        window.location.href = '/login';
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (!isLocalhost && window.location.hostname !== 'techbill.app' && window.location.hostname !== 'test-techbill.vercel.app') {
+          window.location.href = 'https://techbill.app/login?logout=true';
+        } else {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshErr);
       } finally {
         isRefreshing = false;
