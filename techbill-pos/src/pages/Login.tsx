@@ -33,7 +33,7 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
-  const { setAuth, clearAuth, user, accessToken, isHydrating, _hasHydrated } = useAuthStore();
+  const { setAuth, user, accessToken, isHydrating, _hasHydrated } = useAuthStore();
   const navigate = useNavigate();
 
   // If the user navigates to /login but is already authenticated, redirect them seamlessly
