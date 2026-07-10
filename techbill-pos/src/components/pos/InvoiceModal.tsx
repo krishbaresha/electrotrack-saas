@@ -299,6 +299,17 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                     <span className="text-rose-300 tabular-nums">− {formatCurrency(discount)}</span>
                   </div>
                 )}
+                {Number(sale.additionalCharges) > 0 && (
+                  <div className="flex items-baseline justify-between text-sm">
+                    <span className="text-white/55">Additional Charges</span>
+                    <span className="text-emerald-300 tabular-nums">+ {formatCurrency(Number(sale.additionalCharges))}</span>
+                  </div>
+                )}
+                {sale.description && (
+                  <div className="text-xs text-white/40 mt-1 italic">
+                    Note: {sale.description}
+                  </div>
+                )}
                 <div className="h-px bg-white/15 my-3" />
                 <div className="flex items-baseline justify-between">
                   <span className="text-[11px] uppercase tracking-[0.22em] text-white/50">Total</span>

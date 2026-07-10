@@ -370,6 +370,8 @@ model Sale {
   voidReason           String?       @map("void_reason") @db.Text
   voidedById           String?       @map("voided_by_id") @db.Uuid
   voidedBy             User?         @relation("SalesVoided", fields: [voidedById], references: [id], onDelete: SetNull)
+  additionalCharges    Decimal       @default(0) @map("additional_charges") @db.Decimal(10, 2)
+  description          String?       @db.Text
   tenantId             String        @map("tenant_id") @db.Uuid
   tenant               Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   isOnline             Boolean       @default(false) @map("is_online")

@@ -20,6 +20,16 @@ export class CreateSaleDto {
   @IsOptional()
   customPrices?: Record<string, number>;
 
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @IsOptional()
+  @Type(() => Number)
+  additionalCharges?: number;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
   @IsEnum(PaymentMethod)
   paymentMethod: PaymentMethod;
 

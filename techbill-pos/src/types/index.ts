@@ -242,6 +242,8 @@ export interface Sale {
   advanceAmount?: number;
   codAmount?: number;
   shippingStatus?: 'pending' | 'dispatched' | 'delivered' | 'returned';
+  additionalCharges?: number;
+  description?: string;
   payoutReceivedAt?: string | null;
   refundLossAmount?: number | null;
 }

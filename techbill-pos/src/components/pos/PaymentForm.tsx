@@ -19,6 +19,8 @@ const schema = z.object({
   advanceAmount: z.coerce.number().min(0).default(0),
   paymentMethod: z.enum(['cash', 'easypaisa', 'jazzcash', 'card', 'bank_transfer']),
   discountAmount: z.coerce.number().min(0).default(0),
+  additionalCharges: z.coerce.number().min(0).default(0),
+  description: z.string().optional(),
   notes: z.string().optional(),
 });
 type FormData = z.infer<typeof schema>;
@@ -43,14 +45,15 @@ export default function PaymentForm({ onSaleComplete, shopSettings }: { onSaleCo
 
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { paymentMethod: 'cash', discountAmount: 0 },
+    defaultValues: { paymentMethod: 'cash', discountAmount: 0, additionalCharges: 0 },
   });
 
   const discount = watch('discountAmount') ?? 0;
   const delivery = watch('deliveryCharge') ?? 0;
   const advance = watch('advanceAmount') ?? 0;
+  const additionalCharges = watch('additionalCharges') ?? 0;
   const subtotal = items.reduce((s, i) => s + i.sellingPrice, 0);
-  const total = Math.max(0, subtotal - Number(discount) + (isOnlineOrder ? Number(delivery) : 0));
+  const total = Math.max(0, subtotal - Number(discount) + (isOnlineOrder ? Number(delivery) : 0) + Number(additionalCharges));
   const codAmount = Math.max(0, total - (isOnlineOrder ? Number(advance) : 0));
 
   const onSubmit = async (data: FormData) => {
@@ -71,6 +74,8 @@ export default function PaymentForm({ onSaleComplete, shopSettings }: { onSaleCo
       ...(data.customerName && { customerName: data.customerName }),
       ...(data.customerPhone && { customerPhone: data.customerPhone }),
       ...(data.discountAmount && data.discountAmount > 0 && { discountAmount: data.discountAmount }),
+      ...(data.additionalCharges && data.additionalCharges > 0 && { additionalCharges: data.additionalCharges }),
+      ...(data.description && { description: data.description }),
       ...(isOnlineOrder && data.customerCity && { customerCity: data.customerCity }),
       ...(isOnlineOrder && data.trackingId && { trackingId: data.trackingId }),
       ...(isOnlineOrder && data.deliveryCharge > 0 && { deliveryCharge: data.deliveryCharge }),
@@ -157,6 +162,16 @@ export default function PaymentForm({ onSaleComplete, shopSettings }: { onSaleCo
           <input {...register('discountAmount')} type="number" min={0} className={inputCls} placeholder="0" />
         </div>
 
+        <div>
+          <label className={labelCls}>Additional Charges (₨)</label>
+          <input {...register('additionalCharges')} type="number" min={0} className={inputCls} placeholder="0" />
+        </div>
+
+        <div>
+          <label className={labelCls}>Description (Optional)</label>
+          <input {...register('description')} type="text" className={inputCls} placeholder="e.g. Service fee, extra wrapping" />
+        </div>
+
         <div className="border-t border-white/5 pt-3 space-y-1.5">
           <div className="flex justify-between text-xs text-stitch-on-surface-variant">
             <span>Subtotal</span>
@@ -166,6 +181,12 @@ export default function PaymentForm({ onSaleComplete, shopSettings }: { onSaleCo
             <div className="flex justify-between text-xs text-stitch-on-surface-variant">
               <span>Discount</span>
               <span className="tabular-nums text-stitch-error">− {formatPKR(Number(discount))}</span>
+            </div>
+          )}
+          {Number(additionalCharges) > 0 && (
+            <div className="flex justify-between text-xs text-stitch-on-surface-variant">
+              <span>Additional Charges</span>
+              <span className="tabular-nums text-stitch-primary">+ {formatPKR(Number(additionalCharges))}</span>
             </div>
           )}
           {isOnlineOrder && Number(delivery) > 0 && (
