@@ -346,7 +346,7 @@ export default function PosScreen() {
                   <ShoppingCart size={16} />
                   View Cart
                 </span>
-                <span className="tabular-nums">{items.length} {items.length === 1 ? 'item' : 'items'} � ₨ {items.reduce((s, i) => s + i.sellingPrice, 0).toLocaleString('en-PK')}</span>
+                <span className="tabular-nums">{items.length} {items.length === 1 ? 'item' : 'items'} · ₨ {items.reduce((s, i) => s + i.sellingPrice, 0).toLocaleString('en-PK')}</span>
               </button>
             </div>
           )}
@@ -524,7 +524,7 @@ function UnitPickerSheet({ product, units, loading, onClose, onAdd, cartSerials 
           <div className="min-w-0">
             <p className="text-[10px] font-bold text-stitch-on-surface-variant uppercase tracking-wider">Select Serial Number</p>
             <h3 className="text-base font-bold text-stitch-on-surface font-space truncate">{product.name}</h3>
-            <p className="text-xs text-stitch-on-surface-variant">{product.brand ?? '—'} � {formatPKR(product.sellingPrice)}</p>
+            <p className="text-xs text-stitch-on-surface-variant">{product.brand ?? '—'} · {formatPKR(product.sellingPrice)}</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center text-stitch-on-surface-variant hover:text-stitch-on-surface hover:bg-white/5 transition-colors">
             <X size={16} />
@@ -546,7 +546,7 @@ function UnitPickerSheet({ product, units, loading, onClose, onAdd, cartSerials 
                   <li key={u.id} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors">
                     <div className="min-w-0">
                       <p className="font-mono text-sm text-stitch-tertiary truncate">{u.serialNumber}</p>
-                      <p className="text-[11px] text-stitch-on-surface-variant">{u.condition ?? 'New'} Â� {formatPKR(u.sellingPrice ?? product.sellingPrice)}</p>
+                      <p className="text-[11px] text-stitch-on-surface-variant">{u.condition ?? 'New'} • {formatPKR(u.sellingPrice ?? product.sellingPrice)}</p>
                     </div>
                     <button onClick={() => onAdd(u)} disabled={inCart}
                       className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-stitch-primary text-stitch-on-primary text-xs font-bold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">

@@ -211,7 +211,7 @@ export default function InvoiceHistoryPage() {
           <div>
             <h1 className="text-xl font-bold text-stitch-on-surface font-space">Invoice History</h1>
             <p className="text-xs text-stitch-on-surface-variant">
-              Complete sales ledger with serial &amp; warranty records • {total.toLocaleString()} total
+              Complete sales ledger with serial &amp; warranty records Â· {total.toLocaleString()} total
             </p>
           </div>
         </div>
@@ -349,7 +349,7 @@ export default function InvoiceHistoryPage() {
         {totalPages > 1 && (
           <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
             <p className="text-xs text-stitch-on-surface-variant">
-              Page {page} of {totalPages} • {total.toLocaleString()} records
+              Page {page} of {totalPages} Â· {total.toLocaleString()} records
             </p>
             <div className="flex gap-1">
               <button disabled={page <= 1} onClick={() => setPage((p) => p - 1)}
