@@ -11,6 +11,7 @@ import {
   HttpStatus,
   Req,
   ForbiddenException,
+  Query,
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { TenantsService } from './tenants.service';
@@ -105,8 +106,8 @@ export class TenantsController {
   }
 
   @Delete(':id')
-  deleteTenant(@Param('id') id: string, @Body('force') force: boolean) {
-    return this.tenantsService.deleteTenant(id, force);
+  deleteTenant(@Param('id') id: string, @Query('force') force: string) {
+    return this.tenantsService.deleteTenant(id, force === 'true');
   }
 
   @Patch(':id/restore')

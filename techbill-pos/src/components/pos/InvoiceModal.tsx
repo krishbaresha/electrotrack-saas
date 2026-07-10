@@ -204,7 +204,7 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                         {resolvedShopName}
                       </h2>
                       <p className="text-[11px] uppercase tracking-[0.18em] text-white/40 mt-1.5">
-                        Tax Invoice · <span className="font-mono normal-case tracking-normal text-white/60">{sale.invoiceNumber}</span>
+                        Tax Invoice � <span className="font-mono normal-case tracking-normal text-white/60">{sale.invoiceNumber}</span>
                       </p>
                     </div>
                   </div>
@@ -237,7 +237,7 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                   )}
                   {sale.soldBy?.name && (
                     <p className="text-white/50 text-xs pt-1">
-                      Cashier Â· <span className="text-white/70">{sale.soldBy.name}</span>
+                      Cashier Â� <span className="text-white/70">{sale.soldBy.name}</span>
                     </p>
                   )}
                 </div>
@@ -269,7 +269,7 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                         )}
                         {serial && (
                           <p className="text-[11px] font-mono" style={{ color: accentColor, opacity: 0.8 }}>
-                            SN Â· {serial}
+                            SN Â� {serial}
                           </p>
                         )}
                         {warrantyText && (
@@ -338,7 +338,7 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                   </div>
                 ) : (
                   <div className="text-center">
-                    <p className="font-mono text-xs text-white/50 mt-1">Receipt Ref Â· {sale.invoiceNumber}</p>
+                    <p className="font-mono text-xs text-white/50 mt-1">Receipt Ref Â� {sale.invoiceNumber}</p>
                   </div>
                 )}
                 <div className="text-center pt-2 space-y-1">
@@ -347,7 +347,7 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                     <p className="text-xs text-white/50 max-w-xs mx-auto mt-2 leading-relaxed">{footerNotes}</p>
                   )}
                   <p className="text-[10px] uppercase tracking-[0.22em] text-white/35 mt-1">
-                    {resolvedShopName} Â· TechBill POS
+                    {resolvedShopName} Â� TechBill POS
                   </p>
                 </div>
               </div>

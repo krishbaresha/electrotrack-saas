@@ -159,7 +159,7 @@ export default function TenantsPage() {
     setLoading(true);
     setError('');
     try {
-      await api.delete(`/tenants/${tenantToDelete.id}`, { data: { force: deleteNow } });
+      await api.delete(`/tenants/${tenantToDelete.id}?force=${deleteNow}`);
       setSuccessMsg(`Tenant "${tenantToDelete.name}" ${deleteNow ? 'deleted permanently' : 'scheduled for deletion'}.`);
       setTenantToDelete(null);
       setDeleteConfirmation('');
