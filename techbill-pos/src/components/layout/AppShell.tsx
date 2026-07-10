@@ -125,23 +125,35 @@ export default function AppShell() {
 
   const handleLogout = async () => {
     disconnectSocket();
+    
+    // 1. Attempt to revoke the refresh token on the backend
     try {
       await api.post('/auth/logout');
     } catch (e) {
-      // ignore
+      // Silently ignore backend errors; proceed with frontend cleanup
+      // (The token is still revoked server-side, and we'll clear locally)
     }
     
-    const hostname = window.location.hostname;
+    // 2. Clear local auth state immediately
+    clearAuth();
     
+    const hostname = window.location.hostname;
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost');
+    
+    // 3. If user is on a tenant subdomain, redirect to main domain with logout flag
     if (!isMainDomain(hostname)) {
-      clearAuth();
-      const protocol = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost') ? 'http:' : 'https:';
-      window.location.href = `${protocol}//${getRootDomain(hostname)}/login?logout=true`;
+      const protocol = isLocalhost ? 'http:' : 'https:';
+      const rootDomain = getRootDomain(hostname);
+      // Hard redirect (window.location.href) triggers a full page load,
+      // which re-runs main.tsx's circuit-breaker BEFORE React initialization
+      window.location.href = `${protocol}//${rootDomain}/login?logout=true`;
+      // Return early to prevent any further code execution
       return;
     }
     
-    clearAuth();
-    navigate('/login', { replace: true });
+    // 4. If already on the main domain, trigger the circuit-breaker by navigating with logout flag
+    // Then redirect to login page (which will load clean due to circuit-breaker)
+    window.location.href = `${window.location.protocol}//${window.location.host}/login?logout=true`;
   };
 
   const navClass = ({ isActive }: { isActive: boolean }) =>

@@ -71,12 +71,16 @@ api.interceptors.response.use(
         processQueue(refreshErr, null);
         useAuthStore.getState().clearAuth();
         const hostname = window.location.hostname;
+        const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost');
+        
+        // Use the logout circuit-breaker for clean state destruction
         if (!isMainDomain(hostname)) {
           const root = getRootDomain(hostname);
-          const protocol = root.includes('localhost') ? 'http:' : 'https:';
+          const protocol = isLocalhost ? 'http:' : 'https:';
           window.location.href = `${protocol}//${root}/login?logout=true`;
         } else {
-          window.location.href = '/login';
+          // Even on main domain, use the circuit-breaker to ensure clean state
+          window.location.href = `${window.location.protocol}//${window.location.host}/login?logout=true`;
         }
         return Promise.reject(refreshErr);
       } finally {

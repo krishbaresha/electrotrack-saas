@@ -38,14 +38,21 @@ export default function Login() {
   const navigate = useNavigate();
 
   // If the user navigates to /login but is already authenticated, redirect them seamlessly
+  // BUT: If logout flag is present, do NOT redirect—stay on login and show form
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('logout') === 'true') {
+    const hasLogoutFlag = params.get('logout') === 'true';
+    
+    // If logout flag is explicitly set, don't auto-redirect even if tokens exist
+    // The circuit-breaker in main.tsx already wiped them, but force clear auth store too
+    if (hasLogoutFlag) {
       useAuthStore.getState().clearAuth();
+      // Strip the logout flag from URL so refreshes don't show it
       window.history.replaceState({}, document.title, window.location.pathname);
       return;
     }
 
+    // Only auto-redirect if user is authenticated AND hydration is complete AND no logout flag
     if (user && accessToken && _hasHydrated) {
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
