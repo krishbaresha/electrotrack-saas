@@ -9,26 +9,29 @@ export const SubscriptionBanner: React.FC = () => {
 
   const now = new Date();
   const periodEnd = user.currentPeriodEnd ? new Date(user.currentPeriodEnd) : null;
+  const isInactive = user.tenantStatus !== undefined && user.tenantStatus !== 'active';
   
-  const isExpired = (periodEnd && periodEnd < now) || (user.tenantStatus !== undefined && user.tenantStatus !== 'active');
+  let daysLeft = Infinity;
+  if (periodEnd) {
+    const diffMs = periodEnd.getTime() - now.getTime();
+    daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  }
 
-  if (!isExpired) return null;
+  const isExpired = daysLeft <= 0 || isInactive;
+  const isExpiringSoon = daysLeft > 0 && daysLeft <= 2 && !isInactive;
+
+  if (!isExpired && !isExpiringSoon) return null;
 
   return (
-    <div className="bg-red-50 border-b border-red-200 px-4 py-3 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between flex-wrap">
-        <div className="w-0 flex-1 flex items-center">
-          <span className="flex p-2 rounded-lg bg-red-100">
-            <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
-          </span>
-          <p className="ml-3 font-medium text-red-800 truncate">
-            <span className="md:hidden">Subscription Inactive</span>
-            <span className="hidden md:inline">
-              Your store's subscription is currently inactive. All new transactions are disabled. Please contact the platform admin to renew.
-            </span>
-          </p>
-        </div>
-      </div>
+    <div className={`px-4 py-2.5 flex items-center gap-2.5 text-sm font-semibold shrink-0 ${
+      isExpired
+        ? 'bg-red-500/15 border-b border-red-500/30 text-red-400'
+        : 'bg-amber-500/15 border-b border-amber-500/30 text-amber-400'
+    }`}>
+      <AlertTriangle size={16} className="shrink-0" />
+      {isExpired
+        ? "Your store's subscription is currently inactive. All new transactions are disabled. Please contact the platform admin to renew."
+        : `Your subscription expires in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}. Please contact the platform admin to renew.`}
     </div>
   );
 };
