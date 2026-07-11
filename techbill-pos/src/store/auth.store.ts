@@ -40,6 +40,9 @@ export const useAuthStore = create<AuthState>()(
       partialize: (state) => ({ user: state.user, accessToken: state.accessToken, refreshToken: state.refreshToken }),
       onRehydrateStorage: () => {
         return (state) => {
+          if (window.__APP_LOGOUT_DETECTED__) {
+            return undefined; // Skip hydration
+          }
           if (state) {
             state.setHasHydrated(true);
             state.setHydrating(false);
