@@ -15,6 +15,7 @@ import type { Request } from 'express';
 import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { CreatePoDto } from './dto/create-po.dto';
+import { ReceivePoDto } from './dto/receive-po.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { TenantGuard } from '../../common/guards/tenant.guard';
 import { PermissionsGuard } from '../../common/guards/permissions.guard';
@@ -101,9 +102,14 @@ export class SuppliersController {
 
   @Patch('purchase-orders/:id/receive')
   @Permissions('suppliers.write')
-  receivePurchaseOrder(@Param('id') id: string, @Req() req: RequestWithUser) {
+  receivePurchaseOrder(
+    @Param('id') id: string,
+    @Body() dto: ReceivePoDto,
+    @Req() req: RequestWithUser,
+  ) {
     return this.suppliersService.receivePurchaseOrder(
       id,
+      dto,
       req.user.id,
       req.user.tenantId,
     );

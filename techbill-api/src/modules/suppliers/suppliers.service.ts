@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { CreatePoDto } from './dto/create-po.dto';
+import { ReceivePoDto } from './dto/receive-po.dto';
 
 @Injectable()
 export class SuppliersService {
@@ -150,9 +151,15 @@ export class SuppliersService {
    * Creates an Expense record (category = "purchase_order") so the cost is
    * automatically deducted from gross profit in the reports for that day.
    */
-  async receivePurchaseOrder(id: string, userId: string, tenantId: string) {
+  async receivePurchaseOrder(
+    id: string,
+    dto: ReceivePoDto,
+    userId: string,
+    tenantId: string,
+  ) {
     const po = await this.prisma.purchaseOrder.findFirst({
       where: { id, tenantId },
+      include: { items: true },
     });
     if (!po) throw new NotFoundException(`Purchase order ${id} not found`);
     if (po.status === 'received') {
@@ -163,8 +170,66 @@ export class SuppliersService {
     }
 
     const now = new Date();
+    const ts = Date.now();
 
     return this.prisma.$transaction(async (tx) => {
+      // Create inventory units for each item
+      const newUnits: any[] = [];
+      let snIndex = 0;
+
+      for (const item of po.items) {
+        if (dto.snGenerationMethod === 'manual') {
+          const manualItem = dto.items?.find((i) => i.productId === item.productId);
+          const serialNumbers = manualItem?.serialNumbers || [];
+          if (serialNumbers.length !== item.quantityOrdered) {
+            throw new BadRequestException(
+              `Expected ${item.quantityOrdered} serial numbers for product ${item.productId}, but got ${serialNumbers.length}`,
+            );
+          }
+          for (const sn of serialNumbers) {
+            newUnits.push({
+              tenantId,
+              productId: item.productId,
+              serialNumber: sn,
+              purchasePrice: item.unitCostPrice,
+              status: 'in_stock',
+              condition: 'new',
+              notes: `Received from PO ${po.id.slice(-8).toUpperCase()}`,
+            });
+          }
+        } else {
+          // Auto-generate
+          for (let i = 0; i < item.quantityOrdered; i++) {
+            snIndex++;
+            newUnits.push({
+              tenantId,
+              productId: item.productId,
+              serialNumber: `AUTOSN-${ts}-${snIndex}`,
+              purchasePrice: item.unitCostPrice,
+              status: 'in_stock',
+              condition: 'new',
+              notes: `Received from PO ${po.id.slice(-8).toUpperCase()}`,
+            });
+          }
+        }
+      }
+
+      if (newUnits.length > 0) {
+        // Prisma createMany does not return the created records, but that's fine
+        // If there's a unique constraint violation on SNs, it will throw
+        try {
+          await tx.inventoryUnit.createMany({
+            data: newUnits,
+            skipDuplicates: false,
+          });
+        } catch (error: any) {
+          if (error.code === 'P2002') {
+            throw new BadRequestException('One or more serial numbers already exist in the inventory.');
+          }
+          throw error;
+        }
+      }
+
       // Mark PO as received
       const updated = await tx.purchaseOrder.update({
         where: { id },
@@ -181,7 +246,7 @@ export class SuppliersService {
           data: {
             amount: po.totalAmount,
             category: 'purchase_order',
-            description: `Purchase Order received (PO: ${id})`,
+            description: `Purchase Order received (PO: ${id.slice(-8).toUpperCase()})`,
             date: now,
             createdById: userId,
             tenantId,
