@@ -181,6 +181,17 @@ export class ReportsService {
 
     const totalGrossProfit = totalRevenue - totalCost;
 
+    // Deduct Purchase Order costs (only received POs create expense records)
+    const poExpenses = await this.prisma.expense.aggregate({
+      where: {
+        tenantId,
+        category: 'purchase_order',
+        date: { gte: start, lte: end },
+      },
+      _sum: { amount: true },
+    });
+    const totalPurchaseCost = Number(poExpenses._sum.amount ?? 0);
+
     const pendingOnlineOrders = await this.prisma.sale.count({
       where: {
         tenantId,
@@ -193,7 +204,8 @@ export class ReportsService {
     return {
       period: label,
       totalRevenue,
-      totalGrossProfit,
+      totalGrossProfit: totalGrossProfit - totalPurchaseCost,
+      totalPurchaseCost,
       totalSales: totals._count.id,
       totalItems: items.length,
       totalDiscounts,

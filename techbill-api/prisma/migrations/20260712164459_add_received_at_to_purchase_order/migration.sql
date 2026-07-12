@@ -1,0 +1,1 @@
+ALTER TABLE purchase_orders ADD COLUMN IF NOT EXISTS received_at TIMESTAMP(3) NULL;

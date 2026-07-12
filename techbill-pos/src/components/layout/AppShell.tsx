@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   ShoppingCart, BarChart3, LogOut, Package, RotateCcw,
   FileText, Users, Settings, ClipboardList, Bell, UserCircle, Building2, ShoppingBag, ShieldAlert,
-  PackageCheck, ShieldCheck, Star, TrendingDown, Banknote, Menu, Wallet, Truck, Lock
+  ShieldCheck, Star, TrendingDown, Banknote, Menu, Wallet, Truck, Lock
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAuthStore } from '../../store/auth.store';
@@ -70,7 +70,6 @@ export default function AppShell() {
   const canSeeUsers = useCan('users.read') && !isPlatformAdmin;
   const canSeeSettings = useCan('settings.read') && !isPlatformAdmin;
   const canSeeAudit = useCan('audit.read') && !isPlatformAdmin;
-  const canSeeGrn = useCan('suppliers.write') && !isPlatformAdmin;
   const canSeeWarranty = useCan('warranty.read') && !isPlatformAdmin;
   const canSeeLoyalty = useCan('loyalty.read') && !isPlatformAdmin;
   const canSeeReturnAnalytics = useCan('returns.read') && !isPlatformAdmin;
@@ -353,12 +352,6 @@ export default function AppShell() {
             <NavLink to="/purchase-orders" className={navClass}>
               <ShoppingBag size={16} />
               Purchase Orders
-            </NavLink>
-          )}
-          {canSeeGrn && (
-            <NavLink to="/grn" className={navClass}>
-              <PackageCheck size={16} />
-              GRN
             </NavLink>
           )}
 

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { CreatePoDto } from './dto/create-po.dto';
@@ -114,9 +114,18 @@ export class SuppliersService {
       0,
     );
 
+    // Auto-create supplier if name is given but no ID
+    let supplierId = dto.supplierId;
+    if (!supplierId && dto.newSupplierName?.trim()) {
+      const newSupplier = await this.prisma.supplier.create({
+        data: { name: dto.newSupplierName.trim(), tenantId },
+      });
+      supplierId = newSupplier.id;
+    }
+
     return this.prisma.purchaseOrder.create({
       data: {
-        supplierId: dto.supplierId,
+        supplierId,
         notes: dto.notes,
         createdById: userId,
         totalAmount,
@@ -133,6 +142,54 @@ export class SuppliersService {
         supplier: { select: { id: true, name: true } },
         items: { include: { product: { select: { id: true, name: true } } } },
       },
+    });
+  }
+
+  /**
+   * Mark a Purchase Order as received.
+   * Creates an Expense record (category = "purchase_order") so the cost is
+   * automatically deducted from gross profit in the reports for that day.
+   */
+  async receivePurchaseOrder(id: string, userId: string, tenantId: string) {
+    const po = await this.prisma.purchaseOrder.findFirst({
+      where: { id, tenantId },
+    });
+    if (!po) throw new NotFoundException(`Purchase order ${id} not found`);
+    if (po.status === 'received') {
+      throw new BadRequestException('Purchase order is already marked as received');
+    }
+    if (po.status === 'cancelled') {
+      throw new BadRequestException('Cannot receive a cancelled purchase order');
+    }
+
+    const now = new Date();
+
+    return this.prisma.$transaction(async (tx) => {
+      // Mark PO as received
+      const updated = await tx.purchaseOrder.update({
+        where: { id },
+        data: { status: 'received', receivedAt: now },
+        include: {
+          supplier: { select: { id: true, name: true } },
+          items: { include: { product: { select: { id: true, name: true } } } },
+        },
+      });
+
+      // Create expense record so reports can deduct this purchase cost
+      if (po.totalAmount && Number(po.totalAmount) > 0) {
+        await tx.expense.create({
+          data: {
+            amount: po.totalAmount,
+            category: 'purchase_order',
+            description: `Purchase Order received (PO: ${id})`,
+            date: now,
+            createdById: userId,
+            tenantId,
+          },
+        });
+      }
+
+      return updated;
     });
   }
 }

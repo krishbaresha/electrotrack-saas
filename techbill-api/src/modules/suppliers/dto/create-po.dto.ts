@@ -29,6 +29,11 @@ export class CreatePoDto {
   @IsOptional()
   supplierId?: string;
 
+  /** If no supplierId, provide a name to auto-create a new supplier */
+  @IsString()
+  @IsOptional()
+  newSupplierName?: string;
+
   @IsString()
   @IsOptional()
   notes?: string;

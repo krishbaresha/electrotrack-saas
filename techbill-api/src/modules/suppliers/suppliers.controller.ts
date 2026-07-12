@@ -98,4 +98,14 @@ export class SuppliersController {
       req.user.tenantId,
     );
   }
+
+  @Patch('purchase-orders/:id/receive')
+  @Permissions('suppliers.write')
+  receivePurchaseOrder(@Param('id') id: string, @Req() req: RequestWithUser) {
+    return this.suppliersService.receivePurchaseOrder(
+      id,
+      req.user.id,
+      req.user.tenantId,
+    );
+  }
 }

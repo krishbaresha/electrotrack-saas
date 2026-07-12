@@ -27,7 +27,6 @@ const CustomersPage = lazy(() => import('./pages/customers/CustomersPage'));
 const LoyaltyPage = lazy(() => import('./pages/customers/LoyaltyPage'));
 const SuppliersPage = lazy(() => import('./pages/suppliers/SuppliersPage'));
 const PurchaseOrdersPage = lazy(() => import('./pages/suppliers/PurchaseOrdersPage'));
-const GrnPage = lazy(() => import('./pages/suppliers/GrnPage'));
 const WarrantyPage = lazy(() => import('./pages/warranty/WarrantyPage'));
 const TenantsPage = lazy(() => import('./pages/tenants/TenantsPage'));
 const InvoiceHistoryPage = lazy(() => import('./pages/sales/InvoiceHistoryPage'));
@@ -346,14 +345,6 @@ export default function App() {
             element={
               <RequireAuth permission="suppliers.read">
                 <PurchaseOrdersPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="grn"
-            element={
-              <RequireAuth permission="suppliers.write">
-                <GrnPage />
               </RequireAuth>
             }
           />

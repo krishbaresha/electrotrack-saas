@@ -270,6 +270,7 @@ model PurchaseOrder {
   tenantId    String    @map("tenant_id") @db.Uuid
   tenant      Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now()) @map("created_at")
+  receivedAt  DateTime? @map("received_at")
 
   items PurchaseOrderItem[]
   grns  GoodsReceivedNote[]
