@@ -39,10 +39,12 @@ interface SaleDetail {
     id: string;
     sellingPrice: number;
     inventoryUnit: {
+      id: string;
       serialNumber: string;
       product: { name: string; brand: string | null; warrantyMonths: number };
     };
   }[];
+  returns?: { inventoryUnitId: string }[];
 }
 
 const STATUS_STYLE: Record<string, string> = {
@@ -106,6 +108,11 @@ function ExpandedDetail({ saleId, createdAt, onViewReceipt }: { saleId: string; 
             const wMonths = item.inventoryUnit.product.warrantyMonths;
             const warrantyEnd = wMonths > 0 ? addMonths(saleDate, wMonths) : null;
             const isActive = warrantyEnd ? warrantyEnd > new Date() : false;
+            
+            const returnedUnitIds = new Set(detail.returns?.map(r => r.inventoryUnitId) || []);
+            const isSaleVoided = detail.status === 'voided' || detail.shippingStatus === 'returned';
+            const isItemReturned = isSaleVoided || returnedUnitIds.has(item.inventoryUnit.id);
+
             return (
               <tr key={item.id} className="hover:bg-white/[0.02]">
                 <td className="py-2 pr-4 font-medium text-stitch-on-surface">{item.inventoryUnit.product.name}</td>
@@ -118,7 +125,11 @@ function ExpandedDetail({ saleId, createdAt, onViewReceipt }: { saleId: string; 
                   {warrantyEnd ? format(warrantyEnd, 'dd MMM yyyy') : '—'}
                 </td>
                 <td className="py-2 pr-4">
-                  {warrantyEnd ? (
+                  {isItemReturned ? (
+                    <span className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold border bg-amber-500/10 text-amber-400 border-amber-500/20">
+                      Returned
+                    </span>
+                  ) : warrantyEnd ? (
                     <span className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold border ${
                       isActive
                         ? 'bg-green-500/10 text-green-400 border-green-500/20'

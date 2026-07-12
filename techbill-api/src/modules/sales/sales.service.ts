@@ -357,6 +357,7 @@ export class SalesService {
           include: {
             inventoryUnit: {
               select: {
+                id: true,
                 serialNumber: true,
                 condition: true,
                 product: {
@@ -365,6 +366,10 @@ export class SalesService {
               },
             },
           },
+        },
+        returns: {
+          where: { status: 'approved' },
+          select: { inventoryUnitId: true },
         },
         customer: true,
         soldBy: { select: { id: true, name: true } },
@@ -389,6 +394,10 @@ export class SalesService {
               },
             },
           },
+        },
+        returns: {
+          where: { status: 'approved' },
+          select: { inventoryUnitId: true },
         },
         customer: { select: { id: true, name: true, phone: true } },
       },

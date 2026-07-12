@@ -19,6 +19,7 @@ export class PublicSalesController {
           include: {
             inventoryUnit: {
               select: {
+                id: true,
                 serialNumber: true,
                 product: {
                   select: {
@@ -34,19 +35,24 @@ export class PublicSalesController {
         customer: { select: { name: true, phone: true } },
         soldBy: { select: { name: true } },
         tenant: { select: { name: true } },
+        returns: { where: { status: 'approved' }, select: { inventoryUnitId: true } },
       },
     });
 
     if (!sale) throw new NotFoundException('Invoice not found');
 
+    const returnedUnitIds = new Set(sale.returns?.map((r) => r.inventoryUnitId) || []);
+    const isSaleVoided = sale.status === 'voided' || sale.shippingStatus === 'returned';
+
     // Compute warranty info for each item inline
     const saleDate = sale.createdAt;
     const items = sale.items.map((item) => {
+      const isReturned = isSaleVoided || returnedUnitIds.has(item.inventoryUnit.id);
       const warrantyMonths = item.inventoryUnit.product.warrantyMonths;
       let warrantyExpiresAt: Date | null = null;
       let warrantyDaysLeft: number | null = null;
 
-      if (warrantyMonths > 0) {
+      if (warrantyMonths > 0 && !isReturned) {
         warrantyExpiresAt = new Date(saleDate);
         warrantyExpiresAt.setMonth(
           warrantyExpiresAt.getMonth() + warrantyMonths,
@@ -64,6 +70,7 @@ export class PublicSalesController {
         warrantyMonths,
         warrantyExpiresAt,
         warrantyDaysLeft,
+        isReturned,
       };
     });
 

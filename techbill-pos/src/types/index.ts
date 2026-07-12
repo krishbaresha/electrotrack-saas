@@ -221,6 +221,7 @@ export interface SaleItem {
   id: string;
   sellingPrice: number;
   inventoryUnit: {
+    id: string;
     serialNumber: string;
     product: { id?: string; name: string; brand: string | null; warrantyMonths?: number };
   };
@@ -248,6 +249,7 @@ export interface Sale {
   description?: string;
   payoutReceivedAt?: string | null;
   refundLossAmount?: number | null;
+  returns?: { inventoryUnitId: string }[];
 }
 
 export interface SalesSummary {

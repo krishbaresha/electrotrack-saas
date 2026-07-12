@@ -14,6 +14,7 @@ interface PublicItem {
   warrantyMonths: number;
   warrantyExpiresAt: string | null;
   warrantyDaysLeft: number | null;
+  isReturned?: boolean;
 }
 
 interface PublicInvoice {
@@ -46,7 +47,14 @@ const PAYMENT_LABELS: Record<string, string> = {
 const formatPKR = (n: number) => `₨ ${Number(n).toLocaleString('en-PK')}`;
 
 function WarrantyBadge({ item, isReturned }: { item: PublicItem; isReturned: boolean }) {
-  if (isReturned) return null;
+  if (isReturned) {
+    return (
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg border text-sm bg-amber-500/10 border-amber-500/20 text-amber-400">
+        <Package size={16} className="text-amber-400" />
+        <span className="font-semibold">Returned</span>
+      </div>
+    );
+  }
   if (!item.warrantyMonths || item.warrantyMonths <= 0) {
     return <span className="text-xs text-white/30 italic">No warranty</span>;
   }
@@ -142,13 +150,13 @@ export default function PublicInvoicePage() {
         <div className="bg-zinc-900/80 border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
           
           {/* Watermark */}
-          {(invoice.status === 'partial_return' || invoice.status === 'voided' || invoice.shippingStatus === 'returned') && (
+          {(invoice.status === 'partial_return' || invoice.status === 'voided' || invoice.shippingStatus === 'returned' || invoice.items.some(i => i.isReturned)) && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
               <span
                 className="text-6xl font-black uppercase whitespace-nowrap opacity-[0.15] text-red-500"
                 style={{ transform: 'rotate(-30deg)' }}
               >
-                {invoice.status === 'voided' ? 'VOID' : (invoice.status === 'partial_return' ? 'PARTIAL RETURN' : 'RETURNED')}
+                {invoice.status === 'voided' ? 'VOID' : (invoice.shippingStatus === 'returned' ? 'RETURNED' : 'PARTIAL RETURN')}
               </span>
             </div>
           )}
@@ -193,7 +201,7 @@ export default function PublicInvoicePage() {
                     <p className="text-sm font-bold text-white tabular-nums whitespace-nowrap">{formatPKR(item.sellingPrice)}</p>
                   </div>
                   {/* Warranty status */}
-                  <WarrantyBadge item={item} isReturned={invoice.status === 'partial_return' || invoice.status === 'voided' || invoice.shippingStatus === 'returned'} />
+                  <WarrantyBadge item={item} isReturned={Boolean(item.isReturned || invoice.status === 'voided' || invoice.shippingStatus === 'returned')} />
                 </div>
               ))}
             </div>

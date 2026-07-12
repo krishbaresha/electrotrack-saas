@@ -70,6 +70,10 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
   const total = Number(sale.totalAmount);
   const saleDate = new Date(sale.createdAt);
 
+  const returnedUnitIds = new Set(sale.returns?.map(r => r.inventoryUnitId) || []);
+  const isSaleVoided = sale.status === 'voided' || sale.shippingStatus === 'returned';
+  const hasReturns = (sale.returns && sale.returns.length > 0) || sale.status === 'partial_return';
+
   // Secure UUID-based URL â€” no sequential IDs, prevents IDOR attacks
   const publicInvoiceUrl = `${window.location.origin}/public/invoice/${sale.id}`;
 
@@ -174,16 +178,31 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
               }}
             >
               {/* Watermark */}
-              {(showWatermark && watermarkText) || sale.status === 'partial_return' || sale.status === 'voided' || sale.shippingStatus === 'returned' ? (
+              {isSaleVoided ? (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
                   <span
-                    className={`text-6xl font-black uppercase whitespace-nowrap ${(sale.status === 'partial_return' || sale.status === 'voided' || sale.shippingStatus === 'returned') ? 'opacity-[0.15]' : 'opacity-[0.04]'}`}
-                    style={{ 
-                      transform: 'rotate(-30deg)', 
-                      color: (sale.status === 'partial_return' || sale.status === 'voided' || sale.shippingStatus === 'returned') ? '#ef4444' : primaryColor 
-                    }}
+                    className="text-6xl font-black uppercase whitespace-nowrap opacity-[0.15]"
+                    style={{ transform: 'rotate(-30deg)', color: '#ef4444' }}
                   >
-                    {sale.status === 'voided' ? 'VOID' : (sale.status === 'partial_return' ? 'PARTIAL RETURN' : (sale.shippingStatus === 'returned' ? 'RETURNED' : watermarkText))}
+                    {sale.status === 'voided' ? 'VOID' : 'RETURNED'}
+                  </span>
+                </div>
+              ) : hasReturns ? (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+                  <span
+                    className="text-6xl font-black uppercase whitespace-nowrap opacity-[0.15]"
+                    style={{ transform: 'rotate(-30deg)', color: '#ef4444' }}
+                  >
+                    PARTIAL RETURN
+                  </span>
+                </div>
+              ) : (showWatermark && watermarkText) ? (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
+                  <span
+                    className="text-6xl font-black uppercase whitespace-nowrap opacity-[0.04]"
+                    style={{ transform: 'rotate(-30deg)', color: primaryColor }}
+                  >
+                    {watermarkText}
                   </span>
                 </div>
               ) : null}
@@ -252,8 +271,8 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                     const product = item.inventoryUnit?.product;
                     const serial = item.inventoryUnit?.serialNumber;
                     const wMonths = product?.warrantyMonths ?? 0;
-                    const isSaleReturned = sale.status === 'partial_return' || sale.status === 'voided' || sale.shippingStatus === 'returned';
-                    const warrantyText = isSaleReturned ? '' : getWarrantyText(wMonths, saleDate);
+                    const isItemReturned = isSaleVoided || returnedUnitIds.has(item.inventoryUnit?.id);
+                    const warrantyText = isItemReturned ? '' : getWarrantyText(wMonths, saleDate);
                     return (
                       <div key={item.id ?? idx} className="space-y-1">
                         <div className="flex items-baseline justify-between gap-3">
@@ -268,9 +287,14 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
                           <p className="text-[11px] text-white/45">{product.brand}</p>
                         )}
                         {serial && (
-                          <p className="text-[11px] font-mono" style={{ color: accentColor, opacity: 0.8 }}>
-                            SN • {serial}
-                          </p>
+                          <div className="flex items-center gap-2">
+                            <p className="text-[11px] font-mono" style={{ color: accentColor, opacity: 0.8 }}>
+                              SN • {serial}
+                            </p>
+                            {isItemReturned && (
+                              <span className="text-[9px] font-bold text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded uppercase">Returned</span>
+                            )}
+                          </div>
                         )}
                         {warrantyText && (
                           <p className="text-[10px] text-white/35">

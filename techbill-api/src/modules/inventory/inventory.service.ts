@@ -355,7 +355,7 @@ export class InventoryService {
     }
 
     // Attach soldAt from the most recent sale for warranty calculation
-    const soldAt = unit.saleItems[0]?.sale?.createdAt ?? null;
+    const soldAt = unit.status === 'sold' ? (unit.saleItems[0]?.sale?.createdAt ?? null) : null;
 
     const { saleItems: _si, ...unitWithoutSaleItems } = unit;
     return { ...unitWithoutSaleItems, soldAt };
