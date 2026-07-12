@@ -24,6 +24,7 @@ interface SaleListItem {
   isOnline: boolean;
   codAmount?: number;
   returns?: { id: string }[];
+  shippingStatus?: string;
 }
 
 interface SaleDetail {
@@ -121,7 +122,7 @@ function ExpandedDetail({ saleId, createdAt, onViewReceipt }: { saleId: string; 
                 <td className="py-2 pr-4 text-stitch-on-surface-variant">{item.inventoryUnit.product.brand ?? '—'}</td>
                 <td className="py-2 pr-4 font-mono text-stitch-tertiary">{item.inventoryUnit.serialNumber}</td>
                 <td className="py-2 pr-4 text-stitch-on-surface-variant whitespace-nowrap">
-                  {wMonths > 0 ? format(saleDate, 'dd MMM yyyy') : '—'}
+                  {wDays > 0 ? format(saleDate, 'dd MMM yyyy') : '—'}
                 </td>
                 <td className="py-2 pr-4 whitespace-nowrap">
                   {warrantyEnd ? format(warrantyEnd, 'dd MMM yyyy') : '—'}

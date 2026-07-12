@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Search, Shield, ShieldCheck, ShieldX, Clock } from 'lucide-react';
+import { Search, Shield, ShieldCheck, ShieldX } from 'lucide-react';
 import { addDays, format, differenceInDays } from 'date-fns';
 import { api } from '../../api/client';
 import gsap from 'gsap';

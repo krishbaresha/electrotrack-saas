@@ -1,5 +1,5 @@
 import { X, Printer, Plus, Download } from 'lucide-react';
-import { format, addDays, differenceInDays } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { QRCodeSVG } from 'qrcode.react';
 import html2pdf from 'html2pdf.js';
 import type { Sale, ShopSettings } from '../../types';
