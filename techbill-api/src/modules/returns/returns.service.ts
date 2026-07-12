@@ -303,9 +303,24 @@ export class ReturnsService {
       });
 
       // Delete the return
-      return tx.return.delete({
+      const deletedReturn = await tx.return.delete({
         where: { id },
       });
+
+      // Recalculate sale status
+      if (deletedReturn.saleId) {
+        const remainingReturns = await tx.return.count({
+          where: { saleId: deletedReturn.saleId, status: { not: 'rejected' } },
+        });
+        if (remainingReturns === 0) {
+          await tx.sale.update({
+            where: { id: deletedReturn.saleId },
+            data: { status: 'completed' },
+          });
+        }
+      }
+      
+      return deletedReturn;
     });
   }
 }
