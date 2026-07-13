@@ -49,4 +49,9 @@ Real-time updates are handled via `EventsGateway`.
 - Purchase Orders now auto-create suppliers if they don't exist and integrate directly into the gross profit deduction.
 - Inventory restocking now happens automatically upon receiving a Purchase Order, including manual and auto serial number generation support.
 
-*Last Updated: July 12, 2026*
+### 6. Expenses & Net Profit Reporting
+- Standard daily expenses (e.g. lunch, supplies) are now separated from Purchase Order costs in `reports.service.ts`.
+- Implemented a true `Net Profit` calculation (`Gross Profit - Expenses`) which surfaces directly on the `OwnerDashboard` and `ReportsPage`.
+- Added dynamic real-time summation of expenses on the `ExpensesPage` header for quick visibility.
+
+*Last Updated: July 13, 2026*

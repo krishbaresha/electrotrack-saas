@@ -58,3 +58,7 @@ coverage/
 # ── Scratch Files (Contains sensitive scripts/credentials) ───────────
 scratch/
 tech-bill-*.json
+
+# ── VM Details ────────────────────────────────────────────────────────
+vm_details.md
+*vm*details*
