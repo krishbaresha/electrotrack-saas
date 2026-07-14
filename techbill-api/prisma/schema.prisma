@@ -428,6 +428,8 @@ model Sale {
   deliveryCharge       Decimal       @default(0) @map("delivery_charge") @db.Decimal(10, 2)
   advanceAmount        Decimal       @default(0) @map("advance_amount") @db.Decimal(10, 2)
   codAmount            Decimal       @default(0) @map("cod_amount") @db.Decimal(10, 2)
+  additionalCharges    Decimal       @default(0) @map("additional_charges") @db.Decimal(10, 2)
+  description          String?       @db.Text
   shippingStatus       ShippingStatus @default(pending) @map("shipping_status")
   payoutReceivedAt     DateTime?      @map("payout_received_at")
   refundLossAmount     Decimal?       @map("refund_loss_amount") @db.Decimal(10, 2)
