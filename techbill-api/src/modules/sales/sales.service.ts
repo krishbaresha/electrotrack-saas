@@ -114,7 +114,8 @@ export class SalesService {
 
           const discount = dto.discountAmount ?? 0;
           const deliveryCharge = dto.deliveryCharge ?? 0;
-          const total = subtotal - discount + deliveryCharge;
+          const additionalCharges = dto.additionalCharges ?? 0;
+          const total = subtotal - discount + deliveryCharge + additionalCharges;
 
           if (total < 0) throw new BadRequestException('Discount exceeds subtotal');
           
@@ -132,6 +133,8 @@ export class SalesService {
               customerCity: dto.customerCity,
               trackingId: dto.trackingId,
               deliveryCharge,
+              additionalCharges,
+              description: dto.description,
               advanceAmount: dto.advanceAmount ?? 0,
               codAmount: dto.codAmount ?? 0,
               items: {
