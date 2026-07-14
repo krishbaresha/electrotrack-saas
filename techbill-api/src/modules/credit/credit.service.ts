@@ -64,18 +64,30 @@ export class CreditService {
     const newDue = totalAmount - newPaid;
     const newStatus = newDue <= 0 ? CreditStatus.PAID : CreditStatus.PENDING;
 
-    return this.prisma.creditRecord.update({
-      where: { id },
-      data: {
-        paidAmount: newPaid,
-        dueAmount: newDue,
-        status: newStatus,
-      },
-      include: {
-        customer: { select: { id: true, name: true, phone: true } },
-        supplier: { select: { id: true, name: true, phone: true } },
-      },
-    });
+    const [updatedRecord, payment] = await this.prisma.$transaction([
+      this.prisma.creditRecord.update({
+        where: { id },
+        data: {
+          paidAmount: newPaid,
+          dueAmount: newDue,
+          status: newStatus,
+        },
+        include: {
+          customer: { select: { id: true, name: true, phone: true } },
+          supplier: { select: { id: true, name: true, phone: true } },
+        },
+      }),
+      this.prisma.creditPayment.create({
+        data: {
+          creditRecordId: id,
+          amount: dto.amount,
+          tenantId,
+          // date will default to now()
+        }
+      })
+    ]);
+
+    return updatedRecord;
   }
 
   async deleteCredit(id: string, tenantId: string) {

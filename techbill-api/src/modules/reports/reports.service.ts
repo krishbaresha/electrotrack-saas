@@ -184,7 +184,7 @@ export class ReportsService {
     totalRevenue -= totalRefundValue;
     totalCost -= totalReturnCost;
 
-    const totalGrossProfit = totalRevenue - totalCost;
+    let totalGrossProfit = totalRevenue - totalCost;
 
     // Deduct Purchase Order costs (only received POs create expense records)
     const poExpenses = await this.prisma.expense.aggregate({
@@ -206,7 +206,34 @@ export class ReportsService {
       },
       _sum: { amount: true },
     });
-    const totalExpenses = Number(standardExpenses._sum.amount ?? 0);
+    let totalExpenses = Number(standardExpenses._sum.amount ?? 0);
+
+    // Credit Payments Integration
+    const creditPayments = await this.prisma.creditPayment.findMany({
+      where: {
+        tenantId,
+        date: { gte: start, lte: end },
+      },
+      include: { creditRecord: { select: { type: true } } },
+    });
+
+    let totalCreditCollected = 0;
+    let totalCreditPaid = 0;
+
+    for (const cp of creditPayments) {
+      if (cp.creditRecord.type === 'CUSTOMER') {
+        totalCreditCollected += Number(cp.amount);
+      } else if (cp.creditRecord.type === 'SUPPLIER') {
+        totalCreditPaid += Number(cp.amount);
+      }
+    }
+
+    // Apply logic: Customer owe payments add to Revenue
+    totalRevenue += totalCreditCollected;
+    // Supplier owe payments add to Expenses
+    totalExpenses += totalCreditPaid;
+
+    totalGrossProfit = totalRevenue - totalCost;
 
     const pendingOnlineOrders = await this.prisma.sale.count({
       where: {
@@ -230,6 +257,8 @@ export class ReportsService {
       offlineRevenue,
       onlineRevenue,
       courierPayouts,
+      totalCreditCollected,
+      totalCreditPaid,
       onlineSalesCount,
       offlineSalesCount,
       pendingOnlineOrders,

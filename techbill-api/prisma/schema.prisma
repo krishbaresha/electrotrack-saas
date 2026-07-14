@@ -145,6 +145,7 @@ model Tenant {
   inventoryUnits   InventoryUnit[]
   customers        Customer[]
   creditRecords    CreditRecord[]
+  creditPayments   CreditPayment[]
   sales            Sale[]
   returns          Return[]
   reconciliations  CashReconciliation[]
@@ -641,6 +642,8 @@ model CreditRecord {
   supplier    Supplier?    @relation(fields: [supplierId], references: [id], onDelete: Cascade)
   tenant      Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
+  creditPayments CreditPayment[]
+
   @@index([type])
   @@index([status])
   @@index([tenantId])
@@ -783,4 +786,17 @@ model TenantLicenseHistory {
   createdAt   DateTime     @default(now()) @map("created_at")
 
   @@map("tenant_license_history")
+}
+
+model CreditPayment {
+  id             String       @id @default(uuid()) @db.Uuid
+  creditRecordId String       @map("credit_record_id") @db.Uuid
+  creditRecord   CreditRecord @relation(fields: [creditRecordId], references: [id], onDelete: Cascade)
+  amount         Decimal      @db.Decimal(12, 2)
+  date           DateTime     @default(now()) @db.Timestamptz
+  tenantId       String       @map("tenant_id") @db.Uuid
+  tenant         Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  @@index([tenantId, date])
+  @@map("credit_payments")
 }
