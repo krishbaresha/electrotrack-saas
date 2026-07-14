@@ -1,10 +1,10 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { FeaturesService } from '../../modules/features/features.service';
 import { TenantStatus } from '@prisma/client';
 
 @Injectable()
 export class TenantActiveGuard implements CanActivate {
-  constructor(private prisma: PrismaService) {}
+  constructor(private featuresService: FeaturesService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -20,26 +20,14 @@ export class TenantActiveGuard implements CanActivate {
       return true; // Pass through if no tenant ID is present (might be system/admin route)
     }
 
-    const tenant = await this.prisma.tenant.findUnique({
-      where: { id: tenantId as string },
-      select: { status: true, subscriptionExpiresAt: true, currentPeriodEnd: true }
-    });
+    const license = await this.featuresService.getResolvedLicense(tenantId as string);
 
-    if (!tenant) {
-      return true;
+    if (license.status !== TenantStatus.ACTIVE && license.status !== TenantStatus.TRIAL) {
+      throw new ForbiddenException(`Subscription inactive. Current status: ${license.status}`);
     }
 
-    if (tenant.status !== TenantStatus.ACTIVE) {
-      throw new ForbiddenException(`Subscription inactive. Current status: ${tenant.status}`);
-    }
-
-    const now = new Date();
-    if (tenant.subscriptionExpiresAt && tenant.subscriptionExpiresAt < now) {
+    if (license.isExpired) {
       throw new ForbiddenException('Subscription has expired.');
-    }
-
-    if (!tenant.currentPeriodEnd || tenant.currentPeriodEnd < now) {
-      throw new ForbiddenException('Current billing period has ended or not activated. Please renew subscription.');
     }
 
     return true;

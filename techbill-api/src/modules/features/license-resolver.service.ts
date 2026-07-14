@@ -65,9 +65,9 @@ export class LicenseResolverService {
     });
 
     // 3. Determine expiration and read-only states (Phase 1 basic logic)
-    const isExpired = tenant.subscriptionExpiresAt 
-      ? new Date() > tenant.subscriptionExpiresAt 
-      : false;
+    const isExpired = 
+      tenant.status === TenantStatus.EXPIRED ||
+      (tenant.subscriptionExpiresAt ? new Date() > tenant.subscriptionExpiresAt : false);
     const isReadOnly = false; // Phase 1 isReadOnly defaults to false (Phase 3 full grace period checker)
 
     const resolvedFeatures: Record<string, FeatureAccess> = {};

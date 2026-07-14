@@ -10,6 +10,8 @@ import { Role, TenantStatus } from '.prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
 
 
+import { FeaturesService } from '../features/features.service';
+
 const BCRYPT_ROUNDS = 12;
 
 const ALL_PERMISSIONS = [
@@ -45,7 +47,10 @@ const ALL_PERMISSIONS = [
 
 @Injectable()
 export class TenantsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private featuresService: FeaturesService,
+  ) {}
 
   async listTenants() {
     const tenants = await this.prisma.tenant.findMany({
@@ -250,14 +255,17 @@ export class TenantsService {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
 
+    let result;
     if (force) {
-      return this.prisma.tenant.delete({ where: { id } });
+      result = await this.prisma.tenant.delete({ where: { id } });
     } else {
-      return this.prisma.tenant.update({
+      result = await this.prisma.tenant.update({
         where: { id },
         data: { status: TenantStatus.PENDING_DELETION },
       });
     }
+    this.featuresService.invalidate(id);
+    return result;
   }
 
   async restoreTenant(id: string) {
@@ -266,10 +274,12 @@ export class TenantsService {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
 
-    return this.prisma.tenant.update({
+    const result = await this.prisma.tenant.update({
       where: { id },
       data: { status: TenantStatus.ACTIVE },
     });
+    this.featuresService.invalidate(id);
+    return result;
   }
 
   async renewTenant(id: string, startDate?: string) {
@@ -282,14 +292,17 @@ export class TenantsService {
     const newPeriodEnd = new Date(base);
     newPeriodEnd.setDate(newPeriodEnd.getDate() + 30);
 
-    return this.prisma.tenant.update({
+    const result = await this.prisma.tenant.update({
       where: { id },
       data: {
         currentPeriodEnd: newPeriodEnd,
-        // If tenant was suspended, reactivate on renewal
-        ...(tenant.status === TenantStatus.SUSPENDED ? { status: TenantStatus.ACTIVE } : {}),
+        subscriptionExpiresAt: newPeriodEnd,
+        // If tenant was suspended or expired, reactivate on renewal
+        ...((tenant.status === TenantStatus.SUSPENDED || tenant.status === TenantStatus.EXPIRED) ? { status: TenantStatus.ACTIVE } : {}),
       },
     });
+    this.featuresService.invalidate(id);
+    return result;
   }
 
   async resetOwnerPassword(tenantId: string, newPassword: string) {

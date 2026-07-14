@@ -19,7 +19,7 @@ export const SubscriptionBanner: React.FC = () => {
     daysLeft = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
   }
 
-  const isExpired = isInactive || license.isExpired || (expiresAt !== null && daysLeft <= 0);
+  const isExpired = isInactive || license.isExpired;
   const isExpiringSoon = expiresAt !== null && daysLeft > 0 && daysLeft <= 2 && !isInactive && !license.isExpired;
 
   if (!isExpired && !isExpiringSoon) return null;

@@ -73,10 +73,14 @@ export default function AppShell() {
 
     socket.on('subscription.updated', handleUpdate);
     socket.on('features.updated', handleUpdate);
+    socket.on('license.updated', handleUpdate);
+    socket.on('tenant.updated', handleUpdate);
 
     return () => {
       socket.off('subscription.updated', handleUpdate);
       socket.off('features.updated', handleUpdate);
+      socket.off('license.updated', handleUpdate);
+      socket.off('tenant.updated', handleUpdate);
     };
   }, [user?.tenantId, fetchLicense]);
 

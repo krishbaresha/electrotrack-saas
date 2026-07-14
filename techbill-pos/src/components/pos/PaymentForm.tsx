@@ -5,9 +5,9 @@ import { z } from 'zod';
 import { CreditCard, AlertTriangle } from 'lucide-react';
 import { api } from '../../api/client';
 import { useCartStore, generateIdempotencyKey } from '../../store/cart.store';
-import { useAuthStore } from '../../store/auth.store';
 import { queueSale } from '../../db/offline.db';
 import { useCan } from '../../lib/permissions';
+import { useLicenseStore } from '../../store/license.store';
 import type { Sale, ShopSettings } from '../../types';
 
 const schema = z.object({
@@ -34,15 +34,10 @@ export default function PaymentForm({ onSaleComplete, shopSettings }: { onSaleCo
   const [submitError, setSubmitError] = useState<string | null>(null);
   const { isOnlineOrder, setIsOnlineOrder, items } = useCartStore();
   const canSellOnline = useCan('pos.online_sell') && shopSettings?.tenant?.onlineSellingEnabled;
-  const user = useAuthStore((s) => s.user);
+  const { license } = useLicenseStore();
 
   // Check if subscription has expired
-  const isSubscriptionExpired = (() => {
-    if (user?.tenantStatus !== undefined && user?.tenantStatus !== 'active') return true;
-    const periodEnd = user?.currentPeriodEnd;
-    if (!periodEnd) return true; // NOT ACTIVATED = EXPIRED
-    return new Date(periodEnd) < new Date();
-  })();
+  const isSubscriptionExpired = license?.isExpired ?? false;
 
   const { register, handleSubmit, watch, setValue, getValues, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),

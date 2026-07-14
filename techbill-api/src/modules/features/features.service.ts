@@ -225,6 +225,8 @@ export class FeaturesService {
 
     const details: Record<string, string> = {};
 
+    const processedFeatureIds: string[] = [];
+
     for (const item of overrides) {
       const feature = await this.prisma.feature.findUnique({ where: { key: item.featureKey } });
       if (!feature) throw new NotFoundException(`Feature "${item.featureKey}" not found`);
@@ -249,6 +251,24 @@ export class FeaturesService {
       });
 
       details[item.featureKey] = item.access;
+      processedFeatureIds.push(feature.id);
+    }
+
+    if (processedFeatureIds.length > 0) {
+      await this.prisma.tenantFeatureOverride.deleteMany({
+        where: {
+          tenantId,
+          featureId: {
+            notIn: processedFeatureIds,
+          },
+        },
+      });
+    } else {
+      await this.prisma.tenantFeatureOverride.deleteMany({
+        where: {
+          tenantId,
+        },
+      });
     }
 
     await this.prisma.tenantLicenseHistory.create({

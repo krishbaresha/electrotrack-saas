@@ -159,5 +159,7 @@ export class EventsGateway
   handleSubscriptionUpdated(payload: { tenantId: string }) {
     this.server.emit('subscription.updated', payload);
     this.server.emit('features.updated', payload);
+    this.server.emit('license.updated', payload);
+    this.server.emit('tenant.updated', payload);
   }
 }
