@@ -81,6 +81,16 @@ Real-time updates are handled via `EventsGateway`.
 - **VM Git Remote Fix**: VM's git remote was pointing to the old deleted repo `talharana23/test-techbill`. Updated to `krishbaresha/Tech-Bill` permanently via `git remote set-url origin`.
 - **Commits**: `3d0730d` (service + root schema fix), `805f746` (API schema fix for CI).
 
+### 9. Credit Feature Re-write & Payment Logistics (Session 7 — July 15, 2026)
+- **Root Cause**: The Credit section strictly required `supplierId` and `customerId` via dropdown selectors, which limited the user's ability to input generic "Person / Party" names. Additionally, recording a credit payment merely updated the `paidAmount` on the parent `CreditRecord` without tracking *when* the payment was made, preventing credit payments from appearing in daily reports.
+- **Fix**:
+  - Replaced all selector dropdowns in `CreditPage.tsx` with open text `<input type="text">`.
+  - Added `personName` column to `CreditRecord` (`schema.prisma`) to store the free-text name while retaining nullable foreign keys for backwards compatibility.
+  - Removed "Supplier" label in favor of generic "Person / Party" terminology across UI and analytics cards.
+  - Added `CreditPayment` model to strictly log every payment (`amount`, `date`) via a Prisma transaction inside `credit.service.ts`'s `recordPayment()`.
+  - Upgraded `reports.service.ts` to seamlessly integrate credit payments based on their exact payment date: "Customer Owes Us" payments explicitly **add** to daily `Revenue`, and "We Owe" payments explicitly **add** to daily `Expenses` (which correctly lowers Net Profit dynamically).
+- **Commits**: `6f4549e`, `d1b4eb3`
+
 ## Known Gotchas
 1. **Two schema files**: `prisma/schema.prisma` (root, used for local VM tunnel scripts) AND `techbill-api/prisma/schema.prisma` (API-level, used by CI and the actual NestJS build). **Always update BOTH** when changing the DB schema.
 2. **Timezones**: The `createdAt` timestamps in Prisma rely on UTC. The Node API correctly translates local date requests (e.g. `start = new Date('2026-07-11T00:00:00+05:00')`) into UTC for database querying. Do not manually subtract timezone hours unless absolutely necessary, as `Date` handles it internally.
@@ -89,4 +99,5 @@ Real-time updates are handled via `EventsGateway`.
 5. **VM Schema Sync**: Use `npx prisma db push --accept-data-loss` on the VM (NOT `migrate dev`) since the VM has a local PostgreSQL DB. `migrate dev` requires interactive prompts and a `DIRECT_URL` that differs from pool URL.
 6. **VM Git Remote**: The VM's `origin` remote must always point to `https://github.com/krishbaresha/Tech-Bill.git`. It was previously stale pointing at `talharana23/test-techbill` (deleted). If a git pull fails, check remote with `git remote -v` and fix with `git remote set-url origin https://github.com/krishbaresha/Tech-Bill.git`.
 
-*Last Updated: July 14, 2026 — Session 6*
+*Last Updated: July 15, 2026 — Session 7*
+
