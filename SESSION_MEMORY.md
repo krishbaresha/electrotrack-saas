@@ -75,6 +75,15 @@ This forwards local port `5432` to VM port `5432`, allowing you to connect local
     - Documented environment selection and SSH tunnel execution in root `README.md` and `techbill-api/README.md`.
     - Created this `SESSION_MEMORY.md` file.
 
+### Session 4 — Inventory Auditing, POS Fixes, Tenant Licensing & RBAC
+*   **Date**: July 14, 2026
+*   **Work Done**:
+    - **POS & Cart Enhancements**: Fixed POS product click behavior to directly add items to cart, bypassing unneeded modals, and automatically selecting available serial numbers. Implemented POS Quick Add-on Buttons for dynamic additional charges in the cart.
+    - **Inventory Management**: Built an Inventory Integrity Center and Dedicated Inventory Summary API. Conducted system audits and synchronization, fixed issues with Inventory Cost Value displaying as Rs 0, and enhanced credit management tracking.
+    - **Tenant & Licensing**: Developed a Centralized Tenant Licensing System for managing SaaS subscriptions and implemented Dynamic Role-Based Access Control (RBAC) for fine-grained permissions.
+    - **Infrastructure & Stability**: Resolved Prisma `EPERM` generation errors, synced local and remote VM databases, checked and verified VM deployments, and implemented strategies for safely pushing GitHub changes to Vercel and the live VM.
+    - **Metrics & Dashboards**: Enhanced Metrics and Credit Tabs to display more accurate and real-time business health indicators.
+
 ---
 
 ## 🚀 Future Session Objectives & Gotchas

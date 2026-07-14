@@ -5,6 +5,7 @@ import { useAuthStore } from '../../store/auth.store';
 import { api } from '../../api/client';
 import { useCan } from '../../lib/permissions';
 import { useFeatureGate } from '../../hooks/useFeatureGate';
+import { useLicenseStore } from '../../store/license.store';
 import type { StaffUser, Role, Permission } from '../../types';
 import gsap from 'gsap';
 
@@ -19,35 +20,36 @@ const ROLE_COLORS: Record<Role, string> = {
   technician:     'bg-white/5 text-stitch-on-surface-variant border-white/10',
 };
 
-const ALL_POSSIBLE_PERMISSIONS: { key: Permission; label: string; desc: string }[] = [
-  { key: 'pos.read', label: 'Access POS Screen', desc: 'Can view and open POS selling screen.' },
-  { key: 'pos.sell', label: 'Process Sales', desc: 'Can checkout and record new sales.' },
-  { key: 'pos.discount', label: 'Apply Discounts', desc: 'Can apply manual product or cart discounts.' },
-  { key: 'pos.void', label: 'Void Transactions', desc: 'Can cancel or void sales.' },
-  { key: 'pos.online_sell', label: 'Online Selling', desc: 'Can process online orders with advance/COD.' },
-  { key: 'inventory.read', label: 'View Inventory', desc: 'Can search and view products/stock.' },
-  { key: 'inventory.write', label: 'Modify Inventory', desc: 'Can add, edit, and receive inventory units.' },
-  { key: 'inventory.delete', label: 'Delete Inventory', desc: 'Can deactivate/delete inventory products.' },
-  { key: 'suppliers.read', label: 'View Suppliers', desc: 'Can view suppliers and purchase orders.' },
-  { key: 'suppliers.write', label: 'Manage Suppliers', desc: 'Can create/edit suppliers and process POs.' },
-  { key: 'customers.read', label: 'View Customers', desc: 'Can browse customer directory.' },
-  { key: 'customers.write', label: 'Manage Customers', desc: 'Can create or edit customer details.' },
-  { key: 'returns.read', label: 'View Returns', desc: 'Can view return logs.' },
-  { key: 'returns.create', label: 'Initiate Returns', desc: 'Can request return or refund items.' },
-  { key: 'returns.review', label: 'Approve Returns', desc: 'Can approve/reject return requests.' },
-  { key: 'reports.read', label: 'View Analytics', desc: 'Can see standard reports and dashboards.' },
-  { key: 'reports.cash_reconciliation', label: 'Cash Reconciliation', desc: 'Can submit or review till reconciliations.' },
-  { key: 'users.read', label: 'View Users', desc: 'Can view list of store users.' },
-  { key: 'users.manage', label: 'Manage Users', desc: 'Can create, activate/deactivate, and reset workers.' },
-  { key: 'users.permissions', label: 'Assign Permissions', desc: 'Can edit worker permission checkboxes.' },
-  { key: 'settings.read', label: 'View Settings', desc: 'Can access shop configurations.' },
-  { key: 'settings.manage', label: 'Manage Settings', desc: 'Can update shop configurations.' },
-  { key: 'audit.read', label: 'View Audit Logs', desc: 'Can browse store change histories.' },
-  { key: 'notifications.read', label: 'Read Notifications', desc: 'Can receive in-app alerts.' },
-  { key: 'notifications.manage', label: 'Manage Notifications', desc: 'Can mark alerts as read/cleared.' },
-  { key: 'warranty.read', label: 'Check Warranties', desc: 'Can search items by serial key for warranty status.' },
-  { key: 'loyalty.read', label: 'View Loyalty', desc: 'Can read customer loyalty details.' },
-  { key: 'loyalty.manage', label: 'Manage Loyalty', desc: 'Can modify loyalty rules or points.' },
+const ALL_POSSIBLE_PERMISSIONS: { key: Permission; featureKey: string; label: string; desc: string }[] = [
+  { key: 'pos.read', featureKey: 'pos', label: 'Access POS Screen', desc: 'Can view and open POS selling screen.' },
+  { key: 'pos.sell', featureKey: 'pos', label: 'Process Sales', desc: 'Can checkout and record new sales.' },
+  { key: 'pos.discount', featureKey: 'pos', label: 'Apply Discounts', desc: 'Can apply manual product or cart discounts.' },
+  { key: 'pos.void', featureKey: 'pos', label: 'Void Transactions', desc: 'Can cancel or void sales.' },
+  { key: 'pos.online_sell', featureKey: 'online_orders', label: 'Online Selling', desc: 'Can process online orders with advance/COD.' },
+  { key: 'inventory.read', featureKey: 'inventory', label: 'View Inventory', desc: 'Can search and view products/stock.' },
+  { key: 'inventory.write', featureKey: 'inventory', label: 'Modify Inventory', desc: 'Can add, edit, and receive inventory units.' },
+  { key: 'inventory.delete', featureKey: 'inventory', label: 'Delete Inventory', desc: 'Can deactivate/delete inventory products.' },
+  { key: 'suppliers.read', featureKey: 'suppliers', label: 'View Suppliers', desc: 'Can view suppliers and purchase orders.' },
+  { key: 'suppliers.write', featureKey: 'suppliers', label: 'Manage Suppliers', desc: 'Can create/edit suppliers and process POs.' },
+  { key: 'customers.read', featureKey: 'customers', label: 'View Customers', desc: 'Can browse customer directory.' },
+  { key: 'customers.write', featureKey: 'customers', label: 'Manage Customers', desc: 'Can create or edit customer details.' },
+  { key: 'returns.read', featureKey: 'returns', label: 'View Returns', desc: 'Can view return logs.' },
+  { key: 'returns.create', featureKey: 'returns', label: 'Initiate Returns', desc: 'Can request return or refund items.' },
+  { key: 'returns.review', featureKey: 'returns', label: 'Approve Returns', desc: 'Can approve/reject return requests.' },
+  { key: 'reports.read', featureKey: 'reports', label: 'View Analytics', desc: 'Can see standard reports and dashboards.' },
+  { key: 'reports.cash_reconciliation', featureKey: 'cash_reconciliation', label: 'Cash Reconciliation', desc: 'Can submit or review till reconciliations.' },
+  { key: 'users.read', featureKey: 'users_staff', label: 'View Users', desc: 'Can view list of store users.' },
+  { key: 'users.manage', featureKey: 'users_staff', label: 'Manage Users', desc: 'Can create, activate/deactivate, and reset workers.' },
+  { key: 'users.permissions', featureKey: 'users_staff', label: 'Assign Permissions', desc: 'Can edit worker permission checkboxes.' },
+  { key: 'settings.read', featureKey: 'shop_settings', label: 'View Settings', desc: 'Can access shop configurations.' },
+  { key: 'settings.manage', featureKey: 'shop_settings', label: 'Manage Settings', desc: 'Can update shop configurations.' },
+  { key: 'audit.read', featureKey: 'audit_logs', label: 'View Audit Logs', desc: 'Can browse store change histories.' },
+  { key: 'notifications.read', featureKey: 'notifications', label: 'Read Notifications', desc: 'Can receive in-app alerts.' },
+  { key: 'notifications.manage', featureKey: 'notifications', label: 'Manage Notifications', desc: 'Can mark alerts as read/cleared.' },
+  { key: 'warranty.read', featureKey: 'warranty', label: 'Check Warranties', desc: 'Can search items by serial key for warranty status.' },
+  { key: 'loyalty.read', featureKey: 'loyalty_rewards', label: 'View Loyalty', desc: 'Can read customer loyalty details.' },
+  { key: 'loyalty.manage', featureKey: 'loyalty_rewards', label: 'Manage Loyalty', desc: 'Can modify loyalty rules or points.' },
+  { key: 'invoices.read', featureKey: 'invoices', label: 'View Invoices', desc: 'Can view past invoices.' },
 ];
 
 const ROLE_DEFAULT_PERMISSIONS: Record<Role, Permission[]> = {
@@ -75,12 +77,21 @@ interface PermissionGridProps {
   permissions: Permission[];
   canAssign: boolean;
   onToggle: (p: Permission) => void;
+  tenantFeatures?: Record<string, string>;
 }
 
-function PermissionGrid({ permissions, canAssign, onToggle }: PermissionGridProps) {
+function PermissionGrid({ permissions, canAssign, onToggle, tenantFeatures }: PermissionGridProps) {
+  const visiblePermissions = ALL_POSSIBLE_PERMISSIONS.filter(p => {
+    // If we have tenant features, only show permissions for features the tenant owns
+    if (tenantFeatures && p.featureKey) {
+      return tenantFeatures[p.featureKey] && tenantFeatures[p.featureKey] !== 'NONE';
+    }
+    return true; // Default visible if no features map or no featureKey
+  });
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-      {ALL_POSSIBLE_PERMISSIONS.map(({ key, label, desc }) => {
+      {visiblePermissions.map(({ key, label, desc }) => {
         const isChecked = permissions.includes(key);
         return (
           <label
@@ -112,6 +123,7 @@ function PermissionGrid({ permissions, canAssign, onToggle }: PermissionGridProp
 export default function UsersPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const { license } = useLicenseStore();
   const tenantDomain = user?.email?.split('@')[1] || 'tenant.techbill.app';
   const { plan, limits } = useFeatureGate();
   const [users, setUsers] = useState<StaffUser[]>([]);
@@ -398,7 +410,7 @@ export default function UsersPage() {
                 {!canAssignPermissions && <span className="text-stitch-error font-normal normal-case ml-2">(Requires users.permissions)</span>}
               </p>
               <PermissionGrid permissions={form.permissions} canAssign={canAssignPermissions}
-                onToggle={(p) => handlePermissionToggle(p)} />
+                onToggle={(p) => handlePermissionToggle(p)} tenantFeatures={license?.features} />
             </div>
 
             <div className="flex gap-2 justify-end pt-3 border-t border-white/5">
@@ -458,7 +470,7 @@ export default function UsersPage() {
                   <p className="text-xs text-stitch-primary/70 italic">Owner has full operational bypass — individual toggles do not apply.</p>
                 ) : (
                   <PermissionGrid permissions={editForm.permissions} canAssign={canAssignPermissions}
-                    onToggle={(p) => handlePermissionToggle(p, true)} />
+                    onToggle={(p) => handlePermissionToggle(p, true)} tenantFeatures={license?.features} />
                 )}
               </div>
 

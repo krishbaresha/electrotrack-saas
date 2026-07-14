@@ -18,7 +18,7 @@ export type Permission =
   | 'users.read' | 'users.manage' | 'users.permissions'
   | 'settings.read' | 'settings.manage'
   | 'audit.read' | 'notifications.read' | 'notifications.manage'
-  | 'warranty.read' | 'loyalty.read' | 'loyalty.manage';
+  | 'warranty.read' | 'loyalty.read' | 'loyalty.manage' | 'invoices.read';
 
 export const ALL_PERMISSIONS: Permission[] = [
   'pos.read', 'pos.sell', 'pos.discount', 'pos.void', 'pos.online_sell',
@@ -30,7 +30,7 @@ export const ALL_PERMISSIONS: Permission[] = [
   'users.read', 'users.manage', 'users.permissions',
   'settings.read', 'settings.manage',
   'audit.read', 'notifications.read', 'notifications.manage',
-  'warranty.read', 'loyalty.read', 'loyalty.manage',
+  'warranty.read', 'loyalty.read', 'loyalty.manage', 'invoices.read',
 ];
 
 // ─── User Types ──────────────────────────────────────────────────────────────

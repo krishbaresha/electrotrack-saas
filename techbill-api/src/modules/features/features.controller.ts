@@ -64,7 +64,7 @@ export class FeaturesController {
       };
     }
 
-    return this.featuresService.getResolvedLicense(user.tenantId);
+    return this.featuresService.getUserLicense(user.tenantId, user.role, user.permissions || []);
   }
 
   // ─── Super Admin Endpoints ────────────────────────────────────────────────

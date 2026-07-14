@@ -25,6 +25,74 @@ export class FeaturesService {
     return resolved;
   }
 
+  async getUserLicense(
+    tenantId: string,
+    role: string,
+    permissions: string[],
+  ): Promise<ResolvedLicense> {
+    const tenantLicense = await this.getResolvedLicense(tenantId);
+
+    if (role === 'owner' || role === 'platform_admin') {
+      return tenantLicense;
+    }
+
+    const filteredFeatures: Record<string, FeatureAccess> = {};
+    const filteredNavigation: typeof tenantLicense.navigation = [];
+
+    const FEATURE_PERMISSION_MAP: Record<string, string[]> = {
+      pos: ['pos.read', 'pos.sell', 'pos.discount', 'pos.void'],
+      online_orders: ['pos.online_sell'],
+      inventory: ['inventory.read', 'inventory.write', 'inventory.delete'],
+      suppliers: ['suppliers.read', 'suppliers.write'],
+      purchase_orders: ['suppliers.read', 'suppliers.write'],
+      customers: ['customers.read', 'customers.write'],
+      returns: ['returns.read', 'returns.create', 'returns.review'],
+      return_analytics: ['returns.read'],
+      reports: ['reports.read'],
+      dashboard: ['reports.read'],
+      cash_reconciliation: ['reports.cash_reconciliation'],
+      expenses: ['reports.read'],
+      credit: ['reports.read'],
+      users_staff: ['users.read', 'users.manage', 'users.permissions'],
+      shop_settings: ['settings.read', 'settings.manage'],
+      audit_logs: ['audit.read'],
+      notifications: ['notifications.read', 'notifications.manage'],
+      warranty: ['warranty.read'],
+      loyalty_rewards: ['loyalty.read', 'loyalty.manage'],
+      invoices: ['invoices.read'],
+    };
+
+    for (const [key, access] of Object.entries(tenantLicense.features)) {
+      if (access === FeatureAccess.NONE) {
+        filteredFeatures[key] = FeatureAccess.NONE;
+        continue;
+      }
+
+      const mappedPerms = FEATURE_PERMISSION_MAP[key];
+      let hasAccess = false;
+
+      if (mappedPerms) {
+        hasAccess = mappedPerms.some((p) => permissions.includes(p));
+      } else {
+        hasAccess = permissions.some((p) => p.startsWith(`${key}.`));
+      }
+
+      filteredFeatures[key] = hasAccess ? access : FeatureAccess.NONE;
+    }
+
+    for (const nav of tenantLicense.navigation) {
+      if (filteredFeatures[nav.key] !== FeatureAccess.NONE) {
+        filteredNavigation.push(nav);
+      }
+    }
+
+    return {
+      ...tenantLicense,
+      features: filteredFeatures,
+      navigation: filteredNavigation,
+    };
+  }
+
   invalidate(tenantId: string) {
     this.licenseCache.delete(tenantId);
     // Emit internal event which will trigger WebSocket broadcast

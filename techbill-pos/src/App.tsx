@@ -521,7 +521,7 @@ export default function App() {
           <Route
             path="invoices"
             element={
-              <RequireAuth roles={['owner']}>
+              <RequireAuth permission="invoices.read">
                 <RequireFeature feature="invoices">
                   <InvoiceHistoryPage />
                 </RequireFeature>

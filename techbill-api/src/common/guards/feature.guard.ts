@@ -29,7 +29,7 @@ export class FeatureGuard implements CanActivate {
       return true;
     }
 
-    const license = await this.featuresService.getResolvedLicense(user.tenantId);
+    const license = await this.featuresService.getUserLicense(user.tenantId, user.role, user.permissions || []);
     const resolvedAccess = license.features[requiredFeature.featureKey] || FeatureAccess.NONE;
 
     if (resolvedAccess === FeatureAccess.NONE) {

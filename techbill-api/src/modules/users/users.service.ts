@@ -7,12 +7,16 @@ import {
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 const BCRYPT_ROUNDS = 12;
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private eventEmitter: EventEmitter2,
+  ) {}
 
   async listUsers(tenantId: string) {
     return this.prisma.user.findMany({
@@ -77,7 +81,7 @@ export class UsersService {
     if (dto.password)
       data.passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
 
-    return this.prisma.user.update({
+    const updated = await this.prisma.user.update({
       where: { id },
       data,
       select: {
@@ -89,6 +93,10 @@ export class UsersService {
         permissions: true,
       },
     });
+
+    this.eventEmitter.emit('subscription.updated', { tenantId });
+
+    return updated;
   }
 
   async resetPassword(id: string, newPassword: string, tenantId: string) {
