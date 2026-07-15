@@ -37,24 +37,35 @@ export class SalesService {
   ) {
     // 1. Scenario E: Idempotency catch block — idempotencyKey field removed from schema
     try {
-
       // 2. Scenario C: Session validation — cashDrawerSession removed, skip session logic
 
       // 3. Scenario D: Custom Pricing Authorization
-      const user = await this.prisma.user.findUnique({ where: { id: cashierId } });
-      const canOverridePrice = user?.role === 'owner' || user?.role === 'platform_admin' || user?.role === 'inventory_manager';
-      
-      const serialCounts = dto.serials.reduce((acc, serial) => {
-        acc[serial] = (acc[serial] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
+      const user = await this.prisma.user.findUnique({
+        where: { id: cashierId },
+      });
+      const canOverridePrice =
+        user?.role === 'owner' ||
+        user?.role === 'platform_admin' ||
+        user?.role === 'inventory_manager';
+
+      const serialCounts = dto.serials.reduce(
+        (acc, serial) => {
+          acc[serial] = (acc[serial] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
 
       // Auto-upsert customer from name+phone if no explicit customerId
       let resolvedCustomerId = dto.customerId;
       if (!resolvedCustomerId && dto.customerPhone) {
         const customer = await this.prisma.customer.upsert({
           where: { tenantId_phone: { tenantId, phone: dto.customerPhone } },
-          create: { name: dto.customerName ?? dto.customerPhone, phone: dto.customerPhone, tenantId },
+          create: {
+            name: dto.customerName ?? dto.customerPhone,
+            phone: dto.customerPhone,
+            tenantId,
+          },
           update: dto.customerName ? { name: dto.customerName } : {},
         });
         resolvedCustomerId = customer.id;
@@ -64,30 +75,46 @@ export class SalesService {
 
       const txResult = await this.prisma.$transaction(
         async (tx) => {
-          let allSelectedUnits: { id: string; serialNumber: string; productId: string }[] = [];
-          
+          const allSelectedUnits: {
+            id: string;
+            serialNumber: string;
+            productId: string;
+          }[] = [];
+
           for (const [serial, count] of Object.entries(serialCounts)) {
             // Scenario B (Generic Pool) & A (Race Condition): Select exact 'count' of available rows, lock them using updateMany
             const availableUnits = await tx.inventoryUnit.findMany({
-              where: { tenantId, serialNumber: serial, status: UnitStatus.in_stock },
+              where: {
+                tenantId,
+                serialNumber: serial,
+                status: UnitStatus.in_stock,
+              },
               take: count,
               select: { id: true, serialNumber: true, productId: true },
             });
 
             if (availableUnits.length < count) {
-              throw new ConflictException(`Stock exhaustion for serial/generic: ${serial}`);
+              throw new ConflictException(
+                `Stock exhaustion for serial/generic: ${serial}`,
+              );
             }
 
-            const unitIds = availableUnits.map(u => u.id);
-            
+            const unitIds = availableUnits.map((u) => u.id);
+
             // Scenario A: Atomic decrement/status update
             const updateResult = await tx.inventoryUnit.updateMany({
-              where: { tenantId, id: { in: unitIds }, status: UnitStatus.in_stock },
+              where: {
+                tenantId,
+                id: { in: unitIds },
+                status: UnitStatus.in_stock,
+              },
               data: { status: UnitStatus.sold },
             });
 
             if (updateResult.count !== count) {
-              throw new ConflictException(`Race condition detected for ${serial}. Item claimed by another transaction.`);
+              throw new ConflictException(
+                `Race condition detected for ${serial}. Item claimed by another transaction.`,
+              );
             }
 
             allSelectedUnits.push(...availableUnits);
@@ -95,15 +122,24 @@ export class SalesService {
 
           // Fetch product prices
           const products = await tx.product.findMany({
-            where: { id: { in: [...new Set(allSelectedUnits.map(u => u.productId))] } },
+            where: {
+              id: {
+                in: [...new Set(allSelectedUnits.map((u) => u.productId))],
+              },
+            },
             select: { id: true, sellingPrice: true },
           });
-          const productPriceMap = new Map(products.map(p => [p.id, Number(p.sellingPrice)]));
+          const productPriceMap = new Map(
+            products.map((p) => [p.id, Number(p.sellingPrice)]),
+          );
 
           let subtotal = 0;
-          const saleItemsData = allSelectedUnits.map(u => {
+          const saleItemsData = allSelectedUnits.map((u) => {
             const defaultPrice = productPriceMap.get(u.productId) ?? 0;
-            const finalPrice = (canOverridePrice && dto.customPrices?.[u.serialNumber]) ? dto.customPrices[u.serialNumber] : defaultPrice;
+            const finalPrice =
+              canOverridePrice && dto.customPrices?.[u.serialNumber]
+                ? dto.customPrices[u.serialNumber]
+                : defaultPrice;
             subtotal += finalPrice;
             return {
               inventoryUnitId: u.id,
@@ -115,10 +151,12 @@ export class SalesService {
           const discount = dto.discountAmount ?? 0;
           const deliveryCharge = dto.deliveryCharge ?? 0;
           const additionalCharges = dto.additionalCharges ?? 0;
-          const total = subtotal - discount + deliveryCharge + additionalCharges;
+          const total =
+            subtotal - discount + deliveryCharge + additionalCharges;
 
-          if (total < 0) throw new BadRequestException('Discount exceeds subtotal');
-          
+          if (total < 0)
+            throw new BadRequestException('Discount exceeds subtotal');
+
           const created = await tx.sale.create({
             data: {
               invoiceNumber,
@@ -208,7 +246,10 @@ export class SalesService {
 
       return sale;
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
         // Unique constraint violation — fall through and let caller retry
         throw error;
       }

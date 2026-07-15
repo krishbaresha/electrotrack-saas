@@ -79,16 +79,26 @@ export class IntegrityController {
     @Req() req: RequestWithUser,
     @Res() res: Response,
   ) {
-    const data = await this.integrityService.getExportData(req.user.tenantId, scanId, format);
-    
+    const data = await this.integrityService.getExportData(
+      req.user.tenantId,
+      scanId,
+      format,
+    );
+
     if (format === 'csv') {
       res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', `attachment; filename="integrity-report-${scanId}.csv"`);
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="integrity-report-${scanId}.csv"`,
+      );
     } else {
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', `attachment; filename="integrity-report-${scanId}.json"`);
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="integrity-report-${scanId}.json"`,
+      );
     }
-    
+
     return res.send(data);
   }
 }

@@ -9,7 +9,6 @@ import {
   Req,
   HttpCode,
   HttpStatus,
-  Query,
 } from '@nestjs/common';
 import { FeaturesService } from './features.service';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -64,7 +63,11 @@ export class FeaturesController {
       };
     }
 
-    return this.featuresService.getUserLicense(user.tenantId, user.role, user.permissions || []);
+    return this.featuresService.getUserLicense(
+      user.tenantId,
+      user.role,
+      user.permissions || [],
+    );
   }
 
   // ─── Super Admin Endpoints ────────────────────────────────────────────────
@@ -107,11 +110,16 @@ export class FeaturesController {
   @HttpCode(HttpStatus.OK)
   async updateTenantOverrides(
     @Param('id') tenantId: string,
-    @Body('overrides') overrides: Array<{ featureKey: string; access: FeatureAccess }>,
+    @Body('overrides')
+    overrides: Array<{ featureKey: string; access: FeatureAccess }>,
     @Req() req: Request,
   ) {
     const user = (req as Request & { user: AuthUser }).user;
-    return this.featuresService.updateTenantOverrides(tenantId, overrides, user.email);
+    return this.featuresService.updateTenantOverrides(
+      tenantId,
+      overrides,
+      user.email,
+    );
   }
 
   @Post('tenant/:id/reset-overrides')

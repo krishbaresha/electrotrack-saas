@@ -75,7 +75,7 @@ export default function CartTable() {
         <span className="text-sm text-stitch-on-surface-variant">
           {items.length} item{items.length !== 1 ? 's' : ''}
         </span>
-        <span className="font-bold text-stitch-on-surface tabular-nums font-space">
+        <span data-testid="cart-total" className="font-bold text-stitch-on-surface tabular-nums font-space">
           {formatPKR(subtotal)}
         </span>
       </div>

@@ -29,6 +29,16 @@ logs/
 api.log
 npm-debug.log*
 
+# ── Playwright / e2e test artifacts ────────────────────────────────────────────
+techbill-pos/test-results/
+techbill-pos/playwright-report/
+techbill-pos/playwright/.cache/
+.env.e2e
+
+# ── Tauri desktop build ─────────────────────────────────────────────────────────
+techbill-pos/src-tauri/target/
+techbill-pos/src-tauri/gen/
+
 # ── Editor / OS ───────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db

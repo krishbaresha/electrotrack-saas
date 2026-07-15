@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateCreditDto } from './dto/create-credit.dto';
 import { RecordPaymentDto } from './dto/record-payment.dto';
@@ -18,8 +22,10 @@ export class CreditService {
         description: dto.description,
         date: new Date(dto.date),
         personName: dto.personName,
-        customerId: dto.type === CreditType.CUSTOMER ? (dto.customerId ?? null) : null,
-        supplierId: dto.type === CreditType.SUPPLIER ? (dto.supplierId ?? null) : null,
+        customerId:
+          dto.type === CreditType.CUSTOMER ? (dto.customerId ?? null) : null,
+        supplierId:
+          dto.type === CreditType.SUPPLIER ? (dto.supplierId ?? null) : null,
         tenantId,
       },
       include: {
@@ -29,7 +35,11 @@ export class CreditService {
     });
   }
 
-  async listCredits(tenantId: string, type?: CreditType, status?: CreditStatus) {
+  async listCredits(
+    tenantId: string,
+    type?: CreditType,
+    status?: CreditStatus,
+  ) {
     return this.prisma.creditRecord.findMany({
       where: {
         tenantId,
@@ -58,13 +68,15 @@ export class CreditService {
     const newPaid = currentPaid + dto.amount;
 
     if (newPaid > totalAmount) {
-      throw new BadRequestException(`Payment exceeds remaining due amount: ₨ ${(totalAmount - currentPaid).toFixed(2)}`);
+      throw new BadRequestException(
+        `Payment exceeds remaining due amount: ₨ ${(totalAmount - currentPaid).toFixed(2)}`,
+      );
     }
 
     const newDue = totalAmount - newPaid;
     const newStatus = newDue <= 0 ? CreditStatus.PAID : CreditStatus.PENDING;
 
-    const [updatedRecord, payment] = await this.prisma.$transaction([
+    const [updatedRecord, _payment] = await this.prisma.$transaction([
       this.prisma.creditRecord.update({
         where: { id },
         data: {
@@ -83,8 +95,8 @@ export class CreditService {
           amount: dto.amount,
           tenantId,
           // date will default to now()
-        }
-      })
+        },
+      }),
     ]);
 
     return updatedRecord;

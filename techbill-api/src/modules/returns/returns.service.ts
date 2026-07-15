@@ -29,7 +29,12 @@ export class ReturnsService {
     );
   }
 
-  async createReturn(dto: CreateReturnDto, userId: string, tenantId: string, ipAddress?: string) {
+  async createReturn(
+    dto: CreateReturnDto,
+    userId: string,
+    tenantId: string,
+    ipAddress?: string,
+  ) {
     const sale = await this.prisma.sale.findFirst({
       where: { id: dto.saleId, tenantId },
       include: { items: { include: { inventoryUnit: true } } },
@@ -292,7 +297,9 @@ export class ReturnsService {
     const hoursSinceCreation =
       (Date.now() - returnRecord.createdAt.getTime()) / (1000 * 60 * 60);
     if (hoursSinceCreation > 24) {
-      throw new BadRequestException('Cannot delete returns older than 24 hours');
+      throw new BadRequestException(
+        'Cannot delete returns older than 24 hours',
+      );
     }
 
     return this.prisma.$transaction(async (tx) => {
@@ -319,7 +326,7 @@ export class ReturnsService {
           });
         }
       }
-      
+
       return deletedReturn;
     });
   }

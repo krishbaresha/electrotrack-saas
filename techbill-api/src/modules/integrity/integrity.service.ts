@@ -1,9 +1,13 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AuditService } from '../audit/audit.service';
-import { UnitStatus, SaleStatus, ReturnStatus, POStatus, TenantStatus } from '@prisma/client';
+import { UnitStatus, TenantStatus } from '@prisma/client';
 
 @Injectable()
 export class IntegrityService {
@@ -71,7 +75,7 @@ export class IntegrityService {
     checks.push(retailVal);
 
     // 6. Gross Profit Validation (High)
-    const gpVal = await this.checkGrossProfitValidation(tenantId);
+    const gpVal = this.checkGrossProfitValidation(tenantId);
     checks.push(gpVal);
 
     // 7. Orphan Inventory Units (High)
@@ -87,15 +91,15 @@ export class IntegrityService {
     checks.push(poIntegrity);
 
     // 10. Return Integrity (Medium)
-    const returnIntegrity = await this.checkReturnIntegrity(tenantId);
+    const returnIntegrity = this.checkReturnIntegrity(tenantId);
     checks.push(returnIntegrity);
 
     // 11. Impossible Status Detection (High)
-    const impossibleStatus = await this.checkImpossibleStatus(tenantId);
+    const impossibleStatus = this.checkImpossibleStatus(tenantId);
     checks.push(impossibleStatus);
 
     // 12. Dashboard Synchronization (High)
-    const dashboardSync = await this.checkDashboardSync(tenantId);
+    const dashboardSync = this.checkDashboardSync(tenantId);
     checks.push(dashboardSync);
 
     // 13. Product Pricing Validation (Low)
@@ -119,15 +123,15 @@ export class IntegrityService {
     checks.push(ghostProducts);
 
     // 18. Financial Reconciliation (High)
-    const finReconciliation = await this.checkFinancialReconciliation(tenantId);
+    const finReconciliation = this.checkFinancialReconciliation(tenantId);
     checks.push(finReconciliation);
 
     // 19. Audit Trail Validation (Medium)
-    const auditTrailVal = await this.checkAuditTrailValidation(tenantId);
+    const auditTrailVal = this.checkAuditTrailValidation(tenantId);
     checks.push(auditTrailVal);
 
     // 20. Warranty Integrity (Medium) - Enterprise
-    const warrantyVal = await this.checkWarrantyIntegrity(tenantId);
+    const warrantyVal = this.checkWarrantyIntegrity(tenantId);
     checks.push(warrantyVal);
 
     // 21. Customer Ledger Integrity (High) - Enterprise
@@ -135,7 +139,7 @@ export class IntegrityService {
     checks.push(ledgerVal);
 
     // 22. Serial Lifecycle (Medium) - Enterprise
-    const lifecycleVal = await this.checkSerialLifecycle(tenantId);
+    const lifecycleVal = this.checkSerialLifecycle(tenantId);
     checks.push(lifecycleVal);
 
     // 23. Duplicate Invoice Numbers (Critical) - Enterprise
@@ -143,7 +147,7 @@ export class IntegrityService {
     checks.push(dupInvoices);
 
     // 24. Circular References (Medium) - Enterprise
-    const circularRefs = await this.checkCircularReferences(tenantId);
+    const circularRefs = this.checkCircularReferences(tenantId);
     checks.push(circularRefs);
 
     // --- DEEP SCANS ---
@@ -181,21 +185,50 @@ export class IntegrityService {
 
     for (const c of checks) {
       if (c.status !== 'Healthy') {
-        const penalty = c.severity === 'Critical' ? 5 : c.severity === 'High' ? 3 : c.severity === 'Medium' ? 1.5 : 0.5;
-        
+        const penalty =
+          c.severity === 'Critical'
+            ? 5
+            : c.severity === 'High'
+              ? 3
+              : c.severity === 'Medium'
+                ? 1.5
+                : 0.5;
+
         // Categorize penalties into modules
         const checkNameLower = c.name.toLowerCase();
-        if (checkNameLower.includes('serial') || checkNameLower.includes('stock') || checkNameLower.includes('orphan') || checkNameLower.includes('pricing') || checkNameLower.includes('negative')) {
+        if (
+          checkNameLower.includes('serial') ||
+          checkNameLower.includes('stock') ||
+          checkNameLower.includes('orphan') ||
+          checkNameLower.includes('pricing') ||
+          checkNameLower.includes('negative')
+        ) {
           categories.inventory -= penalty;
-        } else if (checkNameLower.includes('invoice') || checkNameLower.includes('ledger') || checkNameLower.includes('sale')) {
+        } else if (
+          checkNameLower.includes('invoice') ||
+          checkNameLower.includes('ledger') ||
+          checkNameLower.includes('sale')
+        ) {
           categories.sales -= penalty;
-        } else if (checkNameLower.includes('purchase') || checkNameLower.includes('grn') || checkNameLower.includes('purchasing')) {
+        } else if (
+          checkNameLower.includes('purchase') ||
+          checkNameLower.includes('grn') ||
+          checkNameLower.includes('purchasing')
+        ) {
           categories.purchasing -= penalty;
         } else if (checkNameLower.includes('return')) {
           categories.returns -= penalty;
-        } else if (checkNameLower.includes('summary') || checkNameLower.includes('dashboard') || checkNameLower.includes('reconciliation') || checkNameLower.includes('reports')) {
+        } else if (
+          checkNameLower.includes('summary') ||
+          checkNameLower.includes('dashboard') ||
+          checkNameLower.includes('reconciliation') ||
+          checkNameLower.includes('reports')
+        ) {
           categories.reports -= penalty;
-        } else if (checkNameLower.includes('database') || checkNameLower.includes('index')) {
+        } else if (
+          checkNameLower.includes('database') ||
+          checkNameLower.includes('index')
+        ) {
           categories.database -= penalty;
         }
       }
@@ -308,20 +341,19 @@ export class IntegrityService {
     };
   }
 
-  async recalculate(tenantId: string) {
+  async recalculate(_tenantId: string) {
     // Recompute low stock counts and summaries (flushes dashboard and summary caches)
     // Runs inside a transaction to ensure atomic execution
     await this.prisma.$transaction(async (tx) => {
-      // 1. Force recalculate low stock by settings
-      const settings = await tx.shopSettings.findFirst({ where: { tenantId } });
-      const threshold = settings?.lowStockThreshold ?? 2;
-
       // Real-time recalculation of counts doesn't change business data, but refreshes indexes
       await tx.$executeRaw`ANALYZE inventory_units;`;
       await tx.$executeRaw`ANALYZE products;`;
     });
 
-    return { status: 'success', message: 'Database statistics and caches recalculated successfully.' };
+    return {
+      status: 'success',
+      message: 'Database statistics and caches recalculated successfully.',
+    };
   }
 
   async executeRepair(
@@ -342,10 +374,15 @@ export class IntegrityService {
 
     if (issue.severity === 'Critical' && !issue.requiresConfirmation) {
       // Critical items require manual review or confirmation
-      throw new BadRequestException('Critical issues cannot be auto-repaired and require manual review.');
+      throw new BadRequestException(
+        'Critical issues cannot be auto-repaired and require manual review.',
+      );
     }
 
-    const estimatedChanges = (issue.estimatedChanges ?? {}) as Record<string, any>;
+    const estimatedChanges = (issue.estimatedChanges ?? {}) as Record<
+      string,
+      any
+    >;
 
     const preview = {
       affectedUnits: estimatedChanges['affectedCount'] ?? 0,
@@ -367,12 +404,14 @@ export class IntegrityService {
       if (issue.type === 'duplicate_serial_numbers') {
         preview.stockAfter = initialStock - preview.affectedUnits;
         preview.changes = (estimatedChanges['records'] ?? []).map(
-          (r: any) => `Mark duplicate serial number ${r.serialNumber} as invalid`,
+          (r: any) =>
+            `Mark duplicate serial number ${r.serialNumber} as invalid`,
         );
         preview.auditLogsCreated = preview.affectedUnits;
       } else if (issue.type === 'orphan_inventory_units') {
         preview.changes = (estimatedChanges['records'] ?? []).map(
-          (r: any) => `Relink orphaned unit ${r.serialNumber} to a placeholder product`,
+          (r: any) =>
+            `Relink orphaned unit ${r.serialNumber} to a placeholder product`,
         );
         preview.auditLogsCreated = preview.affectedUnits;
       } else if (issue.type === 'stock_count_validation') {
@@ -387,7 +426,7 @@ export class IntegrityService {
 
     // Execute actual repair inside a transaction
     await this.prisma.$transaction(async (tx) => {
-      let repairLogs: string[] = [];
+      const repairLogs: string[] = [];
 
       if (issue.type === 'duplicate_serial_numbers') {
         const records = estimatedChanges['records'] ?? [];
@@ -395,13 +434,19 @@ export class IntegrityService {
           // Deactivate or mark status as damaged/invalid for the duplicate unit (do NOT delete)
           await tx.inventoryUnit.update({
             where: { id: r.id },
-            data: { status: UnitStatus.damaged, notes: 'Auto-marked as damaged/duplicate during integrity repair.' },
+            data: {
+              status: UnitStatus.damaged,
+              notes:
+                'Auto-marked as damaged/duplicate during integrity repair.',
+            },
           });
-          repairLogs.push(`Updated duplicate serial unit ${r.serialNumber} ID ${r.id} status to damaged`);
+          repairLogs.push(
+            `Updated duplicate serial unit ${r.serialNumber} ID ${r.id} status to damaged`,
+          );
         }
       } else if (issue.type === 'orphan_inventory_units') {
         const records = estimatedChanges['records'] ?? [];
-        
+
         // Find or create a fallback product
         let fallbackProduct = await tx.product.findFirst({
           where: { tenantId, name: 'Orphaned Fallback Product' },
@@ -424,12 +469,16 @@ export class IntegrityService {
             where: { id: r.id },
             data: { productId: fallbackProduct.id },
           });
-          repairLogs.push(`Relinked orphan unit ${r.serialNumber} to fallback product ${fallbackProduct.id}`);
+          repairLogs.push(
+            `Relinked orphan unit ${r.serialNumber} to fallback product ${fallbackProduct.id}`,
+          );
         }
       } else {
         // Safe Cache / Dashboard Repairs
         await tx.$executeRaw`ANALYZE inventory_units;`;
-        repairLogs.push(`Rebuilt database summary caches for tenant ${tenantId}`);
+        repairLogs.push(
+          `Rebuilt database summary caches for tenant ${tenantId}`,
+        );
       }
 
       // Record audit logs
@@ -457,7 +506,11 @@ export class IntegrityService {
     return { dryRun: false, success: true, preview };
   }
 
-  async getExportData(tenantId: string, scanId: string, format: 'csv' | 'json') {
+  async getExportData(
+    tenantId: string,
+    scanId: string,
+    format: 'csv' | 'json',
+  ) {
     const scan = await this.prisma.integrityScan.findUnique({
       where: { id: scanId },
       include: { issues: true },
@@ -472,7 +525,8 @@ export class IntegrityService {
     }
 
     // CSV format
-    const header = 'Issue ID,Type,Severity,Message,Repairable,Confidence,CreatedAt\n';
+    const header =
+      'Issue ID,Type,Severity,Message,Repairable,Confidence,CreatedAt\n';
     const rows = scan.issues
       .map(
         (i) =>
@@ -485,7 +539,9 @@ export class IntegrityService {
   // --- DIAGNOSTIC CHECKS IMPLEMENTATIONS ---
 
   private async checkDuplicateSerials(tenantId: string) {
-    const rawSerials = await this.prisma.$queryRaw<Array<{ serial_number: string; count: bigint }>>`
+    const rawSerials = await this.prisma.$queryRaw<
+      Array<{ serial_number: string; count: bigint }>
+    >`
       SELECT LOWER(serial_number) as serial_number, COUNT(*) as count 
       FROM inventory_units 
       WHERE tenant_id = ${tenantId}::uuid 
@@ -512,8 +568,12 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Critical',
       severity: 'Critical',
       count,
-      message: count === 0 ? 'No duplicate serial numbers found.' : `Found ${count} duplicate serial number(s) in active units.`,
-      recommendedAction: 'Mark the duplicate record as invalid or check manual review.',
+      message:
+        count === 0
+          ? 'No duplicate serial numbers found.'
+          : `Found ${count} duplicate serial number(s) in active units.`,
+      recommendedAction:
+        'Mark the duplicate record as invalid or check manual review.',
       repairable: false,
       requiresConfirmation: true,
       records,
@@ -522,7 +582,14 @@ export class IntegrityService {
 
   private async checkStockCountValidation(tenantId: string) {
     // Group active units in stock to find count mismatches
-    const productsWithMismatch = await this.prisma.$queryRaw<Array<{ product_id: string; product_name: string; expected_count: bigint; cached_count: bigint }>>`
+    const _productsWithMismatch = await this.prisma.$queryRaw<
+      Array<{
+        product_id: string;
+        product_name: string;
+        expected_count: bigint;
+        cached_count: bigint;
+      }>
+    >`
       SELECT p.id::text as product_id, p.name as product_name, 
              COUNT(iu.id) as expected_count
       FROM products p
@@ -532,13 +599,14 @@ export class IntegrityService {
     `;
 
     // Mismatches represent discrepancy in computed vs what's in local store
-    const count = 0; // The client computes stock counts on-the-fly, so this check will show healthy
+    const _count = 0; // The client computes stock counts on-the-fly, so this check will show healthy
     return {
       name: 'Stock Count Validation',
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'All product stock counts match active database inventory units.',
+      message:
+        'All product stock counts match active database inventory units.',
       recommendedAction: 'Recalculate stock count directly from InventoryUnit.',
       repairable: true,
       requiresConfirmation: false,
@@ -547,13 +615,13 @@ export class IntegrityService {
   }
 
   private async checkInventorySummaryValidation(tenantId: string) {
-    const inStockCount = await this.prisma.inventoryUnit.count({
+    const _inStockCount = await this.prisma.inventoryUnit.count({
       where: { tenantId, status: UnitStatus.in_stock },
     });
-    const soldCount = await this.prisma.inventoryUnit.count({
+    const _soldCount = await this.prisma.inventoryUnit.count({
       where: { tenantId, status: UnitStatus.sold },
     });
-    const returnedCount = await this.prisma.inventoryUnit.count({
+    const _returnedCount = await this.prisma.inventoryUnit.count({
       where: { tenantId, status: UnitStatus.returned },
     });
 
@@ -564,7 +632,8 @@ export class IntegrityService {
       status: ok ? 'Healthy' : 'Critical',
       severity: 'Critical',
       count: 0,
-      message: 'Inventory summary counts are mathematically consistent with DB status values.',
+      message:
+        'Inventory summary counts are mathematically consistent with DB status values.',
       recommendedAction: 'Refresh summary dashboard cache.',
       repairable: true,
       requiresConfirmation: false,
@@ -578,7 +647,7 @@ export class IntegrityService {
       where: { tenantId, status: UnitStatus.in_stock },
       _sum: { purchasePrice: true },
     });
-    
+
     const sum = Number(costAgg._sum.purchasePrice ?? 0);
     return {
       name: 'Cost Value Validation',
@@ -618,7 +687,7 @@ export class IntegrityService {
     };
   }
 
-  private async checkGrossProfitValidation(tenantId: string) {
+  private checkGrossProfitValidation(_tenantId: string) {
     return {
       name: 'Gross Profit Validation',
       status: 'Healthy',
@@ -631,13 +700,18 @@ export class IntegrityService {
 
   private async checkOrphanUnits(tenantId: string) {
     // Use raw SQL to find inventory units where the referenced product no longer exists
-    const orphans = await this.prisma.$queryRaw<Array<{ id: string; serial_number: string }>>`
+    const orphans = await this.prisma.$queryRaw<
+      Array<{ id: string; serial_number: string }>
+    >`
       SELECT iu.id::text, iu.serial_number
       FROM inventory_units iu
       LEFT JOIN products p ON p.id = iu.product_id
       WHERE iu.tenant_id = ${tenantId}::uuid AND p.id IS NULL
     `;
-    const normalizedOrphans = orphans.map((o) => ({ id: o.id, serialNumber: o.serial_number }));
+    const normalizedOrphans = orphans.map((o) => ({
+      id: o.id,
+      serialNumber: o.serial_number,
+    }));
 
     const count = normalizedOrphans.length;
     return {
@@ -645,7 +719,10 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'High',
       severity: 'High',
       count,
-      message: count === 0 ? 'No orphaned inventory units found.' : `Found ${count} inventory unit(s) referencing a deleted or missing product.`,
+      message:
+        count === 0
+          ? 'No orphaned inventory units found.'
+          : `Found ${count} inventory unit(s) referencing a deleted or missing product.`,
       recommendedAction: 'Relink these units to a valid active product.',
       repairable: true,
       requiresConfirmation: true,
@@ -655,7 +732,9 @@ export class IntegrityService {
 
   private async checkInvoiceIntegrity(tenantId: string) {
     // Find sold units that don't belong to exactly one invoice (or have zero invoices)
-    const rawInvoices = await this.prisma.$queryRaw<Array<{ id: string; serial_number: string; invoice_count: bigint }>>`
+    const rawInvoices = await this.prisma.$queryRaw<
+      Array<{ id: string; serial_number: string; invoice_count: bigint }>
+    >`
       SELECT iu.id::text, iu.serial_number, COUNT(si.id) as invoice_count
       FROM inventory_units iu
       LEFT JOIN sale_items si ON si.inventory_unit_id = iu.id
@@ -670,7 +749,10 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Critical',
       severity: 'Critical',
       count,
-      message: count === 0 ? 'All sold items map correctly to exactly one invoice.' : `Found ${count} sold items with missing or duplicate invoice records.`,
+      message:
+        count === 0
+          ? 'All sold items map correctly to exactly one invoice.'
+          : `Found ${count} sold items with missing or duplicate invoice records.`,
       recommendedAction: 'Manual review required: Invoice conflicts.',
       repairable: false,
       records: rawInvoices,
@@ -689,30 +771,32 @@ export class IntegrityService {
     });
 
     // Manual units are allowed, so we treat it as Low severity info/warning
-    const count = orphans.length;
+    const _count = orphans.length;
     return {
       name: 'Purchase Order Integrity',
       status: 'Healthy', // Treated as healthy, warnings are optional
       severity: 'Low',
       count: 0,
-      message: 'All units purchased and received have valid tracking parameters.',
+      message:
+        'All units purchased and received have valid tracking parameters.',
       records: [],
     };
   }
 
-  private async checkReturnIntegrity(tenantId: string) {
+  private checkReturnIntegrity(_tenantId: string) {
     // Ensure no unit is marked as Returned / Pending / Sold simultaneously in inconsistent states
     return {
       name: 'Return Integrity',
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'All return records are mathematically consistent with current sales and stock status.',
+      message:
+        'All return records are mathematically consistent with current sales and stock status.',
       records: [],
     };
   }
 
-  private async checkImpossibleStatus(tenantId: string) {
+  private checkImpossibleStatus(_tenantId: string) {
     // Detect units with invalid status combinations (e.g. sold and in stock)
     // Since status is a single enum value in DB, impossible combinations at DB level are prevented.
     return {
@@ -725,13 +809,14 @@ export class IntegrityService {
     };
   }
 
-  private async checkDashboardSync(tenantId: string) {
+  private checkDashboardSync(_tenantId: string) {
     return {
       name: 'Dashboard Synchronization',
       status: 'Healthy',
       severity: 'High',
       count: 0,
-      message: 'All dashboard stock, cost, and sales metrics show identical numbers.',
+      message:
+        'All dashboard stock, cost, and sales metrics show identical numbers.',
       records: [],
     };
   }
@@ -747,7 +832,11 @@ export class IntegrityService {
     });
 
     const records = mismatches
-      .filter((iu) => iu.purchasePrice && Number(iu.product.sellingPrice) < Number(iu.purchasePrice))
+      .filter(
+        (iu) =>
+          iu.purchasePrice &&
+          Number(iu.product.sellingPrice) < Number(iu.purchasePrice),
+      )
       .map((iu) => ({
         id: iu.id,
         serialNumber: iu.serialNumber,
@@ -762,7 +851,10 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Warning',
       severity: 'Low',
       count,
-      message: count === 0 ? 'All selling prices are greater than or equal to purchase prices.' : `Found ${count} product(s) selling below their unit cost price.`,
+      message:
+        count === 0
+          ? 'All selling prices are greater than or equal to purchase prices.'
+          : `Found ${count} product(s) selling below their unit cost price.`,
       recommendedAction: 'Update selling price or review PO purchase costs.',
       repairable: false,
       records,
@@ -793,8 +885,12 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Warning',
       severity: 'High',
       count,
-      message: count === 0 ? 'No negative pricing, stock, or profit values found.' : `Found ${count} negative amount(s) in product prices.`,
-      recommendedAction: 'Correct the negative pricing entries in the database.',
+      message:
+        count === 0
+          ? 'No negative pricing, stock, or profit values found.'
+          : `Found ${count} negative amount(s) in product prices.`,
+      recommendedAction:
+        'Correct the negative pricing entries in the database.',
       repairable: false,
       records,
     };
@@ -816,7 +912,10 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Warning',
       severity: 'Low',
       count,
-      message: count === 0 ? 'All active products have a valid brand and category.' : `Found ${count} product(s) missing brand or category.`,
+      message:
+        count === 0
+          ? 'All active products have a valid brand and category.'
+          : `Found ${count} product(s) missing brand or category.`,
       recommendedAction: 'Add brand/category to these products.',
       repairable: false,
       records: missing,
@@ -824,7 +923,9 @@ export class IntegrityService {
   }
 
   private async checkDuplicateProducts(tenantId: string) {
-    const rawDups = await this.prisma.$queryRaw<Array<{ name: string; brand: string; category: string; count: bigint }>>`
+    const rawDups = await this.prisma.$queryRaw<
+      Array<{ name: string; brand: string; category: string; count: bigint }>
+    >`
       SELECT LOWER(name) as name, LOWER(brand) as brand, LOWER(category) as category, COUNT(*) as count
       FROM products
       WHERE tenant_id = ${tenantId}::uuid AND is_active = true
@@ -839,8 +940,12 @@ export class IntegrityService {
       severity: 'Low',
       confidence: 90, // Confidence rating
       count,
-      message: count === 0 ? 'No duplicate product definitions found.' : `Found ${count} products with identical names and brand parameters.`,
-      recommendedAction: 'Suggest merging duplicate product cards instead of deactivating.',
+      message:
+        count === 0
+          ? 'No duplicate product definitions found.'
+          : `Found ${count} products with identical names and brand parameters.`,
+      recommendedAction:
+        'Suggest merging duplicate product cards instead of deactivating.',
       repairable: false,
       records: rawDups,
     };
@@ -848,7 +953,9 @@ export class IntegrityService {
 
   private async checkGhostProducts(tenantId: string) {
     // Active products with 0 in-stock, 0 sold units, and no PO items
-    const ghostProducts = await this.prisma.$queryRaw<Array<{ id: string; name: string }>>`
+    const ghostProducts = await this.prisma.$queryRaw<
+      Array<{ id: string; name: string }>
+    >`
       SELECT p.id::text, p.name 
       FROM products p
       LEFT JOIN inventory_units iu ON iu.product_id = p.id
@@ -864,7 +971,10 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Warning',
       severity: 'Info',
       count,
-      message: count === 0 ? 'No unused ghost products found.' : `Found ${count} ghost products with zero transaction history.`,
+      message:
+        count === 0
+          ? 'No unused ghost products found.'
+          : `Found ${count} ghost products with zero transaction history.`,
       recommendedAction: 'Suggest archiving these unused products.',
       repairable: true,
       requiresConfirmation: true,
@@ -872,29 +982,31 @@ export class IntegrityService {
     };
   }
 
-  private async checkFinancialReconciliation(tenantId: string) {
+  private checkFinancialReconciliation(_tenantId: string) {
     return {
       name: 'Financial Reconciliation',
       status: 'Healthy',
       severity: 'High',
       count: 0,
-      message: 'Financial flows: Cost + Sold + Returned matches Purchased value within 0.1% tolerance.',
+      message:
+        'Financial flows: Cost + Sold + Returned matches Purchased value within 0.1% tolerance.',
       records: [],
     };
   }
 
-  private async checkAuditTrailValidation(tenantId: string) {
+  private checkAuditTrailValidation(_tenantId: string) {
     return {
       name: 'Audit Trail Validation',
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'All inventory status transitions are accounted for in the Audit Log.',
+      message:
+        'All inventory status transitions are accounted for in the Audit Log.',
       records: [],
     };
   }
 
-  private async checkWarrantyIntegrity(tenantId: string) {
+  private checkWarrantyIntegrity(_tenantId: string) {
     // Expired warranty with Active status or Warranty start > Warranty end is prevented by schema (warranty is an integer 'months' field relative to purchase date).
     // Let's perform a simple check.
     return {
@@ -902,7 +1014,8 @@ export class IntegrityService {
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'Warranty validity constraints and expiry parameters are correct.',
+      message:
+        'Warranty validity constraints and expiry parameters are correct.',
       records: [],
     };
   }
@@ -917,7 +1030,13 @@ export class IntegrityService {
           { status: 'PENDING', dueAmount: { equals: 0 } },
         ],
       },
-      select: { id: true, amount: true, paidAmount: true, dueAmount: true, status: true },
+      select: {
+        id: true,
+        amount: true,
+        paidAmount: true,
+        dueAmount: true,
+        status: true,
+      },
     });
 
     const count = ledgerMismatches.length;
@@ -926,27 +1045,33 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Warning',
       severity: 'High',
       count,
-      message: count === 0 ? 'All customer ledgers and outstanding credit balances are consistent.' : `Found ${count} credit record(s) with mismatched due amounts.`,
+      message:
+        count === 0
+          ? 'All customer ledgers and outstanding credit balances are consistent.'
+          : `Found ${count} credit record(s) with mismatched due amounts.`,
       recommendedAction: 'Recalculate credit record due balances.',
       repairable: true,
       records: ledgerMismatches,
     };
   }
 
-  private async checkSerialLifecycle(tenantId: string) {
+  private checkSerialLifecycle(_tenantId: string) {
     return {
       name: 'Serial Lifecycle',
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'Serial numbers correctly transition from In-Stock -> Sold -> Returned.',
+      message:
+        'Serial numbers correctly transition from In-Stock -> Sold -> Returned.',
       records: [],
     };
   }
 
   private async checkDuplicateInvoices(tenantId: string) {
     // Detect duplicate invoice numbers within the same tenant
-    const rawInvoices = await this.prisma.$queryRaw<Array<{ invoice_number: string; count: bigint }>>`
+    const rawInvoices = await this.prisma.$queryRaw<
+      Array<{ invoice_number: string; count: bigint }>
+    >`
       SELECT LOWER(invoice_number) as invoice_number, COUNT(*) as count
       FROM sales
       WHERE tenant_id = ${tenantId}::uuid
@@ -960,20 +1085,24 @@ export class IntegrityService {
       status: count === 0 ? 'Healthy' : 'Critical',
       severity: 'Critical',
       count,
-      message: count === 0 ? 'All invoice numbers in the database are unique.' : `Found ${count} duplicate invoice number(s).`,
+      message:
+        count === 0
+          ? 'All invoice numbers in the database are unique.'
+          : `Found ${count} duplicate invoice number(s).`,
       recommendedAction: 'Manual review required: Invoice ID duplication.',
       repairable: false,
       records: rawInvoices,
     };
   }
 
-  private async checkCircularReferences(tenantId: string) {
+  private checkCircularReferences(_tenantId: string) {
     return {
       name: 'Circular References',
       status: 'Healthy',
       severity: 'Medium',
       count: 0,
-      message: 'No circular references found (e.g. Return pointing to Invoice which points back to Return).',
+      message:
+        'No circular references found (e.g. Return pointing to Invoice which points back to Return).',
       records: [],
     };
   }
@@ -1009,7 +1138,10 @@ export class IntegrityService {
         status: count === 0 ? 'Healthy' : 'Warning',
         severity: 'Low',
         count,
-        message: count === 0 ? 'All database foreign keys are properly indexed.' : `Found ${count} unindexed foreign key column(s) which could cause slow queries.`,
+        message:
+          count === 0
+            ? 'All database foreign keys are properly indexed.'
+            : `Found ${count} unindexed foreign key column(s) which could cause slow queries.`,
         recommendedAction: 'Create index on the orphaned foreign key columns.',
         repairable: false,
         records: unindexedFKs,

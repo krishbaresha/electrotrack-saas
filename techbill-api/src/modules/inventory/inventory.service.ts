@@ -317,9 +317,7 @@ export class InventoryService {
     ]);
 
     // Out-of-stock: active products with 0 in-stock units
-    const stockByProductId = new Map(
-      cards.map((c) => [c.id, c.inStockCount]),
-    );
+    const stockByProductId = new Map(cards.map((c) => [c.id, c.inStockCount]));
     const totalOutOfStock = cards.filter(
       (c) => (stockByProductId.get(c.id) ?? 0) === 0,
     ).length;
@@ -502,13 +500,21 @@ export class InventoryService {
     }
 
     // Attach soldAt from the most recent sale for warranty calculation
-    const soldAt = unit.status === 'sold' ? (unit.saleItems[0]?.sale?.createdAt ?? null) : null;
+    const soldAt =
+      unit.status === 'sold'
+        ? (unit.saleItems[0]?.sale?.createdAt ?? null)
+        : null;
 
     const { saleItems: _si, ...unitWithoutSaleItems } = unit;
     return { ...unitWithoutSaleItems, soldAt };
   }
 
-  async createUnit(dto: CreateUnitDto, userId: string, tenantId: string, ipAddress?: string) {
+  async createUnit(
+    dto: CreateUnitDto,
+    userId: string,
+    tenantId: string,
+    ipAddress?: string,
+  ) {
     const existing = await this.prisma.inventoryUnit.findUnique({
       where: {
         tenantId_serialNumber: {

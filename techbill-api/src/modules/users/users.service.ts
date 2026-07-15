@@ -71,7 +71,7 @@ export class UsersService {
   }
 
   async updateUser(id: string, dto: UpdateUserDto, tenantId: string) {
-    const user = await this.findOrThrow(id, tenantId);
+    await this.findOrThrow(id, tenantId);
 
     const data: Record<string, unknown> = {};
     if (dto.name !== undefined) data.name = dto.name;

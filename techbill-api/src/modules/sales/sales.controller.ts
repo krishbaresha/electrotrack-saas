@@ -74,7 +74,12 @@ export class SalesController {
   @UseGuards(SubscriptionGuard)
   @HttpCode(HttpStatus.CREATED)
   createSale(@Body() dto: CreateSaleDto, @Req() req: RequestWithUser) {
-    return this.salesService.createSale(dto, req.user.id, req.user.tenantId, req.ip);
+    return this.salesService.createSale(
+      dto,
+      req.user.id,
+      req.user.tenantId,
+      req.ip,
+    );
   }
 
   @Post('customers')
@@ -91,7 +96,13 @@ export class SalesController {
     @Body() dto: VoidSaleDto,
     @Req() req: RequestWithUser,
   ) {
-    return this.salesService.voidSale(id, dto, req.user.id, req.user.tenantId, req.ip);
+    return this.salesService.voidSale(
+      id,
+      dto,
+      req.user.id,
+      req.user.tenantId,
+      req.ip,
+    );
   }
 
   @Delete(':id')

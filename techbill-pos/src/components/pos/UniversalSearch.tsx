@@ -223,6 +223,7 @@ export default function UniversalSearch({
       <button
         key={s.product.id}
         type="button"
+        data-testid="search-result-item"
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => commitSuggestion(s)}
         onMouseEnter={() => setSelectedIndex(absoluteIndex)}

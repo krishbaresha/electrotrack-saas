@@ -1,4 +1,12 @@
-import { IsEnum, IsNumber, IsString, IsOptional, IsUUID, IsDateString, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsString,
+  IsOptional,
+  IsUUID,
+  IsDateString,
+  Min,
+} from 'class-validator';
 import { CreditType } from '@prisma/client';
 
 export class CreateCreditDto {

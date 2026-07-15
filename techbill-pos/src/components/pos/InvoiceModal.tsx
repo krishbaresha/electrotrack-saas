@@ -1,7 +1,6 @@
 import { X, Printer, Plus, Download } from 'lucide-react';
 import { format, addDays } from 'date-fns';
 import { QRCodeSVG } from 'qrcode.react';
-import html2pdf from 'html2pdf.js';
 import type { Sale, ShopSettings } from '../../types';
 import { useAuthStore } from '../../store/auth.store';
 import { useFeatureGate } from '../../hooks/useFeatureGate';
@@ -80,10 +79,10 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
     window.print();
   };
 
-  const handleDownloadPDF = (): void => {
+  const handleDownloadPDF = async (): Promise<void> => {
     const element = document.getElementById('invoice-print-area');
     if (!element) return;
-    
+
     // Calculate the actual height of the element in millimeters
     const pxToMm = 25.4 / 96; // 1 pixel = 25.4 mm / 96 DPI
     const elementHeightMm = element.scrollHeight * pxToMm;
@@ -96,6 +95,10 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
       html2canvas: { scale: 3, useCORS: true, backgroundColor: '#09090b' },
       jsPDF: { unit: 'mm', format: [80, pageHeight] as [number, number], orientation: 'portrait' as const }
     };
+
+    // Lazy-loaded: html2pdf.js is ~1MB, so we only fetch it when the user
+    // actually clicks "Download PDF" instead of on every invoice-modal open.
+    const { default: html2pdf } = await import('html2pdf.js');
     html2pdf().set(opt).from(element).save();
   };
 

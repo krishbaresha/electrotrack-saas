@@ -1,6 +1,5 @@
-import { Controller, Get, All, Req, Res } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import type { Request, Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -19,6 +18,4 @@ export class AppController {
       timestamp: new Date().toISOString(),
     };
   }
-
-
 }

@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { FeaturesService } from '../../modules/features/features.service';
 import { TenantStatus } from '@prisma/client';
 
@@ -8,7 +13,7 @@ export class TenantActiveGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    
+
     // Only block mutating requests (POST, PUT, PATCH, DELETE)
     const mutatingMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
     if (!mutatingMethods.includes(request.method)) {
@@ -20,10 +25,17 @@ export class TenantActiveGuard implements CanActivate {
       return true; // Pass through if no tenant ID is present (might be system/admin route)
     }
 
-    const license = await this.featuresService.getResolvedLicense(tenantId as string);
+    const license = await this.featuresService.getResolvedLicense(
+      tenantId as string,
+    );
 
-    if (license.status !== TenantStatus.ACTIVE && license.status !== TenantStatus.TRIAL) {
-      throw new ForbiddenException(`Subscription inactive. Current status: ${license.status}`);
+    if (
+      license.status !== TenantStatus.ACTIVE &&
+      license.status !== TenantStatus.TRIAL
+    ) {
+      throw new ForbiddenException(
+        `Subscription inactive. Current status: ${license.status}`,
+      );
     }
 
     if (license.isExpired) {

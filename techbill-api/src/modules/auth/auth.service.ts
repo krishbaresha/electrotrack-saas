@@ -119,10 +119,13 @@ export class AuthService {
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: accessTokenExpiry,
     });
-    const refreshToken = this.jwtService.sign(payload, {
-      secret: this.configService.get('JWT_REFRESH_SECRET'),
-      expiresIn: refreshTokenExpiry,
-    });
+    const refreshToken = this.jwtService.sign(
+      { ...payload, jti: crypto.randomUUID() },
+      {
+        secret: this.configService.get('JWT_REFRESH_SECRET'),
+        expiresIn: refreshTokenExpiry,
+      },
+    );
 
     // Persist refresh token — mobile sessions expire in 10 years
     const expiresAt = new Date();

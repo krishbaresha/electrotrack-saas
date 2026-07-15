@@ -8,5 +8,7 @@ export interface RequiredFeatureMetadata {
   requiredAccess: FeatureAccess;
 }
 
-export const RequireFeature = (featureKey: string, requiredAccess: FeatureAccess = FeatureAccess.READ) =>
-  SetMetadata(REQUIRE_FEATURE_KEY, { featureKey, requiredAccess });
+export const RequireFeature = (
+  featureKey: string,
+  requiredAccess: FeatureAccess = FeatureAccess.READ,
+) => SetMetadata(REQUIRE_FEATURE_KEY, { featureKey, requiredAccess });

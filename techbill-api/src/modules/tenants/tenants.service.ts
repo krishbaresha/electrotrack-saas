@@ -6,9 +6,8 @@ import {
 } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import * as bcrypt from 'bcrypt';
-import { Role, TenantStatus } from '.prisma/client';
+import { Role, Tenant, TenantStatus } from '.prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
-
 
 import { FeaturesService } from '../features/features.service';
 
@@ -255,7 +254,7 @@ export class TenantsService {
       throw new NotFoundException(`Tenant with ID "${id}" not found`);
     }
 
-    let result;
+    let result: Tenant;
     if (force) {
       result = await this.prisma.tenant.delete({ where: { id } });
     } else {
@@ -298,7 +297,10 @@ export class TenantsService {
         currentPeriodEnd: newPeriodEnd,
         subscriptionExpiresAt: newPeriodEnd,
         // If tenant was suspended or expired, reactivate on renewal
-        ...((tenant.status === TenantStatus.SUSPENDED || tenant.status === TenantStatus.EXPIRED) ? { status: TenantStatus.ACTIVE } : {}),
+        ...(tenant.status === TenantStatus.SUSPENDED ||
+        tenant.status === TenantStatus.EXPIRED
+          ? { status: TenantStatus.ACTIVE }
+          : {}),
       },
     });
     this.featuresService.invalidate(id);

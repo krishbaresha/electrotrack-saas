@@ -10,7 +10,6 @@ import {
   HttpCode,
   HttpStatus,
   Req,
-  ForbiddenException,
   Query,
 } from '@nestjs/common';
 import type { Request } from 'express';

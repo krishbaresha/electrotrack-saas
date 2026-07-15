@@ -1,6 +1,13 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { LicenseResolverService, ResolvedLicense } from './license-resolver.service';
+import {
+  LicenseResolverService,
+  ResolvedLicense,
+} from './license-resolver.service';
 import { FeatureAccess, FeatureStatus, BillingCycle } from '@prisma/client';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
@@ -153,20 +160,31 @@ export class FeaturesService {
     globalEnabled?: boolean;
   }) {
     // Check key
-    const existing = await this.prisma.feature.findUnique({ where: { key: dto.key } });
-    if (existing) throw new ConflictException(`Feature key "${dto.key}" already exists`);
+    const existing = await this.prisma.feature.findUnique({
+      where: { key: dto.key },
+    });
+    if (existing)
+      throw new ConflictException(`Feature key "${dto.key}" already exists`);
 
     // Category
     const category = await this.prisma.featureCategory.findUnique({
       where: { key: dto.categoryKey },
     });
-    if (!category) throw new NotFoundException(`Feature Category "${dto.categoryKey}" not found`);
+    if (!category)
+      throw new NotFoundException(
+        `Feature Category "${dto.categoryKey}" not found`,
+      );
 
     // Parent
     let parentFeatureId: string | undefined;
     if (dto.parentFeatureKey) {
-      const parent = await this.prisma.feature.findUnique({ where: { key: dto.parentFeatureKey } });
-      if (!parent) throw new NotFoundException(`Parent feature "${dto.parentFeatureKey}" not found`);
+      const parent = await this.prisma.feature.findUnique({
+        where: { key: dto.parentFeatureKey },
+      });
+      if (!parent)
+        throw new NotFoundException(
+          `Parent feature "${dto.parentFeatureKey}" not found`,
+        );
       parentFeatureId = parent.id;
     }
 
@@ -239,7 +257,9 @@ export class FeaturesService {
     });
     if (!tenant) throw new NotFoundException(`Tenant not found`);
 
-    const plan = await this.prisma.subscriptionPlan.findUnique({ where: { id: planId } });
+    const plan = await this.prisma.subscriptionPlan.findUnique({
+      where: { id: planId },
+    });
     if (!plan) throw new NotFoundException(`Subscription Plan not found`);
 
     // Determine expiration date
@@ -288,7 +308,9 @@ export class FeaturesService {
     overrides: Array<{ featureKey: string; access: FeatureAccess }>,
     changedBy?: string,
   ) {
-    const tenant = await this.prisma.tenant.findUnique({ where: { id: tenantId } });
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: tenantId },
+    });
     if (!tenant) throw new NotFoundException(`Tenant not found`);
 
     const details: Record<string, string> = {};
@@ -296,8 +318,11 @@ export class FeaturesService {
     const processedFeatureIds: string[] = [];
 
     for (const item of overrides) {
-      const feature = await this.prisma.feature.findUnique({ where: { key: item.featureKey } });
-      if (!feature) throw new NotFoundException(`Feature "${item.featureKey}" not found`);
+      const feature = await this.prisma.feature.findUnique({
+        where: { key: item.featureKey },
+      });
+      if (!feature)
+        throw new NotFoundException(`Feature "${item.featureKey}" not found`);
 
       await this.prisma.tenantFeatureOverride.upsert({
         where: {
@@ -353,7 +378,9 @@ export class FeaturesService {
   }
 
   async resetTenantOverrides(tenantId: string, changedBy?: string) {
-    const tenant = await this.prisma.tenant.findUnique({ where: { id: tenantId } });
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: tenantId },
+    });
     if (!tenant) throw new NotFoundException(`Tenant not found`);
 
     await this.prisma.tenantFeatureOverride.deleteMany({

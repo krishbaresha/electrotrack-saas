@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { CreatePoDto } from './dto/create-po.dto';
@@ -163,10 +167,14 @@ export class SuppliersService {
     });
     if (!po) throw new NotFoundException(`Purchase order ${id} not found`);
     if (po.status === 'received') {
-      throw new BadRequestException('Purchase order is already marked as received');
+      throw new BadRequestException(
+        'Purchase order is already marked as received',
+      );
     }
     if (po.status === 'cancelled') {
-      throw new BadRequestException('Cannot receive a cancelled purchase order');
+      throw new BadRequestException(
+        'Cannot receive a cancelled purchase order',
+      );
     }
 
     const now = new Date();
@@ -179,7 +187,9 @@ export class SuppliersService {
 
       for (const item of po.items) {
         if (dto.snGenerationMethod === 'manual') {
-          const manualItem = dto.items?.find((i) => i.productId === item.productId);
+          const manualItem = dto.items?.find(
+            (i) => i.productId === item.productId,
+          );
           const serialNumbers = manualItem?.serialNumbers || [];
           if (serialNumbers.length !== item.quantityOrdered) {
             throw new BadRequestException(
@@ -224,7 +234,9 @@ export class SuppliersService {
           });
         } catch (error: any) {
           if (error.code === 'P2002') {
-            throw new BadRequestException('One or more serial numbers already exist in the inventory.');
+            throw new BadRequestException(
+              'One or more serial numbers already exist in the inventory.',
+            );
           }
           throw error;
         }

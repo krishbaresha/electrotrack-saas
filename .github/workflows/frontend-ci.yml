@@ -1,0 +1,46 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: ["master", "main"]
+    paths:
+      - "techbill-pos/**"
+  pull_request:
+    branches: ["master", "main"]
+    paths:
+      - "techbill-pos/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./techbill-pos
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: techbill-pos/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Typecheck + build
+        run: npm run build
+
+      - name: Upload production bundle on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-ci-dist
+          path: ./techbill-pos/dist
+          if-no-files-found: ignore

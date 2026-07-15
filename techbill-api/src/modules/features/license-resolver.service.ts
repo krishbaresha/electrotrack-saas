@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { TenantStatus, FeatureAccess, FeatureStatus } from '@prisma/client';
+import { TenantStatus, FeatureAccess } from '@prisma/client';
 
 export interface ResolvedLicense {
   status: TenantStatus;
@@ -65,9 +65,11 @@ export class LicenseResolverService {
     });
 
     // 3. Determine expiration and read-only states (Phase 1 basic logic)
-    const isExpired = 
+    const isExpired =
       tenant.status === TenantStatus.EXPIRED ||
-      (tenant.subscriptionExpiresAt ? new Date() > tenant.subscriptionExpiresAt : false);
+      (tenant.subscriptionExpiresAt
+        ? new Date() > tenant.subscriptionExpiresAt
+        : false);
     const isReadOnly = false; // Phase 1 isReadOnly defaults to false (Phase 3 full grace period checker)
 
     const resolvedFeatures: Record<string, FeatureAccess> = {};
@@ -81,8 +83,8 @@ export class LicenseResolverService {
     }> = [];
 
     // 4. Check if tenant is fully blocked or suspended
-    const isTenantBlocked = 
-      tenant.status === TenantStatus.BLOCKED || 
+    const isTenantBlocked =
+      tenant.status === TenantStatus.BLOCKED ||
       tenant.status === TenantStatus.SUSPENDED ||
       tenant.status === TenantStatus.CANCELLED ||
       isExpired;
@@ -93,13 +95,15 @@ export class LicenseResolverService {
 
       if (!isTenantBlocked && feature.globalEnabled) {
         // Find override if exists
-        const override = tenant.overrides.find(o => o.featureId === feature.id);
+        const override = tenant.overrides.find(
+          (o) => o.featureId === feature.id,
+        );
         if (override) {
           resolvedAccess = override.access;
         } else {
           // Fallback to subscription plan default
           const planFeature = tenant.subscriptionPlan?.planFeatures.find(
-            pf => pf.featureId === feature.id
+            (pf) => pf.featureId === feature.id,
           );
           if (planFeature) {
             resolvedAccess = planFeature.access;
@@ -110,7 +114,11 @@ export class LicenseResolverService {
       resolvedFeatures[feature.key] = resolvedAccess;
 
       // Add to dynamic sidebar navigation if visible and access is enabled
-      if (feature.sidebarVisible && resolvedAccess !== FeatureAccess.NONE && feature.route) {
+      if (
+        feature.sidebarVisible &&
+        resolvedAccess !== FeatureAccess.NONE &&
+        feature.route
+      ) {
         navigationItems.push({
           key: feature.key,
           title: feature.name,

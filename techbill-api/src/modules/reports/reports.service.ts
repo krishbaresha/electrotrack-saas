@@ -25,7 +25,14 @@ export class ReportsService {
     const end = new Date(date + 'T23:59:59+05:00');
     const expenseStart = new Date(date + 'T00:00:00Z');
     const expenseEnd = new Date(date + 'T00:00:00Z');
-    return this.buildSummary(start, end, expenseStart, expenseEnd, date, tenantId);
+    return this.buildSummary(
+      start,
+      end,
+      expenseStart,
+      expenseEnd,
+      date,
+      tenantId,
+    );
   }
 
   async salesSummaryRange(query: SalesSummaryQueryDto, tenantId: string) {
@@ -35,7 +42,14 @@ export class ReportsService {
     const end = new Date(to + 'T23:59:59+05:00');
     const expenseStart = new Date(from + 'T00:00:00Z');
     const expenseEnd = new Date(to + 'T00:00:00Z');
-    return this.buildSummary(start, end, expenseStart, expenseEnd, `${from} to ${to}`, tenantId);
+    return this.buildSummary(
+      start,
+      end,
+      expenseStart,
+      expenseEnd,
+      `${from} to ${to}`,
+      tenantId,
+    );
   }
 
   private async buildSummary(
@@ -112,9 +126,7 @@ export class ReportsService {
 
     let totalCost = 0;
     for (const item of items) {
-      const cost =
-        item.inventoryUnit.purchasePrice ??
-        0;
+      const cost = item.inventoryUnit.purchasePrice ?? 0;
       totalCost += Number(cost);
     }
     const salesList = await this.prisma.sale.findMany({
@@ -169,9 +181,9 @@ export class ReportsService {
       select: {
         refundAmount: true,
         inventoryUnit: {
-          select: { purchasePrice: true }
-        }
-      }
+          select: { purchasePrice: true },
+        },
+      },
     });
 
     let totalRefundValue = 0;
@@ -180,7 +192,7 @@ export class ReportsService {
       totalRefundValue += Number(r.refundAmount ?? 0);
       totalReturnCost += Number(r.inventoryUnit?.purchasePrice ?? 0);
     }
-    
+
     totalRevenue -= totalRefundValue;
     totalCost -= totalReturnCost;
 
@@ -733,8 +745,11 @@ export class ReportsService {
     // Process online returned sales
     for (const s of returnedOnlineSales) {
       totalRefundValue += Number(s.totalAmount ?? 0);
-      reasonMap.set('courier_return', (reasonMap.get('courier_return') ?? 0) + s.items.length);
-      
+      reasonMap.set(
+        'courier_return',
+        (reasonMap.get('courier_return') ?? 0) + s.items.length,
+      );
+
       for (const item of s.items) {
         if (!item.inventoryUnit) continue;
         const pid = item.inventoryUnit.product.id;
