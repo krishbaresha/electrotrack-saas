@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { IntegrityController } from './integrity.controller.js';
-import { IntegrityService } from './integrity.service.js';
+import { IntegrityController } from './integrity.controller';
+import { IntegrityService } from './integrity.service';
 import { PrismaModule } from '../../prisma/prisma.module';
 import { AuditModule } from '../audit/audit.module';
 

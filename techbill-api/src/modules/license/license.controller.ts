@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Param,
   Body,
   Query,
@@ -87,6 +88,48 @@ export class LicenseController {
   listLicenses(@Query('userId') userId?: string) {
     return this.licenseService.listLicenses(userId);
   }
+
+  @Get('admin/users')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('platform_admin')
+  listAllUsers() {
+    return this.licenseService.listAllUsers();
+  }
+
+  @Post('admin/users')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('platform_admin')
+  @HttpCode(HttpStatus.CREATED)
+  adminCreateUser(
+    @Body() dto: {
+      name: string;
+      username: string;
+      password: string;
+      role: any;
+      tenantId: string;
+      permissions?: string[];
+    },
+  ) {
+    return this.licenseService.adminCreateUser(dto);
+  }
+
+  @Patch('admin/users/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('platform_admin')
+  adminUpdateUser(
+    @Param('id') id: string,
+    @Body() dto: {
+      name?: string;
+      role?: any;
+      isActive?: boolean;
+      permissions?: string[];
+      password?: string;
+    },
+  ) {
+    return this.licenseService.adminUpdateUser(id, dto);
+  }
+
+
 
   // ─── Super Admin: user permissions ──────────────────────────────────────────
 

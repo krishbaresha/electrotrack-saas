@@ -7,8 +7,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DesktopPlan, LicenseStatus, DeviceStatus } from '@prisma/client';
+import { DesktopPlan, LicenseStatus, DeviceStatus, Role } from '@prisma/client';
 import * as ed from '@noble/ed25519';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   CreateLicenseDto,
@@ -17,6 +18,9 @@ import {
 } from './dto/create-license.dto';
 import { ActivateLicenseDto } from './dto/activate-license.dto';
 import { CheckinDto } from './dto/checkin.dto';
+
+const BCRYPT_ROUNDS = 12;
+
 
 /** Device limits per plan (matches LICENSE_SYSTEM.md §2). */
 const PLAN_DEVICE_LIMITS: Record<DesktopPlan, number> = {
@@ -242,6 +246,45 @@ export class LicenseService {
     });
   }
 
+  async listAllUsers() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+        tenantId: true,
+        tenant: {
+          select: {
+            name: true,
+            slug: true,
+          },
+        },
+        userPermission: {
+          select: {
+            webAccess: true,
+            desktopAccess: true,
+            mobileAccess: true,
+          },
+        },
+        licenses: {
+          select: {
+            id: true,
+            licenseKey: true,
+            licenseType: true,
+            plan: true,
+            status: true,
+            expiresAt: true,
+          },
+        },
+        createdAt: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+
   // ─── Desktop client endpoints ────────────────────────────────────────────────
 
   async activateLicense(dto: ActivateLicenseDto) {
@@ -389,6 +432,82 @@ export class LicenseService {
     );
   }
 
+  async adminCreateUser(dto: {
+    name: string;
+    username: string;
+    password: string;
+    role: Role;
+    tenantId: string;
+    permissions?: string[];
+  }) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: dto.tenantId },
+    });
+    if (!tenant) throw new NotFoundException('Tenant not found');
+
+    const email = `${dto.username}@${tenant.slug}.techbill.app`;
+
+    const existing = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    if (existing) throw new ConflictException(`Email ${email} already in use`);
+
+    const passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
+    return this.prisma.user.create({
+      data: {
+        name: dto.name,
+        email,
+        passwordHash,
+        role: dto.role,
+        tenantId: dto.tenantId,
+        isActive: true,
+        permissions: dto.permissions || [],
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+        permissions: true,
+        createdAt: true,
+      },
+    });
+  }
+
+  async adminUpdateUser(id: string, dto: {
+    name?: string;
+    role?: Role;
+    isActive?: boolean;
+    permissions?: string[];
+    password?: string;
+  }) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    if (!user) throw new NotFoundException('User not found');
+
+    const data: any = {};
+    if (dto.name !== undefined) data.name = dto.name;
+    if (dto.role !== undefined) data.role = dto.role;
+    if (dto.isActive !== undefined) data.isActive = dto.isActive;
+    if (dto.permissions !== undefined) data.permissions = dto.permissions;
+    if (dto.password) {
+      data.passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
+    }
+
+    return this.prisma.user.update({
+      where: { id },
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+        permissions: true,
+      },
+    });
+  }
+
   // ─── Private helpers ─────────────────────────────────────────────────────────
 
   private async findLicenseOrThrow(id: string) {
@@ -397,3 +516,4 @@ export class LicenseService {
     return license;
   }
 }
+

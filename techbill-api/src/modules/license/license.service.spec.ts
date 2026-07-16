@@ -62,6 +62,12 @@ const mockDevice = {
 const prismaMock = {
   user: {
     findUnique: jest.fn().mockResolvedValue(mockUser),
+    create: jest.fn().mockResolvedValue(mockUser),
+    update: jest.fn().mockResolvedValue(mockUser),
+    findMany: jest.fn().mockResolvedValue([mockUser]),
+  },
+  tenant: {
+    findUnique: jest.fn().mockResolvedValue({ id: 'tenant-uuid-1', name: 'Test Shop', slug: 'testshop' }),
   },
   license: {
     findUnique: jest.fn().mockResolvedValue(mockLicense),
@@ -319,4 +325,46 @@ describe('LicenseService', () => {
       expect(result.desktopAccess).toBe(true);
     });
   });
+
+  // ── listAllUsers / adminCreateUser / adminUpdateUser ──────────────────────────
+
+  describe('admin user administration', () => {
+    it('lists all users across tenants', async () => {
+      prismaMock.user.findMany.mockResolvedValue([mockUser]);
+      const result = await service.listAllUsers();
+      expect(prismaMock.user.findMany).toHaveBeenCalled();
+      expect(result.length).toBe(1);
+    });
+
+    it('creates a user under a specific tenant', async () => {
+      prismaMock.tenant.findUnique.mockResolvedValue({ id: 'tenant-uuid-1', name: 'Test Shop', slug: 'testshop' });
+      prismaMock.user.findUnique.mockResolvedValue(null); // No collision on email username@testshop.techbill.app
+      prismaMock.user.create.mockResolvedValue(mockUser);
+
+      const result = await service.adminCreateUser({
+        name: 'New User',
+        username: 'newuser',
+        password: 'password123',
+        role: 'cashier',
+        tenantId: 'tenant-uuid-1',
+      });
+
+      expect(prismaMock.user.create).toHaveBeenCalled();
+      expect(result.name).toBe('Test User'); // returns mocked user
+    });
+
+    it('updates user parameters as admin', async () => {
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({ ...mockUser, name: 'Updated Name' });
+
+      const result = await service.adminUpdateUser('user-uuid-1', {
+        name: 'Updated Name',
+        role: 'inventory_manager',
+      });
+
+      expect(prismaMock.user.update).toHaveBeenCalled();
+      expect(result.name).toBe('Updated Name');
+    });
+  });
 });
+
