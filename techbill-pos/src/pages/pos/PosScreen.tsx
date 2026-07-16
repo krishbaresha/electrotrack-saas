@@ -248,11 +248,9 @@ export default function PosScreen() {
   const handleSerialAdd = useCallback(async (serial: string) => {
     try {
       const res = await api.get<any>(
-        `/inventory/units?serialNumber=${encodeURIComponent(serial)}&limit=1`
+        `/inventory/units/lookup/${encodeURIComponent(serial)}`
       );
-      const payload = res.data;
-      const units = Array.isArray(payload) ? payload : payload.data ?? payload.units ?? [];
-      const unit = units[0];
+      const unit = res.data;
 
       if (!unit) {
         toast.error(`Serial number "${serial}" not found in inventory.`);
@@ -266,11 +264,11 @@ export default function PosScreen() {
         addItem({
           serialNumber: unit.serialNumber,
           productId: unit.productId,
-          productName: unit.productName ?? 'Unknown',
-          brand: unit.brand ?? null,
-          sellingPrice: unit.sellingPrice,
+          productName: unit.product?.name ?? 'Unknown',
+          brand: unit.product?.brand ?? null,
+          sellingPrice: unit.sellingPrice ?? unit.product?.sellingPrice ?? 0,
         });
-        toast.success(`Added ${unit.productName ?? 'product'} (${unit.serialNumber}) to cart.`);
+        toast.success(`Added ${unit.product?.name ?? 'product'} (${unit.serialNumber}) to cart.`);
       } else {
         toast.warning(`Serial "${unit.serialNumber}" cannot be sold (status: ${unit.status.replace(/_/g, ' ')}).`);
       }
