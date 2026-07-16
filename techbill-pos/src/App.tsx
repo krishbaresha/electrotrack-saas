@@ -30,6 +30,7 @@ const SuppliersPage = lazy(() => import('./pages/suppliers/SuppliersPage'));
 const PurchaseOrdersPage = lazy(() => import('./pages/suppliers/PurchaseOrdersPage'));
 const WarrantyPage = lazy(() => import('./pages/warranty/WarrantyPage'));
 const TenantsPage = lazy(() => import('./pages/tenants/TenantsPage'));
+const LicenseManagementPage = lazy(() => import('./pages/license/LicenseManagementPage'));
 const InvoiceHistoryPage = lazy(() => import('./pages/sales/InvoiceHistoryPage'));
 const PublicInvoicePage = lazy(() => import('./pages/sales/PublicInvoicePage'));
 const OnlineOrdersPage = lazy(() => import('./pages/sales/OnlineOrdersPage'));
@@ -345,6 +346,15 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="licenses"
+            element={
+              <RequireAuth roles={['platform_admin']}>
+                <LicenseManagementPage />
+              </RequireAuth>
+            }
+          />
+
 
           {/* Tenant Business Routes */}
           <Route

@@ -274,11 +274,18 @@ export default function AppShell() {
         <nav className="flex-1 p-2.5 space-y-1 overflow-y-auto" onClick={() => setSidebarOpen(false)}>
           {/* Platform Admin Sidebar section */}
           {isPlatformAdmin && (
-            <NavLink to="/tenants" className={platformNavClass}>
-              <ShieldAlert size={16} />
-              Tenant Shops
-            </NavLink>
+            <>
+              <NavLink to="/tenants" className={platformNavClass}>
+                <ShieldAlert size={16} />
+                Tenant Shops
+              </NavLink>
+              <NavLink to="/licenses" className={platformNavClass}>
+                <LucideIcons.Key size={16} />
+                License Management
+              </NavLink>
+            </>
           )}
+
 
           {/* Standard Shop Sidebar sections */}
           {standardNavItems.map((item) => {
