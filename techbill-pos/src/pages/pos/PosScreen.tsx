@@ -238,7 +238,7 @@ export default function PosScreen() {
       brand: product.brand,
       category: product.category,
       sellingPrice: Number(product.sellingPrice),
-      inStockCount: product.inStockCount ?? 0,
+      inStockCount: product.inStockCount ?? product.stockCount ?? 0,
       soldCount: 0,
       returnedCount: 0,
     };

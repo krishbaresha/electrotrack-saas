@@ -18,6 +18,7 @@ export interface SearchProduct {
   category: string | null;
   sellingPrice: number | string;
   inStockCount?: number;
+  stockCount?: number;
   tags?: string[];
   specifications?: Record<string, string> | null;
   shortDescription?: string | null;
@@ -218,7 +219,7 @@ export default function UniversalSearch({
 
   const renderProductRow = (s: ProductSuggestion, absoluteIndex: number) => {
     const isSelected = absoluteIndex === selectedIndex;
-    const stock = s.product.inStockCount ?? 0;
+    const stock = s.product.inStockCount ?? s.product.stockCount ?? 0;
     return (
       <button
         key={s.product.id}
