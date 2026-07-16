@@ -118,6 +118,31 @@ enum TransactionStatus {
   PENDING
 }
 
+// ─── Licensing enums ──────────────────────────────────────────────────────────
+
+enum LicenseType {
+  DESKTOP
+  MOBILE
+}
+
+enum DesktopPlan {
+  BASIC
+  PREMIUM
+  ENTERPRISE
+}
+
+enum LicenseStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  SUSPENDED
+}
+
+enum DeviceStatus {
+  ACTIVE
+  REMOVED
+}
+
 // ─── Tenant model ──────────────────────────────────────────────────────────
 
 model Tenant {
@@ -198,6 +223,12 @@ model User {
   reconciliationsReviewed  CashReconciliation[] @relation("ReconciliationsReviewedBy")
   expenses                 Expense[]            @relation("ExpensesCreatedBy")
   courierPayouts           CourierPayout[]      @relation("PayoutsCreatedBy")
+
+  // Licensing relations (additive)
+  licenses                 License[]            @relation("LicensesIssuedTo")
+  issuedLicenses           License[]            @relation("LicensesIssuedBy")
+  devices                  Device[]
+  userPermission           UserPermission?
 
   @@map("users")
 }
@@ -782,4 +813,67 @@ model TenantLicenseHistory {
   createdAt   DateTime     @default(now()) @map("created_at")
 
   @@map("tenant_license_history")
+}
+
+// ─── Licensing models ─────────────────────────────────────────────────────────
+
+/// Desktop / Mobile license issued to a specific user by a Super Admin.
+model License {
+  id           String        @id @default(uuid()) @db.Uuid
+  userId       String        @map("user_id") @db.Uuid
+  user         User          @relation("LicensesIssuedTo", fields: [userId], references: [id], onDelete: Cascade)
+  issuedBy     String        @map("issued_by") @db.Uuid
+  issuer       User          @relation("LicensesIssuedBy", fields: [issuedBy], references: [id])
+  licenseKey   String        @unique @map("license_key") @db.VarChar(30) // e.g. TB-DSK-XXXX-XXXX-XXXX
+  licenseType  LicenseType   @map("license_type")
+  plan         DesktopPlan
+  status       LicenseStatus @default(ACTIVE)
+  expiresAt    DateTime      @map("expires_at")
+  maxDevices   Int           @map("max_devices") // snapshotted from plan at issuance
+  signedToken  String        @map("signed_token") @db.Text // Ed25519-signed payload for offline verification
+  lastUsedAt   DateTime?     @map("last_used_at")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  devices      Device[]
+
+  @@index([userId])
+  @@index([licenseKey])
+  @@map("licenses")
+}
+
+/// A physical device that has been activated against a License.
+model Device {
+  id           String       @id @default(uuid()) @db.Uuid
+  licenseId    String       @map("license_id") @db.Uuid
+  license      License      @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  userId       String       @map("user_id") @db.Uuid
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceName   String       @map("device_name") @db.VarChar(255)
+  deviceType   String       @map("device_type") @db.VarChar(20) // "desktop" | "mobile"
+  os           String       @db.VarChar(100)
+  machineHash  String       @map("machine_hash") @db.VarChar(64) // SHA-256 of disk serial + MAC + motherboard
+  hardwareId   String       @map("hardware_id") @db.VarChar(255)
+  lastLoginAt  DateTime?    @map("last_login_at")
+  lastCheckinAt DateTime?   @map("last_checkin_at")
+  appVersion   String?      @map("app_version") @db.VarChar(50)
+  status       DeviceStatus @default(ACTIVE)
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  @@index([licenseId])
+  @@index([machineHash])
+  @@map("devices")
+}
+
+/// Platform access toggles per user, managed by Super Admin only.
+model UserPermission {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @unique @map("user_id") @db.Uuid
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  webAccess     Boolean  @default(true) @map("web_access")
+  desktopAccess Boolean  @default(false) @map("desktop_access")
+  mobileAccess  Boolean  @default(false) @map("mobile_access")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("user_permissions")
 }
