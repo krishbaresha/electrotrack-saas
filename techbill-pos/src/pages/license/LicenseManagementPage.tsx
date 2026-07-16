@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  Key, Shield, ShieldAlert, Check, Copy, Eye, EyeOff, RotateCw, RefreshCw, X, Trash2, ShieldOff,
-  UserPlus, UserMinus, Plus, Laptop, Smartphone, AlertTriangle, Download, Info
+  Key, Shield, Copy, Eye, EyeOff, RotateCw, RefreshCw, X, Trash2, ShieldOff,
+  UserPlus, Plus, Laptop, Smartphone, Download
 } from 'lucide-react';
 import { api } from '../../api/client';
 import type { Role } from '../../types';
@@ -40,6 +40,7 @@ interface PlatformUser {
 
 interface DeviceInfo {
   id: string;
+  licenseId: string;
   deviceName: string;
   deviceType: string;
   os: string;
@@ -272,11 +273,11 @@ export default function LicenseManagementPage() {
       // Update local selected user
       let updatedLicenses = selectedUser.licenses;
       if (action === 'regenerate') {
-        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, licenseKey: res.data.licenseKey, status: 'ACTIVE', expiresAt: res.data.expiresAt } : l);
+        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, licenseKey: res.data.licenseKey, status: 'ACTIVE' as const, expiresAt: res.data.expiresAt } : l);
       } else if (action === 'revoke') {
-        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'REVOKED' } : l);
+        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'REVOKED' as const } : l);
       } else if (action === 'suspend') {
-        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'SUSPENDED' } : l);
+        updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'SUSPENDED' as const } : l);
       }
 
       const updatedUser = { ...selectedUser, licenses: updatedLicenses };
@@ -304,7 +305,7 @@ export default function LicenseManagementPage() {
     try {
       const res = await api.post(`/admin/licenses/${licenseId}/renew`, { expiresAt });
       
-      const updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'ACTIVE', expiresAt: res.data.expiresAt } : l);
+      const updatedLicenses = selectedUser.licenses.map(l => l.id === licenseId ? { ...l, status: 'ACTIVE' as const, expiresAt: res.data.expiresAt } : l);
       const updatedUser = { ...selectedUser, licenses: updatedLicenses };
       setUsers(prev => prev.map(u => u.id === selectedUser.id ? updatedUser : u));
       setSelectedUser(updatedUser);
@@ -323,7 +324,7 @@ export default function LicenseManagementPage() {
     }
   };
 
-  const handleRemoveDevice = async (deviceId: string, licenseId: string) => {
+  const handleRemoveDevice = async (deviceId: string) => {
     if (!confirm('Are you sure you want to revoke this device activation?')) return;
     setLicenseLoading(true);
     setError('');
@@ -340,6 +341,7 @@ export default function LicenseManagementPage() {
       setLicenseLoading(false);
     }
   };
+
 
   const handleResetActivations = async (licenseId: string) => {
     if (!confirm('CAUTION: This will immediately wipe all active device registrations for this license! Continue?')) return;
@@ -1192,7 +1194,7 @@ export default function LicenseManagementPage() {
                               </td>
                               <td className="py-2.5 px-3 text-center">
                                 <button
-                                  onClick={() => handleRemoveDevice(d.id, d.licenseId)}
+                                  onClick={() => handleRemoveDevice(d.id)}
                                   className="p-1 text-stitch-on-surface-variant hover:text-red-400 rounded hover:bg-red-500/10 transition-colors"
                                   title="De-register hardware"
                                 >
