@@ -76,6 +76,9 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
   const [showSizeMenu, setShowSizeMenu] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(false);
   const invoiceRef = useRef<HTMLDivElement>(null);
+  const sizeMenuRef = useRef<HTMLDivElement>(null);
+
+  const handleSizeMenuToggle = () => setShowSizeMenu(v => !v);
 
   const subtotal = sale.items.reduce((s, i) => s + Number(i.sellingPrice), 0);
   const discount = Number(sale.discountAmount);
@@ -97,18 +100,28 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
     if (!element || pdfLoading) return;
 
     setPdfLoading(true);
+    // Hide size menu while generating
+    setShowSizeMenu(false);
+
+    // Use a wrapper so html2canvas can measure correctly
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      overflow: visible;
+      pointer-events: none;
+    `;
+    document.body.appendChild(wrapper);
+
+    let clone: HTMLElement | null = null;
     try {
       const selected = PAGE_SIZES.find(p => p.value === pageSize) ?? PAGE_SIZES[0];
+      const widthPx = Math.round(selected.mmW * (96 / 25.4)); // mm → px at 96dpi
 
-      // Clone the invoice element to avoid any scroll/overflow clipping issues
-      const clone = element.cloneNode(true) as HTMLElement;
-
-      // Apply fixed-width inline styles so layout matches exactly regardless of viewport
-      const widthPx = selected.mmW * (96 / 25.4); // convert mm → px at 96dpi
+      // Clone AFTER wrapper is in DOM so getComputedStyle works on original
+      clone = element.cloneNode(true) as HTMLElement;
       clone.style.cssText = `
-        position: fixed;
-        left: -9999px;
-        top: 0;
         width: ${widthPx}px;
         background: #ffffff;
         color: #111111;
@@ -117,33 +130,32 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
         overflow: visible;
         border-radius: 0;
         box-shadow: none;
+        margin: 0;
+        padding: 0;
       `;
+      wrapper.appendChild(clone);
 
-      // Force all text/border colors to be print-safe
+      // NOW the clone is in the DOM — getComputedStyle will return real values
       const allEls = clone.querySelectorAll<HTMLElement>('*');
       allEls.forEach(el => {
         const cs = window.getComputedStyle(el);
-        // Strip backgrounds that are near-transparent (badges etc. — keep solid ones)
         const bg = cs.backgroundColor;
         if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
           el.style.backgroundColor = bg;
         }
-        // Ensure text is dark
         const color = cs.color;
         if (color) el.style.color = color;
         el.style.borderColor = cs.borderColor;
       });
 
-      document.body.appendChild(clone);
-
-      // Measure actual rendered height AFTER appending to DOM
+      // Measure actual rendered height AFTER styles applied
       const cloneHeightMm = clone.scrollHeight * (25.4 / 96);
 
       let pdfFormat: [number, number] | string;
       if (selected.mmH === 'auto') {
         pdfFormat = [selected.mmW, Math.max(80, cloneHeightMm)];
       } else if (selected.mmH < cloneHeightMm) {
-        // Content taller than page — use content height (single page)
+        // Content taller than selected page — expand to fit content on one page
         pdfFormat = [selected.mmW, cloneHeightMm];
       } else {
         pdfFormat = [selected.mmW, selected.mmH];
@@ -152,30 +164,37 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
       const opt = {
         margin: 0,
         filename: `Invoice_${sale.invoiceNumber}.pdf`,
-        image: { type: 'jpeg' as const, quality: 0.85 },
+        image: { type: 'jpeg' as const, quality: 0.92 },
         html2canvas: {
-          scale: 2,              // 2 = ~192dpi — balanced quality vs file size
+          scale: 2,
           useCORS: true,
           backgroundColor: '#ffffff',
           logging: false,
-          width: widthPx,       // lock canvas width = cloned element width
+          width: widthPx,
           scrollX: 0,
           scrollY: 0,
           windowWidth: widthPx,
+          onclone: (_doc: Document, clonedEl: HTMLElement) => {
+            // Ensure the cloned element is fully visible to html2canvas
+            clonedEl.style.position = 'static';
+            clonedEl.style.left = '0';
+            clonedEl.style.top = '0';
+          },
         },
         jsPDF: {
           unit: 'mm',
           format: pdfFormat,
           orientation: 'portrait' as const,
-          compress: true,        // enable PDF-level compression
+          compress: true,
         },
       };
 
       const { default: html2pdf } = await import('html2pdf.js');
       await html2pdf().set(opt).from(clone).save();
-
-      document.body.removeChild(clone);
     } finally {
+      if (wrapper && wrapper.parentNode) {
+        document.body.removeChild(wrapper);
+      }
       setPdfLoading(false);
     }
   };
@@ -223,30 +242,41 @@ export default function InvoiceModal({ sale, shopSettings, shopName, onClose }: 
             <div className="flex items-center gap-1.5">
 
               {/* Page Size Selector */}
-              <div className="relative">
+              <div className="relative" ref={sizeMenuRef}>
                 <button
-                  onClick={() => setShowSizeMenu(v => !v)}
+                  onClick={handleSizeMenuToggle}
                   className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 border border-gray-200 hover:border-gray-300 hover:bg-white rounded-lg transition-all"
                 >
                   {selectedSizeLabel}
-                  <ChevronDown size={11} />
+                  <ChevronDown size={11} className={`transition-transform ${showSizeMenu ? 'rotate-180' : ''}`} />
                 </button>
                 {showSizeMenu && (
-                  <div className="absolute right-0 mt-1 w-28 bg-white border border-gray-200 rounded-xl shadow-lg z-10 py-1 overflow-hidden">
-                    {PAGE_SIZES.map(ps => (
-                      <button
-                        key={ps.value}
-                        onClick={() => { setPageSize(ps.value); setShowSizeMenu(false); }}
-                        className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${
-                          pageSize === ps.value
-                            ? 'bg-teal-50 text-teal-700 font-semibold'
-                            : 'text-gray-700 hover:bg-gray-50'
-                        }`}
-                      >
-                        {ps.label}
-                      </button>
-                    ))}
-                  </div>
+                  <>
+                    {/* Backdrop to close on outside click */}
+                    <div
+                      className="fixed inset-0 z-[9]"
+                      onClick={() => setShowSizeMenu(false)}
+                    />
+                    <div className="absolute right-0 mt-1 w-28 bg-white border border-gray-200 rounded-xl shadow-lg z-10 py-1 overflow-hidden">
+                      {PAGE_SIZES.map(ps => (
+                        <button
+                          key={ps.value}
+                          onMouseDown={(e) => {
+                            e.preventDefault(); // prevent backdrop from firing first
+                            setPageSize(ps.value);
+                            setShowSizeMenu(false);
+                          }}
+                          className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${
+                            pageSize === ps.value
+                              ? 'bg-teal-50 text-teal-700 font-semibold'
+                              : 'text-gray-700 hover:bg-gray-50'
+                          }`}
+                        >
+                          {ps.label}
+                        </button>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
 
